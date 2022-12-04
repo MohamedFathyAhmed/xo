@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import xo.utlis.Navigator;
 
 /**
  *
@@ -20,6 +21,7 @@ public class FXMLModesController implements Initializable {
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
+//        Navigator.navigateTo(event, r, title);
     }
     
     @Override
