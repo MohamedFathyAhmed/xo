@@ -10,5 +10,5 @@ package xo.board.game;
  * @author mohamed
  */
 public enum GameState {
-    DONE, ONGOING
+    DONE, ONGOING,PLAYER_ONE_WON,PLAYER_TWO_WON,DRAW
 }
