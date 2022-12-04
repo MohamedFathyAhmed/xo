@@ -11,7 +11,7 @@ package xo.board.game;
  */
 public interface Game {
     
-   Player isGameRunning(String board);
+   GameState isGameRunning(String board);
 
 }
 
