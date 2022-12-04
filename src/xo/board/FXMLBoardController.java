@@ -7,37 +7,42 @@ package xo.board;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
  * @author mohamed
  */
-public class FXMLDocumentController implements Initializable {
-    
-    
+public class FXMLBoardController implements Initializable {
 
     @FXML
-    private void recordButtonClicked() {
-        
+    Button button0;
+    
+    @FXML
+    private void recordButtonClicked(ActionEvent event) {
+
     }
 
     @FXML
-    private void leaveButtonClicked() {
+    private void leaveButtonClicked(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void boardButtonEntered (MouseEvent event) {
+
+    }
+    
+    @FXML
+    private void boardButtonExit(MouseEvent event) {
        
-    }
-    
-    @FXML
-    private void boardButtonEntered(ActionEvent event){
-        
-    }
-    
-    @FXML
-    private void boardButtonExit(ActionEvent event){
-        
     }
 
     @FXML
@@ -48,7 +53,8 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+
+
     }
 
 }

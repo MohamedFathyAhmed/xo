@@ -7,9 +7,25 @@ and open the template in the editor.
     Created on : Dec 2, 2022, 10:23:00 PM
     Author     : mohamed
 */
-#root{
+
+.btn
+{
+    -fx-border-radius: 25px;
+    -fx-border-color: #21f9fb;
+    -fx-background-color: transparent;
+    -fx-border-width: 2px;
+    -fx-text-fill:#21f9fb;
+    -fx-font-size: 25px;
+    -fx-background-radius: 20;
+}
+.btn:hover
+{
+    -fx-background-color: #242424;
+}
+
+.container{
     -fx-background-color:#0e2a3a
-        
+
 }
 .empty_board-btn {
     -fx-background-image: url('../images/empty.png');
