@@ -4,6 +4,7 @@
  */
 package xo.utlis;
 
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,5 +24,15 @@ public class Navigator {
         stage.show();
     }
     
+       
+      public static void navigateTo(Node node, Parent root, String title) {
+        Stage stage=(Stage)node.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle(title);
+        stage.show();
+    }
+    
+
 
 }
