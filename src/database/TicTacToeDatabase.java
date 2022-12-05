@@ -110,7 +110,7 @@ public class TicTacToeDatabase {
         setIsDatabaseCreated(true);
     }
 
-    static TicTacToeDatabase getInstance() throws SQLException {
+    public static TicTacToeDatabase getInstance() throws SQLException {
         if (instance == null) {
             instance = new TicTacToeDatabase();
         }
