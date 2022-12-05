@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 package xo;
-
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
