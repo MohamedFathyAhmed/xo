@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xo.signin;
+package xo.levels;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 /**
@@ -20,26 +19,22 @@ import javafx.scene.image.ImageView;
  *
  * @author Marina
  */
-public class FXMLSigninControler implements Initializable {
+public class FXMLLevelsController implements Initializable {
 
     @FXML
     private ImageView levelsImagetwo;
     @FXML
+    private Label ChooseLevelLabel;
+    @FXML
     private Button btnBack;
     @FXML
-    private TextField userNameTextField;
+    private Button btnHistory;
     @FXML
-    private TextField passwordTextField;
+    private Button btnHard;
     @FXML
-    private Label userNameLabel;
+    private Button btnMedium;
     @FXML
-    private Label passwordLabel;
-    @FXML
-    private Label signInLabel;
-    @FXML
-    private Button bntLogin;
-    @FXML
-    private Button btnSignup;
+    private Button btnEsay;
 
     /**
      * Initializes the controller class.
@@ -48,18 +43,25 @@ public class FXMLSigninControler implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-     @FXML
-    private void loginButtonAction(ActionEvent event) {
-//        Navigator.navigateTo(event, r, title);
-    }
-     @FXML
-    private void signupButtonAction(ActionEvent event) {
-//        Navigator.navigateTo(event, r, title);
-    }
-    
-      @FXML
+
+    @FXML
     private void backButtonAction(ActionEvent event) {
-//        Navigator.navigateTo(event, r, title);
+    }
+
+    @FXML
+    private void historyButtonAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void hardButtonAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void mediumButtonAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void esayButtonAction(ActionEvent event) {
     }
     
 }
