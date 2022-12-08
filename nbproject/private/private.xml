@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/mohamed/tic%20tac%20toe/xo/src/xo/utlis/GameExecutorService.java</file>
+            <file>file:/home/mohamed/tic%20tac%20toe/xo/src/xo/board/FXMLBoardController.java</file>
+            <file>file:/home/mohamed/tic%20tac%20toe/xo/src/xo/modes/FXMLBoard.fxml</file>
+            <file>file:/home/mohamed/tic%20tac%20toe/xo/build.xml</file>
+            <file>file:/home/mohamed/tic%20tac%20toe/xo/src/data/CurrentGameData.java</file>
+            <file>file:/home/mohamed/tic%20tac%20toe/xo/src/xo/modes/FXMLBoardController.java</file>
+            <file>file:/home/mohamed/tic%20tac%20toe/xo/src/xo/board/BoardTimerImpl.java</file>
+            <file>file:/home/mohamed/tic%20tac%20toe/xo/src/xo/board/BoardTimer.java</file>
+            <file>file:/home/mohamed/tic%20tac%20toe/xo/src/data/database/DataAccessLayer.java</file>
+            <file>file:/home/mohamed/tic%20tac%20toe/xo/src/xo/modes/BoardTimerImpl.java</file>
+        </group>
     </open-files>
 </project-private>

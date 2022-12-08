@@ -27,7 +27,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="button0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#boardButtonClicked" onMouseEntered="#boardButtonEntered" onMouseExited="#boardButtonExit" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER">
+            <Button fx:id="button0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#boardButtonClicked" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER">
                <styleClass>
                   <String fx:value="empty_board-btn" />
                   <String fx:value="board-btn" />
@@ -196,7 +196,7 @@
       </BorderPane>
       <BorderPane layoutX="-8.0" layoutY="11.0" prefHeight="248.0" prefWidth="1600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer" BorderPane.alignment="CENTER">
+            <Text fx:id="mainTimerText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00" BorderPane.alignment="CENTER">
                <font>
                   <Font size="50.0" />
                </font>
@@ -221,12 +221,12 @@
          <bottom>
             <AnchorPane prefHeight="100.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.rightAnchor="1325.0" AnchorPane.topAnchor="25.0">
+                  <Text fx:id="player1TimerText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00" AnchorPane.rightAnchor="1325.0" AnchorPane.topAnchor="25.0">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="1325.0" AnchorPane.topAnchor="25.0">
+                  <Text fx:id="player2TimerText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00" AnchorPane.leftAnchor="1325.0" AnchorPane.topAnchor="25.0">
                      <font>
                         <Font size="25.0" />
                      </font>
