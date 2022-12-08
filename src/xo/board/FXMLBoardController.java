@@ -65,6 +65,11 @@ public class FXMLBoardController implements Initializable {
     @FXML
     private void leaveButtonClicked(ActionEvent event) {
 
+        //timer
+        resetPLayersTimerUi();
+        stopCurrentPlayerTimer();
+        startNextPlayerTimer();
+        resetCurrentPlayerTimer();
     }
 
     @Override
