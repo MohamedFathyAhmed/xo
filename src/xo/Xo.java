@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package xo;
+
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import xo.utlis.Navigator;
+import xo.utlis.TicTacToeExecutorService;
 
 /**
  *
@@ -25,7 +27,7 @@ public class Xo extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
-        Navigator.navigateTo(stage, FXMLLoader.load(getClass().getResource("modes/FXMLModes.fxml")), "modes");
+        Navigator.navigateTo(stage, FXMLLoader.load(getClass().getResource("board/FXMLBoard.fxml")), "modes");
     }
 
     /**
@@ -33,6 +35,11 @@ public class Xo extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        TicTacToeExecutorService.getInstance().stop();
     }
 
 }
