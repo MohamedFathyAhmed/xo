@@ -27,7 +27,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="button0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#boardButtonClicked" onMouseEntered="#boardButtonEntered" onMouseExited="#boardButtonExit" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER">
+            <Button fx:id="button0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#boardButtonClicked" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER">
                <styleClass>
                   <String fx:value="empty_board-btn" />
                   <String fx:value="board-btn" />
@@ -110,29 +110,29 @@
             </Button>
          </children>
       </GridPane>
-      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="293.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="125.0">
+      <ImageView fx:id="oLightOfImageView" fitHeight="100.0" fitWidth="100.0" layoutX="293.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="125.0">
          <image>
             <Image url="@../../images/o_hover.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="283.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="225.0">
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="283.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="225.0" fx:id="xLightOnImageView">
          <image>
             <Image url="@../../images/x.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1410.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.rightAnchor="125.0">
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1410.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.rightAnchor="125.0" fx:id="xLightOfImageView">
          <image>
             <Image url="@../../images/x_hover.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1310.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.rightAnchor="225.0">
+      <ImageView fx:id="oLightOnImageView" fitHeight="100.0" fitWidth="100.0" layoutX="1310.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.rightAnchor="225.0">
          <image>
             <Image url="@../../images/o.png" />
          </image>
       </ImageView>
       <BorderPane layoutX="1250.0" layoutY="232.0" prefHeight="300.0" prefWidth="200.0" AnchorPane.leftAnchor="1180.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="250.0">
          <center>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="player_2" BorderPane.alignment="CENTER">
+            <Text fx:id="player2NameText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="player_2" BorderPane.alignment="CENTER">
                <font>
                   <Font size="50.0" />
                </font>
@@ -141,7 +141,7 @@
       </BorderPane>
       <BorderPane layoutX="142.0" layoutY="240.0" prefHeight="300.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="1180.0" AnchorPane.topAnchor="250.0">
          <center>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="player_1" BorderPane.alignment="CENTER">
+            <Text fx:id="player1NameText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="player_1" BorderPane.alignment="CENTER">
                <font>
                   <Font size="50.0" />
                </font>
@@ -150,7 +150,7 @@
       </BorderPane>
       <BorderPane layoutX="88.0" layoutY="726.0" prefHeight="196.0" prefWidth="345.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="1180.0" AnchorPane.topAnchor="750.0">
          <left>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+            <Text fx:id="oldScorePlayer1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
@@ -164,7 +164,7 @@
             </Text>
          </top>
          <right>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+            <Text fx:id="currentScorePlayer1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
                <font>
                   <Font size="30.0" />
                </font>
@@ -173,7 +173,7 @@
       </BorderPane>
       <BorderPane layoutX="1192.0" layoutY="770.0" prefHeight="196.0" prefWidth="345.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="1180.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="750.0">
          <right>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+            <Text fx:id="oldScorePlayer2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
@@ -187,7 +187,7 @@
             </Text>
          </top>
          <left>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+            <Text fx:id="currentScorePlayer2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
                <font>
                   <Font size="30.0" />
                </font>
@@ -196,7 +196,7 @@
       </BorderPane>
       <BorderPane layoutX="-8.0" layoutY="11.0" prefHeight="248.0" prefWidth="1600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer" BorderPane.alignment="CENTER">
+            <Text fx:id="mainTimerText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00" BorderPane.alignment="CENTER">
                <font>
                   <Font size="50.0" />
                </font>
@@ -221,12 +221,12 @@
          <bottom>
             <AnchorPane prefHeight="100.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.rightAnchor="1325.0" AnchorPane.topAnchor="25.0">
+                  <Text fx:id="player1TimerText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00" AnchorPane.rightAnchor="1325.0" AnchorPane.topAnchor="25.0">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="1325.0" AnchorPane.topAnchor="25.0">
+                  <Text fx:id="player2TimerText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0:00" AnchorPane.leftAnchor="1325.0" AnchorPane.topAnchor="25.0">
                      <font>
                         <Font size="25.0" />
                      </font>

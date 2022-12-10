@@ -5,6 +5,10 @@
  */
 package xo.board;
 
+import data.CurrentGameData;
+import data.GameLevel;
+import data.GameMode;
+import static data.GameMode.SINGLE;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -13,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -26,7 +31,10 @@ public class FXMLBoardController implements Initializable {
     private Button button0, button1, button2, button3, button4, button5, button6, button7, button8;
 
     @FXML
-    private Text mainTimerText, player1TimerText, player2TimerText;
+    private Text mainTimerText, player1TimerText, player2TimerText , 
+            currentScorePlayer1,currentScorePlayer2,oldScorePlayer1,oldScorePlayer2,player1NameText,player2NameText;//Marina
+    @FXML
+    private ImageView oLightOfImageView ,xLightOfImageView,xLightOnImageView,oLightOnImageView;
 
     //
     private final Button[] boardButtons = {button0, button1, button2, button3, button4, button5, button6, button7, button8};
@@ -38,9 +46,12 @@ public class FXMLBoardController implements Initializable {
     private BoardTimer player1Timer;
     private BoardTimer player2Timer;
     
+    CurrentGameData currentGameData; //Marina
+    
 
     @FXML
     private void recordButtonClicked(ActionEvent event) {
+        
 
     }
 
@@ -74,7 +85,35 @@ public class FXMLBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //Marina Reciving  && Passing data
+        currentGameData=CurrentGameData.getInstance();
+        //Passing data
+        currentGameData.setGameMode(GameMode.SINGLE);
+        currentGameData.setGameLevel(GameLevel.EASY);
         
+        player1NameText.setText(currentGameData.getPlayer1());
+        player2NameText.setText(currentGameData.getPlayer2());
+        
+        oldScorePlayer1.setTranslateX(currentGameData.getPlayer1OverAllScore());
+        oldScorePlayer2.setTranslateX(currentGameData.getPlayer1OverAllScore());
+        
+        currentScorePlayer1.setTranslateX(currentGameData.getPlayer1CurrentScore());
+        currentScorePlayer2.setTranslateX(currentGameData.getPlayer2CurrentScore());
+        
+        
+        
+        
+        
+   
+        
+        
+        
+        
+        
+        
+        
+        
+        ////////////////////////Marina
 
 
         //initlize timers

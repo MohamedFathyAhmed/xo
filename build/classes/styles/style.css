@@ -34,6 +34,8 @@
     -fx-background-color: #0b1324;
     -fx-border-color: #21f9fb;
     -fx-text-fill:#21f9fb;
+    -fx-border-radius :20;
+    -fx-background-radius:20;
 }
 .specialButtons
 {
@@ -73,6 +75,7 @@
 .text-area {
  -fx-background-color: #363350;
     text-area-background:  #2d2a40 ;
+    
 
 }
 
