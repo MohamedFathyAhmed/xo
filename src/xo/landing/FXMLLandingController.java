@@ -11,11 +11,9 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import xo.utlis.Navigator;
 
@@ -41,19 +39,14 @@ public class FXMLLandingController implements Initializable {
             try {
                 Thread.sleep(1500);
                 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Stage s = (Stage) (((Button) event.getSource()).getScene().getWindow());
-                            Navigator.navigateTo(s, FXMLLoader.load(getClass().getResource("modes/FXMLModes.fxml")), "modes");
-                        } catch (IOException ex) {
-                            Logger.getLogger(FXMLLandingController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        
-                    }
-                    
-                });
+//                Platform.runLater(() -> {
+//                    try {
+                    //    Stage s = (Stage) (((Button) event.getSource()).getScene().getWindow());
+                    //    Navigator.navigateTo(s, FXMLLoader.load(getClass().getResource("modes/FXMLModes.fxml")), "modes");
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(FXMLLandingController.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+           //     });
             } catch (InterruptedException ex) {
                 Logger.getLogger(FXMLLandingController.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" fx:id="table" prefHeight="1000.0" prefWidth="1600.0" style="-fx-background-color: BLACK;" styleClass="WelcomePagePaneclass" stylesheets="@../../styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+   <children>
+      <TableView fx:id="HistoryTable" layoutX="118.0" layoutY="98.0" prefHeight="713.0" prefWidth="1363.0">
+        <columns>
+          <TableColumn fx:id="IDTable" prefWidth="211.02336883544922" text="ID" />
+          <TableColumn fx:id="player1Table" prefWidth="282.21429443359375" text="Player_1" />
+            <TableColumn fx:id="player2Table" prefWidth="251.28570556640625" text="Player2" />
+            <TableColumn fx:id="DateTable" prefWidth="279.004150390625" text="Date" />
+            <TableColumn fx:id="wonTable" prefWidth="262.4959716796875" text="WON_PLAYER" />
+        </columns>
+      </TableView>
+      <Button fx:id="BackButton" layoutX="90.0" layoutY="864.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="137.0" text="back" />
+   </children>
+</AnchorPane>

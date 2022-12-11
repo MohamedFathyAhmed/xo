@@ -47,6 +47,15 @@ public class FXMLBoardController implements Initializable {
 
     @FXML
     private void boardButtonClicked(ActionEvent event) {
+        
+       button0.setOnAction(new EventHandler<ActionEvent>(){
+           @Override
+           public void handle(ActionEvent event) {
+             System.out.println("hello hodhd");
+           }
+       
+       
+       });
 
     }
 
