@@ -25,7 +25,8 @@ public class Xo extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
-        Navigator.navigateTo(stage, FXMLLoader.load(getClass().getResource("modes/FXMLModes.fxml")), "modes");
+        //Navigator.navigateTo(stage, FXMLLoader.load(getClass().getResource("modes/FXMLModes.fxml")), "modes");
+        Navigator.navigateTo(stage, FXMLLoader.load(getClass().getResource("board/FXMLBoard.fxml")), "modes");
     }
 
     /**

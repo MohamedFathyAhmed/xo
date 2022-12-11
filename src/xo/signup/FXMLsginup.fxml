@@ -39,8 +39,8 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Button fx:id="btnBack" layoutX="57.0" layoutY="851.0" mnemonicParsing="false" onAction="#backButtonAction" prefHeight="79.0" prefWidth="309.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../styles/style.css" text="Back" />
-      <Button fx:id="btnSignup" layoutX="327.0" layoutY="659.0" mnemonicParsing="false" onAction="#signupButtonAction" prefHeight="34.0" prefWidth="392.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../styles/style.css" text="Sign up" />
+      <Button fx:id="backButton" layoutX="57.0" layoutY="851.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="79.0" prefWidth="309.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../styles/style.css" text="Back" />
+      <Button fx:id="signupButton" layoutX="327.0" layoutY="659.0" mnemonicParsing="false" onAction="#signupButtonClicked" prefHeight="34.0" prefWidth="392.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../styles/style.css" text="Sign up" />
    </children>
    <stylesheets>
       <URL value="@../styles/style.css" />
