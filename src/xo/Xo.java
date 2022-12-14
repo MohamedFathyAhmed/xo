@@ -5,26 +5,33 @@
  */
 package xo;
 
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import xo.utlis.Navigator;
+import xo.utlis.TicTacToeExecutorService;
 
 /**
  *
  * @author mohamed
  */
 public class Xo extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        stage.setResizable(false);
+<<<<<<< HEAD
         
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
+=======
+>>>>>>> 01bafe828be58694bcf218b2990d36e3793bb4e0
+        Navigator.navigateTo(stage, FXMLLoader.load(getClass().getResource("board/FXMLBoard.fxml")), "modes");
     }
 
     /**
@@ -33,5 +40,10 @@ public class Xo extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
+    @Override
+    public void stop() throws Exception {
+        TicTacToeExecutorService.getInstance().stop();
+    }
+
 }

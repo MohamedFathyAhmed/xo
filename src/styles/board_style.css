@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 2, 2022, 10:23:00 PM
+    Author     : mohamed
+*/
+
+.btn
+{
+    -fx-border-radius: 25px;
+    -fx-border-color: #21f9fb;
+    -fx-background-color: transparent;
+    -fx-border-width: 2px;
+    -fx-text-fill:#21f9fb;
+    -fx-font-size: 25px;
+    -fx-background-radius: 20;
+}
+.btn:hover
+{
+    -fx-background-color: #242424;
+}
+
+.container{
+    -fx-background-color:#0e2a3a
+
+}
+.empty_board-btn {
+    -fx-background-image: url('../images/empty.png');
+}
+
+.o_board-btn:pressed{
+    -fx-background-image: url("../images/o.png");
+}
+.x_board-btn{
+    -fx-background-image: url("../images/x.png");
+}
+
+.empty_x_board-btn:hover {
+    -fx-background-image: url("../images/x_hover.png");
+}
+
+.empty_o_board-btn:hover {
+    -fx-background-image: url("../images/o_hover.png");
+}
+
+.empty_o_board-btn:pressed{
+    -fx-background-image: url("../images/o.png");
+}
+
+.board-btn{
+    -fx-background-size: cover;
+    -fx-background-color: transparent;
+    /*-fx-effect: dropshadow(three-pass-box, #666666, 0, 0, 1, 1);*/
+}
+
+.o{
+    -fx-background-image: url('../images/o.png')
+}
