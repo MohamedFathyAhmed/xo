@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1600.0" styleClass="WelcomePagePaneclass" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xo.levels.FXMLLevelsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1600.0" styleClass="WelcomePagePaneclass" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xo.levels.FXMLLevelsController">
+   
    <children>
       <ImageView fx:id="levelsImagetwo" fitHeight="333.0" fitWidth="492.0" layoutX="120.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -19,10 +20,10 @@
             <Font size="96.0" />
          </font>
       </Label>
-      <Button fx:id="btnBack" layoutX="67.0" layoutY="861.0" mnemonicParsing="false" onAction="#backButtonAction" prefHeight="79.0" prefWidth="309.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Back" />
-      <Button fx:id="btnHistory" layoutX="1180.0" layoutY="46.0" mnemonicParsing="false" onAction="#historyButtonAction" prefHeight="79.0" prefWidth="309.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="History" />
-      <Button fx:id="btnHard" layoutX="67.0" layoutY="572.0" mnemonicParsing="false" onAction="#hardButtonAction" prefHeight="79.0" prefWidth="643.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Hard" />
-      <Button fx:id="btnMedium" layoutX="67.0" layoutY="421.0" mnemonicParsing="false" onAction="#mediumButtonAction" prefHeight="79.0" prefWidth="643.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Medium" />
-      <Button fx:id="btnEsay" layoutX="67.0" layoutY="288.0" mnemonicParsing="false" onAction="#esayButtonAction" prefHeight="79.0" prefWidth="643.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Esay" />
+      <Button fx:id="backButton" layoutX="67.0" layoutY="861.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="79.0" prefWidth="309.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Back" />
+      <Button fx:id="historyButton" layoutX="1180.0" layoutY="46.0" mnemonicParsing="false" onAction="#historyButtonAction" prefHeight="79.0" prefWidth="309.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="History" />
+      <Button fx:id="hardButton" layoutX="67.0" layoutY="572.0" mnemonicParsing="false" onAction="#hardButtonClicked" prefHeight="79.0" prefWidth="643.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Hard" />
+      <Button fx:id="mediumButton" layoutX="67.0" layoutY="421.0" mnemonicParsing="false" onAction="#mediumButtonClicked" prefHeight="79.0" prefWidth="643.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Medium" />
+      <Button fx:id="easyButton" layoutX="67.0" layoutY="288.0" mnemonicParsing="false" onAction="#easyButtonClicked" prefHeight="79.0" prefWidth="643.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Easy" />
    </children>
 </Pane>

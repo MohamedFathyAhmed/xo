@@ -5,6 +5,7 @@
  */
 package xo.signup;
 
+import data.CurrentGameData;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -39,9 +40,11 @@ public class FXMLControlerSignup implements Initializable {
     @FXML
     private Label confirmPassword;
     @FXML
-    private Button btnBack;
+    private Button backButton;
     @FXML
-    private Button btnSignup;
+    private Button signupButton;
+    
+    CurrentGameData currentGameData;//Marina
 
     /**
      * Initializes the controller class.
@@ -51,19 +54,13 @@ public class FXMLControlerSignup implements Initializable {
         // TODO
     }    
     @FXML
-    private void signupButtonAction(ActionEvent event) {
-//        Navigator.navigateTo(event, r, title);
+    private void signupButtonClicked(ActionEvent event) {
+       // currentGameData.setPlayer1(userNameTextField.getText());//Marina
 
-/*try {
-            Stage s = (Stage)(((Button)event.getSource()).getScene().getWindow());
-            Navigator.navigateTo(s, FXMLLoader.load(xo.Xo.class.getResource("levels/FXMLLevels.fxml")), "level");
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLModesController.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
     }
     
       @FXML
-    private void backButtonAction(ActionEvent event) {
-//        Navigator.navigateTo(event, r, title);
+    private void backButtonClicked(ActionEvent event) {
+
     }
 }

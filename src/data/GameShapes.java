@@ -3,18 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xo.board.game;
+package data;
 
 /**
  *
  * @author mohamed
  */
-public interface Game {
-    
-   GameState isGameRunning(String board);
-
+public enum GameShapes {
+    X,O
 }
-
-
-
-
