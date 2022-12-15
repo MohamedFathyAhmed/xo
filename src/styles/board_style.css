@@ -8,6 +8,7 @@ and open the template in the editor.
     Author     : mohamed
 */
 
+
 .btn
 {
     -fx-border-radius: 25px;
@@ -31,11 +32,13 @@ and open the template in the editor.
     -fx-background-image: url('../images/empty.png');
 }
 
-.o_board-btn:pressed{
+.o_board-btn{
     -fx-background-image: url("../images/o.png");
+    -fx-opacity: 1;
 }
 .x_board-btn{
     -fx-background-image: url("../images/x.png");
+    -fx-opacity: 1;
 }
 
 .empty_x_board-btn:hover {

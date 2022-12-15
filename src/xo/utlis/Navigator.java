@@ -9,9 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import xo.board.BoardMultiPlayerOflineModeController;
-import xo.board.BoardMultiPlayerOnlineModeController;
-import xo.board.BoardSinglePlayerModeController;
+//import xo.board.BoardMultiPlayerOflineModeController;
+//import xo.board.BoardMultiPlayerOnlineModeController;
+//import xo.board.BoardSinglePlayerModeController;
 
 /**
  *
@@ -36,25 +36,25 @@ public class Navigator {
         stage.setTitle(title);
         stage.show();
     }
-    //Marina
-    public static void navigateToMultiPlayerOflineModeScene(){
-        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("board/FXMLBoard.fxml"));
-        BoardMultiPlayerOflineModeController controller=new BoardMultiPlayerOflineModeController();
-        loader.setController(controller);
-}
- 
+//    //Marina
+//    public static void navigateToMultiPlayerOflineModeScene(){
+//        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("board/FXMLBoard.fxml"));
+//        BoardMultiPlayerOflineModeController controller=new BoardMultiPlayerOflineModeController();
+//        loader.setController(controller);
+//}
+// 
+//     //Marina
+//    public static void navigateToMultiPlayerOnlineModeScene(){
+//        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("board/FXMLBoard.fxml"));
+//        BoardMultiPlayerOnlineModeController controller=new BoardMultiPlayerOnlineModeController();
+//        loader.setController(controller);
+//    }
      //Marina
-    public static void navigateToMultiPlayerOnlineModeScene(){
-        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("board/FXMLBoard.fxml"));
-        BoardMultiPlayerOnlineModeController controller=new BoardMultiPlayerOnlineModeController();
-        loader.setController(controller);
-    }
-     //Marina
-    public static void navigateToSinglePlayerOnlineModeScene(){
-        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("board/FXMLBoard.fxml"));
-        BoardSinglePlayerModeController controller=new BoardSinglePlayerModeController();
-        loader.setController(controller);
-    }
-        
+//    public static void navigateToSinglePlayerOnlineModeScene(){
+//        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("board/FXMLBoard.fxml"));
+//        BoardSinglePlayerModeController controller=new BoardSinglePlayerModeController();
+//        loader.setController(controller);
+//    }
+//        
 
 }

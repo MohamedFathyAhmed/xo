@@ -15,8 +15,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import xo.board.BoardMultiPlayerModeController;
+import xo.board.BoardSinglePlayerModeController;
+import xo.board.FXMLBoardController;
 import xo.utlis.Navigator;
-import xo.utlis.TicTacToeExecutorService;
 
 /**
  *
@@ -27,11 +29,13 @@ public class Xo extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
-<<<<<<< HEAD
-        
-=======
->>>>>>> 01bafe828be58694bcf218b2990d36e3793bb4e0
-        Navigator.navigateTo(stage, FXMLLoader.load(getClass().getResource("board/FXMLBoard.fxml")), "modes");
+
+        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("board/FXMLBoard.fxml"));
+        FXMLBoardController controller = new BoardSinglePlayerModeController(stage);
+        loader.setController(controller);
+        stage.setScene(new Scene(loader.load()));
+        stage.show();
+
     }
 
     /**
@@ -39,11 +43,6 @@ public class Xo extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-
-    @Override
-    public void stop() throws Exception {
-        TicTacToeExecutorService.getInstance().stop();
     }
 
 }

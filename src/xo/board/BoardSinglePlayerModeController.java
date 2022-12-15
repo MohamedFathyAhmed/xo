@@ -5,11 +5,28 @@
  */
 package xo.board;
 
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
 /**
  *
  * @author Marina
  */
-public class BoardSinglePlayerModeController extends FXMLBoardController{
-    //void disableAllButoon(){}
-    
+public class BoardSinglePlayerModeController extends BoardMultiPlayerModeController {
+
+    private boolean isPc = false;
+
+    public BoardSinglePlayerModeController(Stage stage) {
+        super(stage);
+    }
+
+    @Override
+    protected void boardButtonClicked(ActionEvent event) {
+        super.boardButtonClicked(event);
+        boardGridPane.setDisable(!isPc);
+        isPc = !isPc;
+    }
+
 }
