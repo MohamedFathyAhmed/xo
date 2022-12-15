@@ -6,6 +6,8 @@
 package xo.board.game;
 
 import data.GameShapes;
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
 /**
