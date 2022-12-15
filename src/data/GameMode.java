@@ -9,7 +9,6 @@ package data;
  *
  * @author mohamed
  */
-
 public enum GameMode {
     ONLINE,SINGLE,MULTIPLAYER
 }

@@ -9,12 +9,14 @@ package data;
  *
  * @author mohamed
  */
+import data.GameMode;
+
 public class CurrentGameData {
 
     private static CurrentGameData instance;
     private String player1;
     private String player2;
-    
+
     private String winerPlayer; //marina
 
     private GameShapes player1Shape;
@@ -26,9 +28,7 @@ public class CurrentGameData {
     private int player1CurrentScore;
     private int player2CurrentScore;
 
-  
-    
-    private GameLevel gameLevel ;//Marina
+    private GameLevel gameLevel;//Marina
 
     private GameMode gameMode;
 
@@ -42,8 +42,8 @@ public class CurrentGameData {
         this.player1CurrentScore = 0;
         this.player2CurrentScore = 0;
         this.gameMode = GameMode.SINGLE;
-        this.gameLevel=GameLevel.EASY;//Marina 
-        this.winerPlayer= "";
+        this.gameLevel = GameLevel.EASY;//Marina 
+        this.winerPlayer = "";
     }
 
     public static CurrentGameData getInstance() {
@@ -124,11 +124,11 @@ public class CurrentGameData {
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
     }
-   
+
     public GameLevel getGameLevel() {//Marina
         return gameLevel;
     }
- 
+
     public void setGameLevel(GameLevel gameLevel) {//Marina
         this.gameLevel = gameLevel;
     }
@@ -140,5 +140,5 @@ public class CurrentGameData {
     public void setWinerPlayer(String winerPlayer) { //Marina
         this.winerPlayer = winerPlayer;
     }
-    
+
 }
