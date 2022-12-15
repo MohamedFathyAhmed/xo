@@ -7,10 +7,13 @@ package xo.board;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import xo.board.game.GameHandler;
+import xo.board.game.GameState;
 
 /**
  *
@@ -18,8 +21,12 @@ import javafx.stage.Stage;
  */
 public class BoardMultiPlayerModeController extends FXMLBoardController {
 
+    private GameHandler gameHandler;
+
     public BoardMultiPlayerModeController(Stage stage) {
         super(stage);
+        gameHandler = new GameHandler(this::handleGameState);
+
     }
 
     @Override

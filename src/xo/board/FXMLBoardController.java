@@ -15,7 +15,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -74,15 +73,12 @@ public abstract class FXMLBoardController implements Initializable {
 
     protected CurrentGameData currentGameData; //Marina
 
-    protected GameHandler gameHandler;
     protected Stage stage;
 
     public FXMLBoardController(Stage stage) {
-        stage.setOnCloseRequest((WindowEvent event) -> mainTimer.cancel());
-        gameHandler = new GameHandler(this::handleGameState);
+        stage.setOnCloseRequest((windowEvent) -> mainTimer.cancel());
         mainTimer = new Timer();
         this.stage = stage;
-
     }
 
     void handleGameState(GameState gameState) {

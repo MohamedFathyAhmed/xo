@@ -31,7 +31,7 @@ public class Xo extends Application {
         stage.setResizable(false);
 
         FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("board/FXMLBoard.fxml"));
-        FXMLBoardController controller = new BoardSinglePlayerModeController(stage);
+        FXMLBoardController controller = new BoardMultiPlayerModeController(stage);
         loader.setController(controller);
         stage.setScene(new Scene(loader.load()));
         stage.show();

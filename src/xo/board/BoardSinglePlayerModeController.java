@@ -29,4 +29,4 @@ public class BoardSinglePlayerModeController extends BoardMultiPlayerModeControl
         isPc = !isPc;
     }
 
-}
+    }
