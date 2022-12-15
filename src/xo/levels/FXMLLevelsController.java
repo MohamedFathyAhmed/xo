@@ -7,7 +7,6 @@ package xo.levels;
 
 import data.CurrentGameData;
 import data.GameLevel;
-import data.GameMode;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -38,8 +37,18 @@ public class FXMLLevelsController implements Initializable {
     private Button mediumButton;
     @FXML
     private Button easyButton;
-    
-    CurrentGameData  currentGameData;//Marina
+
+    CurrentGameData currentGameData;//Marina
+
+    private Button btnBack;
+    @FXML
+    private Button btnHistory;
+    @FXML
+    private Button btnHard;
+    @FXML
+    private Button btnMedium;
+    @FXML
+    private Button btnEsay;
 
     /**
      * Initializes the controller class.
@@ -47,11 +56,11 @@ public class FXMLLevelsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-        
+    }
+
     @FXML
     private void backButtonClicked(ActionEvent event) {
-        
+
     }
 
     @FXML
@@ -65,12 +74,33 @@ public class FXMLLevelsController implements Initializable {
 
     @FXML
     private void mediumButtonClicked(ActionEvent event) {
-         currentGameData.setGameLevel(GameLevel.MEDIUM);//Marina
+        currentGameData.setGameLevel(GameLevel.MEDIUM);//Marina
     }
 
     @FXML
     private void easyButtonClicked(ActionEvent event) {
-         currentGameData.setGameLevel(GameLevel.EASY);//Marina
+        currentGameData.setGameLevel(GameLevel.EASY);//Marina
     }
-    
+
+    @FXML
+    private void backButtonAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void historyButtonAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void hardButtonAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void mediumButtonAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void esayButtonAction(ActionEvent event) {
+
+    }
+
 }
