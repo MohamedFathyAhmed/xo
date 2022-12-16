@@ -18,6 +18,10 @@ public class GameHandler {
     private final String xPattern = "(^(X..X..X..)|(.X..X..X.)|(..X..X..X)|(XXX......)|(...XXX...)|(......XXX)|(..X.X.X..)|(X...X...X)$)";
     private final String oPattern;
     protected final char[] boardChars = {'-', '-', '-', '-', '-', '-', '-', '-', '-'};
+
+    public char[] getBoardChars() {
+        return boardChars;
+    }
     private final Consumer<GameState> gameStateUpdater;
 
     public GameHandler(Consumer<GameState> gameStateUpdater) {

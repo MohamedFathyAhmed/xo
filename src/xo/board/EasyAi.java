@@ -17,12 +17,14 @@ public class EasyAi {
     static String board;
     static int res;
 
-    public static int getRes() {
-        return res;
+    
+     public EasyAi() {
+    
     }
 
     public EasyAi(String board) {
         this.board = board;
+         easyMode(board);
     }
 
     public static void easyMode(String board) {
@@ -37,7 +39,7 @@ public class EasyAi {
             }
         }
         int randNum = getRandomElement(emtyLocation);
-        System.out.println(randNum);
+        
         res = randNum;
     }
 
@@ -51,4 +53,15 @@ public class EasyAi {
         arr[N] = element;
         return arr;
     }
+    
+    
+    public static void setBoard(String board) {
+        EasyAi.board = board;
+        easyMode(board);
+    }
+
+    public static int getRes() {
+        return res;
+    }
+    
 }

@@ -33,5 +33,7 @@
       </Label>
       <Button fx:id="loginButton" layoutX="292.0" layoutY="632.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="34.0" prefWidth="392.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Login" />
       <Button fx:id="signupButton" layoutX="292.0" layoutY="727.0" mnemonicParsing="false" onAction="#signupButtonClicked" prefHeight="34.0" prefWidth="392.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Sign up" />
+      <Label fx:id="nameErrorLabel" layoutX="238.0" layoutY="454.0" prefHeight="21.0" prefWidth="516.0" text="error message" textFill="#e40606" />
+      <Label fx:id="passwordErrorLabel" layoutX="238.0" layoutY="572.0" prefHeight="21.0" prefWidth="516.0" text="error message" textFill="#e40606" />
    </children>
 </Pane>
