@@ -7,23 +7,21 @@ package xo.board;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import xo.board.game.GameHandler;
-import xo.board.game.GameState;
 
 /**
  *
  * @author mohamed
  */
-public class BoardMultiPlayerModeController extends FXMLBoardController {
+public class FXMLBoardOfflineMultiPLayerController extends FXMLBoardController {
 
     private GameHandler gameHandler;
 
-    public BoardMultiPlayerModeController(Stage stage) {
+    public FXMLBoardOfflineMultiPLayerController(Stage stage) {
         super(stage);
         gameHandler = new GameHandler(this::handleGameState);
 

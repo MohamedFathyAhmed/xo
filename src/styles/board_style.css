@@ -18,6 +18,8 @@ and open the template in the editor.
     -fx-text-fill:#21f9fb;
     -fx-font-size: 25px;
     -fx-background-radius: 20;
+    -fx-cursor: hand;
+
 }
 .btn:hover
 {
@@ -39,6 +41,13 @@ and open the template in the editor.
 .x_board-btn{
     -fx-background-image: url("../images/x.png");
     -fx-opacity: 1;
+}
+
+.o_hover_board-btn{
+    -fx-background-image: url("../images/o_hover.png");
+}
+.x_hover_board-btn{
+    -fx-background-image: url("../images/x_hover.png");
 }
 
 .empty_x_board-btn:hover {

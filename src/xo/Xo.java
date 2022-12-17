@@ -5,20 +5,11 @@
  */
 package xo;
 
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import xo.board.BoardMultiPlayerModeController;
-import xo.board.BoardSinglePlayerModeController;
-import xo.board.FXMLBoardController;
-import xo.utlis.Navigator;
+import xo.landing.FXMLLandingController;
+import xo.utlis.TicTacToeExecutorService;
+import xo.utlis.TicTacToeNavigator;
 
 /**
  *
@@ -29,13 +20,9 @@ public class Xo extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
-
-        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("board/FXMLBoard.fxml"));
-        FXMLBoardController controller = new BoardMultiPlayerModeController(stage);
-        loader.setController(controller);
-        stage.setScene(new Scene(loader.load()));
-        stage.show();
-
+        TicTacToeNavigator.navigateTo(stage, new FXMLLandingController(stage), TicTacToeNavigator.LANDING);
+//        TicTacToeNavigator.navigateTo(stage,TicTacToeNavigator.MEDIA);
+    
     }
 
     /**
@@ -44,5 +31,12 @@ public class Xo extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    @Override
+    public void stop() throws Exception {
+        TicTacToeExecutorService.getInstance().stop();
+        super.stop();
+    }
+    
 
 }

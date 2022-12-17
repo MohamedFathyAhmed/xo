@@ -205,7 +205,7 @@
          <top>
             <AnchorPane prefHeight="100.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="record" layoutX="1439.0" layoutY="50.0" mnemonicParsing="false" onAction="#recordButtonClicked" styleClass="btn" text="Record" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1400.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+                  <Button fx:id="recordingButton" layoutX="1439.0" layoutY="50.0" mnemonicParsing="false" onAction="#recordButtonClicked" styleClass="btn" text="Record" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1400.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
                      <font>
                         <Font size="25.0" />
                      </font>

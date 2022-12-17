@@ -8,14 +8,12 @@ package xo.landing;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import xo.utlis.Navigator;
+import xo.utlis.TicTacToeExecutorService;
+import xo.utlis.TicTacToeNavigator;
 
 /**
  * FXML Controller class
@@ -24,35 +22,22 @@ import xo.utlis.Navigator;
  */
 public class FXMLLandingController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    private final Stage stage;
+
+    public FXMLLandingController(Stage stage) {
+        this.stage = stage;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        new SplashScreen().start();
+        TicTacToeExecutorService.getInstance().schedule(() -> {
+            Platform.runLater(() -> {
+                try {
+                    TicTacToeNavigator.navigateTo(stage, TicTacToeNavigator.MODES);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+        }, 2L, TimeUnit.SECONDS);
     }
-
-    class SplashScreen extends Thread {
-
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(1500);
-                
-//                Platform.runLater(() -> {
-//                    try {
-                    //    Stage s = (Stage) (((Button) event.getSource()).getScene().getWindow());
-                    //    Navigator.navigateTo(s, FXMLLoader.load(getClass().getResource("modes/FXMLModes.fxml")), "modes");
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(FXMLLandingController.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-           //     });
-            } catch (InterruptedException ex) {
-                Logger.getLogger(FXMLLandingController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-    }
-
 }

@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  *
  * @author Marina
  */
-public class BoardSinglePlayerModeController extends BoardMultiPlayerModeController {
+public class BoardSinglePlayerModeController extends FXMLBoardOfflineMultiPLayerController {
 
     private boolean isPc = false;
 

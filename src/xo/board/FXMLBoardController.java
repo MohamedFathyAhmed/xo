@@ -9,15 +9,21 @@ import data.CurrentGameData;
 import data.GameLevel;
 import data.GameMode;
 import data.GameShapes;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -53,6 +59,9 @@ public abstract class FXMLBoardController implements Initializable {
     @FXML
     protected ImageView recordingImageView;
 
+    @FXML
+    protected Button recordingButton;
+
     //
     protected Button[] boardButtons = null;
 
@@ -85,19 +94,20 @@ public abstract class FXMLBoardController implements Initializable {
         switch (gameState) {
             case PLAYER_ONE_WON:
                 //update won player #marina
-                disableBoardButtons(true);
-                mainTimer.cancel();
+                stopBoardActions();
+                showWinnerDialog(player1NameText.getText());
                 break;
 
             case PLAYER_TWO_WON:
                 //update won player #marina
-                disableBoardButtons(true);
-                mainTimer.cancel();
+                stopBoardActions();
+                showWinnerDialog(player1NameText.getText());
                 break;
 
             case DRAW:
                 //update game state #marina
-                mainTimer.cancel();
+
+                stopBoardActions();
                 break;
             default:
                 return;
@@ -133,8 +143,8 @@ public abstract class FXMLBoardController implements Initializable {
     }
 
     private void setupBoardStyleClasses() {
-        boardStyleClasses = new CircularArray<>("x_board-btn", "o_board-btn");
-        boardHoverStyleClasses = new CircularArray<>("empty_x_board-btn", "empty_o_board-btn");
+        boardStyleClasses = new CircularArray<>(currentGameData.getPLayer1BoardStyleCss(), currentGameData.getPLayer2BoardStyleCss());
+        boardHoverStyleClasses = new CircularArray<>(currentGameData.getPlayer1BoardHoverStyleCss(), currentGameData.getPlayer2BoardHoverStyleCss());
     }
 
     @FXML
@@ -241,6 +251,27 @@ public abstract class FXMLBoardController implements Initializable {
                 mainTimerText.setText(timer / 60 + ":" + String.format("%02d", timer % 60));
             }
         }, 1000L, 1000L);
+    }
+
+    private void stopBoardActions() {
+        disableBoardButtons(true);
+        mainTimer.cancel();
+        recordingButton.setDisable(true);
+        recordingTextFadeAffect.stop();
+        recordingImageViewFadeAffect.stop();
+    }
+
+    private void showWinnerDialog(String text) {
+        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("media/FXMLMedia.fxml"));
+        Dialog<ButtonType> dialog = new Dialog<>();
+        try {
+            dialog.setDialogPane(loader.load());
+            dialog.showAndWait();
+            System.out.println("help");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
 }

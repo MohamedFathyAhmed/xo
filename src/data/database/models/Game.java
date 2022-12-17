@@ -11,15 +11,23 @@ import java.util.Date;
  *
  * @author mohamed
  */
+//true  message 
 public class Game {
+
     private final String player1;
     private final String player2;
-    private final Date date;
+    private final String date;
     private final String wonPLayer;
-    private final int player1Shape;
-    private final int player2Shape;
+    private final String player1Shape;
+    private final String player2Shape;
 
-    public Game(String player1, String player2, Date date, String wonPLayer, int player1Shape, int player2Shape) {
+    public Game(
+            String player1,
+            String player2,
+            String date,
+            String wonPLayer,
+            String player1Shape,
+            String player2Shape) {
         this.player1 = player1;
         this.player2 = player2;
         this.date = date;
@@ -28,11 +36,11 @@ public class Game {
         this.player2Shape = player2Shape;
     }
 
-    public int getPlayer1Shape() {
+    public String getPlayer1Shape() {
         return player1Shape;
     }
 
-    public int getPlayer2Shape() {
+    public String getPlayer2Shape() {
         return player2Shape;
     }
 
@@ -44,7 +52,7 @@ public class Game {
         return player2;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 

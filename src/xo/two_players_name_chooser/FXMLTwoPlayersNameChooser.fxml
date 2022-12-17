@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="1000.0" prefWidth="1600.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xo.two_players_name_chooser.FXMLTwoPlayersNameChooserController">
+   <children>
+      <TableView fx:id="playerOneTableView" layoutX="100.0" layoutY="150.0" prefHeight="525.0" prefWidth="400.0">
+        <columns>
+          <TableColumn prefWidth="197.0" text="player_1" />
+        </columns>
+      </TableView>
+      <TableView fx:id="playerTwoTableView" layoutX="1100.0" layoutY="150.0" prefHeight="525.0" prefWidth="400.0">
+         <columns>
+            <TableColumn prefWidth="197.0" text="player_2" />
+         </columns>
+      </TableView>
+      <Button layoutX="100.0" layoutY="80.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="specialButtons" text="Back" />
+      <Button layoutX="550.0" layoutY="928.0" mnemonicParsing="false" onAction="#startButtonClicked" prefHeight="50.0" prefWidth="550.0" styleClass="specialButtons" text="Start" />
+      <Button layoutX="100.0" layoutY="697.0" mnemonicParsing="false" onAction="#newPlayerOneNameButtonClicked" prefHeight="50.0" prefWidth="400.0" styleClass="specialButtons" text="New Name" />
+      <Button fx:id="playerTwoOButton" layoutX="1350.0" layoutY="770.0" mnemonicParsing="false" onAction="#playerTwoOButtonClicked" prefHeight="150.0" prefWidth="150.0">
+         <styleClass>
+            <String fx:value="o_selected_board-btn" />
+            <String fx:value="board-btn" />
+         </styleClass>
+      </Button>
+      <Button fx:id="playerOneXButton" layoutX="100.0" layoutY="770.0" mnemonicParsing="false" onAction="#playerOneXButtonClicked" prefHeight="150.0" prefWidth="150.0">
+         <styleClass>
+            <String fx:value="board-btn" />
+            <String fx:value="x_selected_board-btn" />
+         </styleClass>
+      </Button>
+      <Button fx:id="playerTwoXButton" layoutX="1100.0" layoutY="770.0" mnemonicParsing="false" onAction="#playerTwoXButtonClicked" prefHeight="150.0" prefWidth="150.0">
+         <styleClass>
+            <String fx:value="board-btn" />
+            <String fx:value="x_unselected_board-btn" />
+         </styleClass>
+      </Button>
+      <Button fx:id="playerOneOButton" layoutX="350.0" layoutY="770.0" mnemonicParsing="false" onAction="#playerOneOButtonClicked" prefHeight="150.0" prefWidth="150.0">
+         <styleClass>
+            <String fx:value="board-btn" />
+            <String fx:value="o_unselected_board-btn" />
+         </styleClass>
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/logo.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="1100.0" layoutY="700.0" mnemonicParsing="false" onAction="#newPlayerTwoNameButtonClicked" prefHeight="50.0" prefWidth="400.0" styleClass="specialButtons" text="New Name" />
+   </children>
+</AnchorPane>

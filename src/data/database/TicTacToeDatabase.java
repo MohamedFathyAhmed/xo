@@ -52,6 +52,16 @@ public class TicTacToeDatabase {
             + " NAME VARCHAR(10) not null "
             + " ) ";
 
+    private final String pausedGamesTable = " create table PAUSED_GAMES "
+            + " ( "
+            + " ID INTEGER not null primary key, "
+            + " GAME_ID INTEGER not null,"
+            + " NEXT_PLAYER VARCHAR(50) not null, "
+            + " TIME INTEGER,"
+            + " FOREIGN KEY (NEXT_PLAYER) REFERENCES PLAYER(NAME), "
+            + " FOREIGN KEY (GAME_ID) REFERENCES GAME(ID) "
+            + " ) ";
+
     private Connection connection = null;
 
     private static TicTacToeDatabase instance = null;
@@ -62,7 +72,6 @@ public class TicTacToeDatabase {
         connection = DriverManager.getConnection("jdbc:derby:tic_tac_toe;create=true");
 
 //        setIsDatabaseCreated(false);
-
         if (getIsDatabaseCreated()) {
             return;
         }
@@ -72,6 +81,7 @@ public class TicTacToeDatabase {
         connection.createStatement().execute(shapeTable);
         connection.createStatement().execute(playTable);
         connection.createStatement().execute(gameShapeTable);
+        connection.createStatement().execute(pausedGamesTable);
 
         setIsDatabaseCreated(true);
     }

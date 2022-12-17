@@ -10,17 +10,20 @@ package data.database.models;
  * @author mohamed
  */
 public class Play {
-    private final int position;
-    private final String player;
-    private final int time;
 
-    public Play(int position, String player, int time) {
+    private final String position;
+    private final String player;
+    private final String time;
+    private final String gameId;
+
+    public Play(String position, String player, String time, String gameId) {
         this.position = position;
         this.player = player;
         this.time = time;
+        this.gameId = gameId;
     }
 
-    public int getPosition() {
+    public String getPosition() {
         return position;
     }
 
@@ -28,8 +31,8 @@ public class Play {
         return player;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
-    } 
-    
+    }
+
 }

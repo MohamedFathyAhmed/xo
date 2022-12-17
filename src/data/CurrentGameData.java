@@ -16,7 +16,10 @@ public class CurrentGameData {
     private static CurrentGameData instance;
     private String player1;
     private String player2;
-
+    private final String X_BOARD_STYLE_CSS = "x_board-btn";
+    private final String O_BOARD_STYLE_CSS = "o_board-btn";
+    private final String X_BOARD_HOVER_STYLE_CSS = "empty_x_board-btn";
+    private final String O_BOARD_HOVER_STYLE_CSS = "empty_o_board-btn";
     private String winerPlayer; //marina
 
     private GameShapes player1Shape;
@@ -85,6 +88,30 @@ public class CurrentGameData {
         this.player2Shape = player2Shape;
     }
 
+    public String getPLayer1BoardStyleCss(){
+        if(player1Shape==GameShapes.X)
+            return X_BOARD_STYLE_CSS;
+        return O_BOARD_STYLE_CSS;
+    }
+    
+    public String getPLayer2BoardStyleCss(){
+        if(player2Shape==GameShapes.X)
+            return X_BOARD_STYLE_CSS;
+        return O_BOARD_STYLE_CSS;
+    }
+    
+    public String getPlayer1BoardHoverStyleCss(){
+        if(player1Shape==GameShapes.X)
+            return X_BOARD_HOVER_STYLE_CSS;
+        return O_BOARD_HOVER_STYLE_CSS;
+    }
+    
+    public String getPlayer2BoardHoverStyleCss(){
+        if(player2Shape==GameShapes.X)
+            return X_BOARD_HOVER_STYLE_CSS;
+        return O_BOARD_HOVER_STYLE_CSS;
+    }
+    
     public int getPlayer1OverAllScore() {
         return player1OverAllScore;
     }

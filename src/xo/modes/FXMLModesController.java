@@ -7,49 +7,53 @@ package xo.modes;
 
 import data.CurrentGameData;
 import data.GameMode;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import xo.utlis.Navigator;
+import xo.online.handlers.RequestHandler;
+import xo.utlis.TicTacToeNavigator;
 
 /**
  *
  * @author mohamed
  */
 public class FXMLModesController implements Initializable {
-     @FXML
-    private Button singleButton;//Marina
-    @FXML
-    private Button localMultiPlayersButton;//Marina
-    @FXML
-    private Button onlineMultiPlayersButton;//Marina
-    
-    CurrentGameData currentGameData;//Marina
-   
-    
+
+    CurrentGameData currentGameData;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }  
-    
-    @FXML
-    private void singleButtonClicked(ActionEvent event) {
-        currentGameData.setGameMode(GameMode.SINGLE);//Marina
-        
+        currentGameData = CurrentGameData.getInstance();
     }
 
     @FXML
-    private void localMultiPlayersButtonClicked(ActionEvent event) {
-         currentGameData.setGameMode(GameMode.MULTIPLAYER);//Marina
+    private void singlePlayerButtonClicked(ActionEvent event) throws IOException {
+        currentGameData.setGameMode(GameMode.SINGLE);
+        TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.ONE_PLAYER_NAME_CHOOSER);
+
     }
 
     @FXML
-    private void onlineMultiPlayersButtonClicked(ActionEvent event){ 
-         currentGameData.setGameMode(GameMode.ONLINE);//Marina
+    private void offineMultiPlayerButtonClicked(ActionEvent event) throws IOException {
+        currentGameData.setGameMode(GameMode.MULTIPLAYER);
+        TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.TWO_PLAYER_NAME_CHOOSER);
     }
-    
+
+    @FXML
+    private void onlineMultiPlayersButtonClicked(ActionEvent event) {
+        currentGameData.setGameMode(GameMode.ONLINE);
+        RequestHandler.getInstance(
+                (response) -> {
+
+                },
+                (message) -> {
+
+                }, 5005, "");
+
+        //        
+    }
+
 }
