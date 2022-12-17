@@ -26,3 +26,5 @@ replay_pid*
 /TicTacToe Game_Server/nbproject/private/
 /tic_tac_toe
 .DS_Store
+/dist/
+/build/
