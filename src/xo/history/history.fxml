@@ -5,18 +5,17 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" fx:id="table" prefHeight="1000.0" prefWidth="1600.0" style="-fx-background-color: BLACK;" styleClass="WelcomePagePaneclass" stylesheets="@../../styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+<AnchorPane id="AnchorPane" fx:id="historyTable" prefHeight="1000.0" prefWidth="1600.0" style="-fx-background-color: BLACK;" styleClass="WelcomePagePaneclass" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xo.history.FXMLHistoryController">
    <children>
       <TableView fx:id="HistoryTable" layoutX="118.0" layoutY="98.0" prefHeight="713.0" prefWidth="1363.0">
         <columns>
-          <TableColumn fx:id="IDTable" prefWidth="211.02336883544922" text="ID" />
-          <TableColumn fx:id="player1Table" prefWidth="282.21429443359375" text="Player_1" />
-            <TableColumn fx:id="player2Table" prefWidth="251.28570556640625" text="Player2" />
-            <TableColumn fx:id="DateTable" prefWidth="279.004150390625" text="Date" />
-            <TableColumn fx:id="wonTable" prefWidth="262.4959716796875" text="WON_PLAYER" />
+          <TableColumn fx:id="gameNumberCulme" prefWidth="150.0" text="Game Number" />
+          <TableColumn fx:id="playerOneNameColumn" prefWidth="300.0" text="Player One Name" />
+            <TableColumn fx:id="playerTwoNameColumn" prefWidth="300.0" text="Player Two Name" />
+            <TableColumn fx:id="dateColumn" prefWidth="300.0" text="Date" />
+            <TableColumn fx:id="winerColumn" prefWidth="300.0" text="Winer Player" />
         </columns>
       </TableView>
-      <Button fx:id="BackButton" layoutX="90.0" layoutY="864.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="137.0" text="back" />
+      <Button fx:id="backButton" layoutX="47.0" layoutY="862.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="79.0" prefWidth="309.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Back" />
    </children>
 </AnchorPane>
