@@ -5,7 +5,10 @@
  */
 package xo.signin;
 
-import data.CurrentGameData;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -25,7 +28,6 @@ public class FXMLSigninControler implements Initializable {
 
     @FXML
     private ImageView levelsImagetwo;
-    
     @FXML
     private TextField userNameTextField;
     @FXML
@@ -37,14 +39,19 @@ public class FXMLSigninControler implements Initializable {
     @FXML
     private Label signInLabel;
     @FXML
+    private Button backButton;
+    @FXML
     private Button loginButton;
     @FXML
     private Button signupButton;
     @FXML
-    private Button backButton;
+    private Label passwordErrorLabel;
+    @FXML
+    private Label nameErrorLabel;
     
-    CurrentGameData currentGameData;//Marina
-
+    Socket socket;
+    DataInputStream dis ;
+    PrintStream ps;
     /**
      * Initializes the controller class.
      */
@@ -53,17 +60,25 @@ public class FXMLSigninControler implements Initializable {
         // TODO
     }    
      @FXML
-    private void loginButtonClicked(ActionEvent event) {
-       // currentGameData.setPlayer1(userNameTextField.getText());//Marina
-       
+    private void backButtonClicked(ActionEvent event) {
+
     }
      @FXML
-    private void signupButtonClicked(ActionEvent event) {
-
+    private void loginButtonClicked(ActionEvent event) throws IOException {
+        socket = new Socket("127.0.0.1" , 5005); 
+        String message =userNameTextField.getText();
+        
+        dis = new DataInputStream(socket.getInputStream ());
+        ps = new PrintStream(socket.getOutputStream ());
+        ps.println(message);
+        String replyMsg = dis.readLine();
+        System.out.println(replyMsg);
+       userNameTextField.clear();
+    
     }
     
       @FXML
-    private void backButtonClicked(ActionEvent event) {
+    private void signupButtonClicked(ActionEvent event) {
 
     }
     
