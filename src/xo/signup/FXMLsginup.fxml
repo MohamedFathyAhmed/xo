@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1600.0" styleClass="WelcomePagePaneclass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xo.signup.FXMLControlerSignup">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1600.0" styleClass="WelcomePagePaneclass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLControlerSignup">
    <children>
       <ImageView fx:id="levelsImagetwo" fitHeight="419.0" fitWidth="718.0" layoutX="78.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -41,6 +41,9 @@
       </Label>
       <Button fx:id="backButton" layoutX="57.0" layoutY="851.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="79.0" prefWidth="309.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../styles/style.css" text="Back" />
       <Button fx:id="signupButton" layoutX="327.0" layoutY="659.0" mnemonicParsing="false" onAction="#signupButtonClicked" prefHeight="34.0" prefWidth="392.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../styles/style.css" text="Sign up" />
+      <Label fx:id="nameErrorLabel" layoutX="297.0" layoutY="402.0" prefHeight="21.0" prefWidth="468.0" text="error message" textFill="#e40606" />
+      <Label fx:id="passwordErrorLabel" layoutX="292.0" layoutY="501.0" prefHeight="21.0" prefWidth="478.0" text="error message" textFill="#e40606" />
+      <Label fx:id="confirmPasswordErrorLabel" layoutX="289.0" layoutY="594.0" prefHeight="21.0" prefWidth="479.0" text="error message" textFill="#e40606" />
    </children>
    <stylesheets>
       <URL value="@../styles/style.css" />
