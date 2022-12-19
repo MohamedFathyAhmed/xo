@@ -20,8 +20,8 @@ public class Xo extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setResizable(false);
-        TicTacToeNavigator.navigateTo(stage, new FXMLLandingController(stage), TicTacToeNavigator.LANDING);
-//        TicTacToeNavigator.navigateTo(stage,TicTacToeNavigator.MEDIA);
+   //     TicTacToeNavigator.navigateTo(stage, new FXMLLandingController(stage), TicTacToeNavigator.SING_IN);
+        TicTacToeNavigator.navigateTo(stage,TicTacToeNavigator.SING_IN);
     
     }
 

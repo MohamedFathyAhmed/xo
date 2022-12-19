@@ -35,7 +35,7 @@ public class TicTacToeNavigator {
     public static final NavigationDestination MODES = new NavigationDestination("modes/FXMLModes.fxml", "MODES");
     public static final NavigationDestination ONE_PLAYER_NAME_CHOOSER = new NavigationDestination("one_player_name_chooser/FXMLOnePlayerNameChooser.fxml", "PLAYER NAME");
     public static final NavigationDestination TWO_PLAYER_NAME_CHOOSER = new NavigationDestination("two_players_name_chooser/FXMLTwoPlayersNameChooser.fxml", "PLAYER NAME");
-
+public static final NavigationDestination SING_IN = new NavigationDestination("signin/FXMLsingin.fxml", "PLAYER NAME");
     private static final Stack<NavigationDestination> destinations = new Stack<>();
 
     private static void navigateTo(Stage stage, Parent root, String title) {

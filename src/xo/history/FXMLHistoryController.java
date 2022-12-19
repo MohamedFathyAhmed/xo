@@ -73,8 +73,8 @@ public class FXMLHistoryController implements Initializable {
     private void backButtonClicked(ActionEvent event) {
     }
     private void displayGameHistory() throws SQLException{
-        int historyLength = DataAccessLayer.getGames().length;
-        Game [] gamesArrayHistory =DataAccessLayer.getGames();
+        //int historyLength = DataAccessLayer.getGames().length;
+      //  Game [] gamesArrayHistory =DataAccessLayer.getGames();
         ObservableList<Game> game=historyTable.getItems();
            
             /*
