@@ -13,7 +13,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import xo.online.handlers.RequestHandler;
+import xo.online.signin.FXMLSigninControler;
 import xo.utlis.TicTacToeNavigator;
 
 /**
@@ -21,19 +25,44 @@ import xo.utlis.TicTacToeNavigator;
  * @author mohamed
  */
 public class FXMLModesController implements Initializable {
+    @FXML
+    Button logoutButton;
 
-    CurrentGameData currentGameData;
+    private final CurrentGameData currentGameData;
+    private final RequestHandler requestHandler;
+    private Stage stage;
+//
+
+    public FXMLModesController() {
+        currentGameData = CurrentGameData.getInstance();
+        requestHandler = RequestHandler.getInstance(
+                (response) -> {
+                    if (response.isSuccess()) {
+                        TicTacToeNavigator.navigateLaterTo(
+                                stage,
+                                TicTacToeNavigator.SIGNIN
+                        );
+                    }
+                }, 5005, "127.0.0.1");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        currentGameData = CurrentGameData.getInstance();
+        logoutButton.setVisible(currentGameData.isLoggedIn());
     }
 
+    
+    
     @FXML
     private void singlePlayerButtonClicked(ActionEvent event) throws IOException {
         currentGameData.setGameMode(GameMode.SINGLE);
         TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.ONE_PLAYER_NAME_CHOOSER);
 
+    }
+    
+    @FXML
+    private void logoutButtonClicked(ActionEvent event) throws IOException {
+        
     }
 
     @FXML
@@ -43,17 +72,27 @@ public class FXMLModesController implements Initializable {
     }
 
     @FXML
-    private void onlineMultiPlayersButtonClicked(ActionEvent event) {
+    private void onlineMultiPlayersButtonClicked(ActionEvent event) throws IOException {
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentGameData.setGameMode(GameMode.ONLINE);
-        RequestHandler.getInstance(
-                (response) -> {
+        connectToServer(stage);
+    }
 
-                },
-                (message) -> {
+    private void connectToServer(Stage stage) {
+        if (requestHandler.isConnected()) {
+            TicTacToeNavigator.navigateLaterTo(
+                    stage,
+                    TicTacToeNavigator.SIGNIN
+            );
 
-                }, 5005, "");
-
-        //        
+        } else {
+            try {
+                requestHandler.connect();
+            } catch (IOException ex) {
+                //catch me
+                //server is down
+            }
+        }
     }
 
 }
