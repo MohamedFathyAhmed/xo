@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xo.online.handlers;
+package xo.online.handlers.responses;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Response {
         this.message = message;
     }
 
-    public boolean getIsSuccess() {
+    public boolean isSuccess() {
         return isSuccess.equals("true");
     }
 

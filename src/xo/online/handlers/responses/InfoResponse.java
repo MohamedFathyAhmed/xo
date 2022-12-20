@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xo.online.handlers;
+package xo.online.handlers.responses;
 
 import xo.online.handlers.responses.Response;
 
 /**
  *
- * @author Marina
+ * @author mohamed
  */
-@FunctionalInterface
-public interface ResponseReceiver {
-
-    String sendData(Response request);
+public class InfoResponse extends Response{
+    
+    public InfoResponse(String isSuccess, String message) {
+        super(isSuccess, message);
+    }
+    
 }
