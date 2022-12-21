@@ -7,9 +7,13 @@ package xo.one_player_name_chooser;
 
 import data.CurrentGameData;
 import data.GameShapes;
+import data.database.DataAccessLayer;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,8 +21,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import xo.board.BoardSinglePlayerModeController;
+import xo.utlis.CircularArray;
 import xo.utlis.TicTacToeNavigator;
 
 /**
@@ -44,6 +50,14 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
     private Label playerLabel;
     @FXML
     private Label modeLabel;
+
+    @FXML
+    private Label usernameErrorLabel;
+
+    @FXML
+    private TextField usernameTextField;
+
+    private CircularArray<String> newButtonNames = new CircularArray<>("New Name", "Save");
 
     private final CurrentGameData currentGameData;
 
@@ -75,6 +89,12 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
 
     @FXML
     private void newNameButtonClicked(ActionEvent event) {
+        usernameTextField.setVisible(!usernameTextField.visibleProperty().get());
+        newButtonNames.next();
+        ((Button) event.getSource()).setText(newButtonNames.get());
+        if (!usernameTextField.visibleProperty().get()) {
+            insertUserToDatabase();
+        }
     }
 
     @FXML
@@ -107,6 +127,15 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
         playerXButton.setDisable(false);
         currentGameData.setPlayer1Shape(GameShapes.O);
         currentGameData.setPlayer2Shape(GameShapes.X);
+    }
+
+    private void insertUserToDatabase() {
+        try {
+            DataAccessLayer.insertPlayer(usernameTextField.getText());
+            usernameErrorLabel.setVisible(false);
+        } catch (SQLException ex) {
+            usernameErrorLabel.setVisible(true);
+        }
     }
 
 }

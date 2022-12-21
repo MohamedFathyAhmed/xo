@@ -45,4 +45,8 @@ public class GameHandler {
             gameStateUpdater.accept(GameState.DRAW);
         }
     }
+
+    public String getBoardAsString() {
+        return new String(boardChars);
+    }
 }

@@ -32,7 +32,7 @@ public class FXMLBoardOfflineMultiPLayerController extends FXMLBoardController {
 
     private List<Play> plays = new ArrayList<>();
     private GameHandler gameHandler;
-    private CircularArray<String> players = new CircularArray<>(currentGameData.getPlayer1(), currentGameData.getPlayer2());
+    private CircularArray<String> players = new CircularArray(currentGameData.getPlayer1(), currentGameData.getPlayer2());
 
     public FXMLBoardOfflineMultiPLayerController(Stage stage) {
         super(stage);
