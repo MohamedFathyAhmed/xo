@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import xo.board.game.GameHandler;
+import xo.board.game.GameState;
 
 /**
  *
@@ -20,12 +21,14 @@ import xo.board.game.GameHandler;
 public class BoardSinglePlayerModeController extends FXMLBoardController {
 
     private GameHandler gameHandler;
-    private boolean isPc = false;
     int locationPcPlay;
-
+GameState gameState ;
     public BoardSinglePlayerModeController(Stage stage) {
         super(stage);
-        gameHandler = new GameHandler(this::handleGameState);
+        gameHandler = new GameHandler((gameState)->{
+        this.gameState=gameState;
+            handleGameState(gameState);
+        });
 
     }
 
@@ -41,29 +44,28 @@ public class BoardSinglePlayerModeController extends FXMLBoardController {
 
     @Override
     protected void boardButtonClicked(ActionEvent event) {
-
         super.boardButtonClicked(event);
         Button button = (Button) event.getSource();
         button.setDisable(true);
         applyStyleClass(button);
         nextTurn();
         gameHandler.play(((Button) event.getSource()).getId().charAt(6) - '0', gameShapes.get());
-
         getPlayFromPc();
 
     }
 
     void getPlayFromPc() {
-
+if(gameState==GameState.ONGOING){
         String BoardChar = gameHandler.getBoardAsString();
         EasyAi pcAi = new EasyAi(BoardChar);
         locationPcPlay = pcAi.res;
-        nextTurn();
         applyStyleClass(boardButtons[locationPcPlay]);
-        boardButtons[pcAi.res].setDisable(true);
         nextTurn();
-        System.out.println("locationPcPlay =======>" + locationPcPlay + "------>" + BoardChar);
         gameHandler.play(locationPcPlay, gameShapes.get());
+        boardButtons[pcAi.res].setDisable(true);
+//        nextTurn();
+        System.out.println("locationPcPlay =======>" + locationPcPlay + "------>" + BoardChar);
+}   
 
     }
 
