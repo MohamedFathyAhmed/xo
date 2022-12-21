@@ -27,6 +27,7 @@ public class Xo extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        DataAccessLayer.connect();
         requestHandler = RequestHandler.getInstance((String message) -> {
             try {
                 TicTacToeNavigator.navigateLaterTo(stage, TicTacToeNavigator.MODES);

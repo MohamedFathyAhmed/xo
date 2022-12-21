@@ -55,10 +55,8 @@ public class DataAccessLayer {
 
     ////////////////////////////////////////////////////////////////marina
     public static Game[] getGames() throws SQLException {
-        connect();
         Game[] games = getGamesFromResultSet(connection.createStatement()
                 .executeQuery("SELECT * FROM GAME"));
-        disconnect();
         return games;
     }
 
@@ -114,13 +112,11 @@ public class DataAccessLayer {
     }
 
     public static List<Play> getGamePlays(int gameId) throws SQLException {
-        connect();
         List<Play> plays = getPlaysFromResultSet(
                 connection.createStatement()
                         .executeQuery("SELECT * FROM PLAY"
                                 + " WHERE GAME_ID=" + gameId + " ORDER BY ID"));
     
-        disconnect();
         return plays;
     }
 
