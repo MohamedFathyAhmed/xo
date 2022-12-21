@@ -72,11 +72,11 @@ public class TicTacToeDatabase {
         DriverManager.registerDriver(derbyDatabase);
         connection = DriverManager.getConnection("jdbc:derby:tic_tac_toe;create=true");
 
-//        setIsDatabaseCreated(false);
+        setIsDatabaseCreated(true);
         if (getIsDatabaseCreated()) {
             return;
         }
-//        try {
+        
         connection.createStatement().execute(playerTable);
         connection.createStatement().execute(gameTable);
         connection.createStatement().execute(shapeTable);
@@ -84,9 +84,7 @@ public class TicTacToeDatabase {
         connection.createStatement().execute(gameShapeTable);
         connection.createStatement().execute(pausedGamesTable);
         connection.createStatement().execute("INSERT INTO PLAYER (NAME) VALUES ('EASY')");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
         setIsDatabaseCreated(true);
     }
 
