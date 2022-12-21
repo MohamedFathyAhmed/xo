@@ -165,7 +165,7 @@ public abstract class FXMLBoardController implements Initializable {
 
     @FXML
     protected void boardButtonClicked(ActionEvent event) {
-        plays.add(new Play((((Button) event.getSource()).getId().charAt(6) - '0')+"", players.get()));
+        plays.add(new Play((((Button) event.getSource()).getId().charAt(6) - '0') + "", players.get()));
         players.next();
     }
 
@@ -265,6 +265,7 @@ public abstract class FXMLBoardController implements Initializable {
 
     protected void insertGameToDatabase(String wonPlayer) {
         try {
+            DataAccessLayer.connect();
             int id = DataAccessLayer.insertGame(new Game("",
                     currentGameData.getPlayer1(),
                     isRecording + "",
@@ -275,6 +276,7 @@ public abstract class FXMLBoardController implements Initializable {
             if (isRecording) {
                 DataAccessLayer.insertPlays(plays, id);
             }
+            DataAccessLayer.disconnect();
         } catch (SQLException ex) {
             //catche me
             ex.printStackTrace();

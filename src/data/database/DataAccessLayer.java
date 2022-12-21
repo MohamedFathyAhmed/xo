@@ -55,9 +55,11 @@ public class DataAccessLayer {
 
     ////////////////////////////////////////////////////////////////marina
     public static Game[] getGames() throws SQLException {
-        return getGamesFromResultSet(connection.createStatement()
+        connect();
+        Game[] games = getGamesFromResultSet(connection.createStatement()
                 .executeQuery("SELECT * FROM GAME"));
-
+        disconnect();
+        return games;
     }
 
     public static String[] getPlayers() throws SQLException {
@@ -102,7 +104,7 @@ public class DataAccessLayer {
                 + "','"
                 + game.getWonPLayer()
                 + "','"
-                + game.getIsRecorded()+""
+                + game.getIsRecorded() + ""
                 + "')");
 
         ResultSet idResultSet = connection.createStatement().executeQuery("SELECT ID FROM GAME ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
@@ -111,14 +113,18 @@ public class DataAccessLayer {
 
     }
 
-    public static  List<Play>  getGamePlays(int gameId) throws SQLException {
-        return getPlaysFromResultSet(
+    public static List<Play> getGamePlays(int gameId) throws SQLException {
+        connect();
+        List<Play> plays = getPlaysFromResultSet(
                 connection.createStatement()
                         .executeQuery("SELECT * FROM PLAY"
                                 + " WHERE GAME_ID=" + gameId + " ORDER BY ID"));
+    
+        disconnect();
+        return plays;
     }
 
-    private static  List<Play>  getPlaysFromResultSet(ResultSet playsResultSet) throws SQLException {
+    private static List<Play> getPlaysFromResultSet(ResultSet playsResultSet) throws SQLException {
         List<Play> plays = new ArrayList<>();
 
         while (playsResultSet.next()) {
@@ -134,7 +140,7 @@ public class DataAccessLayer {
             connection.createStatement().execute("INSERT INTO PLAY (PLAYER , GAME_ID ,POSITION) "
                     + "VALUES ('" + play.getPlayer() + "',"
                     + gameId
-                    +","
+                    + ","
                     + play.getPosition()
                     + ")");
         }

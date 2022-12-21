@@ -126,7 +126,8 @@ public class FXMLSignupControler implements Initializable {
             confirmPasswordErrorLabel.setText("");
         }
 
-        boolean vaild = checkValidConfirmPassword  && checkValidName && checkValidPassword;
+        boolean vaild = true;
+                //checkValidConfirmPassword  && checkValidName && checkValidPassword;
 
         if (vaild) {
         

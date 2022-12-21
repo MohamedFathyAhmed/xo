@@ -14,9 +14,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -30,30 +28,29 @@ import xo.board.FXMLBoardReplayGameController;
 import xo.utlis.TicTacToeNavigator;
 
 /**
- * FXML Controller class
  *
- * @author Marina
+ * @author mohamed
  */
 public class FXMLHistoryController implements Initializable {
 
     @FXML
-    private AnchorPane historyTable;
+    protected AnchorPane historyTable;
     @FXML
-    private TableColumn<Game, String> gameNumberCulme;////shoud y type in game class
+    protected TableColumn<Game, String> gameNumberCulme;////shoud y type in game class
     @FXML
-    private TableColumn<Game, String> playerOneNameColumn;
+    protected TableColumn<Game, String> playerOneNameColumn;
     @FXML
-    private TableColumn<Game, String> playerTwoNameColumn;
+    protected TableColumn<Game, String> playerTwoNameColumn;
     @FXML
-    private TableColumn<Game, Date> dateColumn;
+    protected TableColumn<Game, Date> dateColumn;
     @FXML
-    private TableColumn<Game, String> winerColumn;
+    protected TableColumn<Game, String> winerColumn;
     @FXML
-    private Button backButton;
+    protected Button backButton;
     @FXML
-    private TableView<Game> historyTableView;
+    protected TableView<Game> historyTableView;
     @FXML
-    private Button viewRecordButton;
+    protected Button viewRecordButton;
 
     /**
      * Initializes the controller class.
@@ -67,7 +64,6 @@ public class FXMLHistoryController implements Initializable {
         winerColumn.setCellValueFactory(new PropertyValueFactory<Game, String>("wonPLayer"));
         viewRecordButton.setVisible(false);
 
-        updateTableViewItems();
 
         historyTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -78,18 +74,18 @@ public class FXMLHistoryController implements Initializable {
     }
 
     @FXML
-    private void backButtonClicked(ActionEvent event) throws IOException {
+    protected void backButtonClicked(ActionEvent event) throws IOException {
         TicTacToeNavigator.previous(event);
     }
 
-    private void displayGameHistory() throws SQLException {
+    protected void displayGameHistory() throws SQLException {
         if (historyTableView.getSelectionModel().getSelectedItem().equals(true)) {
             viewRecordButton.setVisible(true);
         }
     }
 
     @FXML
-    private void viewButtonClicked(ActionEvent event) throws SQLException, IOException {
+    protected void viewButtonClicked(ActionEvent event) throws SQLException, IOException {
         TicTacToeNavigator.navigateTo(
                 event,
                 new FXMLBoardReplayGameController((Stage) ((Node) event.getSource()).getScene().getWindow(),
@@ -98,15 +94,10 @@ public class FXMLHistoryController implements Initializable {
         );
     }
 
-    private void updateTableViewItems() {
-        try {
-            historyTableView.getItems().clear();
-            for (Game game : DataAccessLayer.getGames()) {
-                historyTableView.getItems().add(game);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+    protected void updateTableViewItems(Game[] games) {
+        historyTableView.getItems().clear();
+        for (Game game : games) {
+            historyTableView.getItems().add(game);
         }
-
     }
 }

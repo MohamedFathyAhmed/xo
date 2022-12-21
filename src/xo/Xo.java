@@ -27,14 +27,16 @@ public class Xo extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        DataAccessLayer.connect();
-
         requestHandler = RequestHandler.getInstance((String message) -> {
-            TicTacToeNavigator.navigateLaterTo(stage, TicTacToeNavigator.MODES);
+            try {
+                TicTacToeNavigator.navigateLaterTo(stage, TicTacToeNavigator.MODES);
+            } catch (Exception e) {
+
+            }
         });
+
         stage.setResizable(false);
         TicTacToeNavigator.navigateTo(stage, new FXMLLandingController(stage), TicTacToeNavigator.LANDING);
-        DataAccessLayer.connect();
     }
 
     /**

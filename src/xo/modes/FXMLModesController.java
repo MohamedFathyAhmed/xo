@@ -27,7 +27,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import xo.board.FXMLBoardOfflineMultiPLayerController;
+import xo.history.FXMLOfflineHistoryController;
+import xo.history.FXMLOnlineHistoryController;
 import xo.online.handlers.RequestHandler;
+import xo.online.handlers.RequestType;
 import xo.online.handlers.responses.Response;
 import xo.online.signin.FXMLSigninControler;
 import xo.user_alrts.AlertButtonResult;
@@ -78,7 +82,8 @@ public class FXMLModesController implements Initializable {
 
     @FXML
     private void logoutButtonClicked(ActionEvent event) throws IOException {
-
+        requestHandler.create(RequestType.LOGOUT);
+        logoutButton.setVisible(false);
     }
 
     @FXML
@@ -89,13 +94,14 @@ public class FXMLModesController implements Initializable {
 
     @FXML
     private void offlineHistoryButtonClicked(ActionEvent event) throws IOException {
-        TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.HISTORY);
+        TicTacToeNavigator.navigateTo(event, new FXMLOfflineHistoryController(),TicTacToeNavigator.HISTORY);
     }
 
     @FXML
     private void onlineHistoryButtonClicked(ActionEvent event) throws IOException {
-        currentGameData.setGameMode(GameMode.MULTIPLAYER);
-        TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.TWO_PLAYER_NAME_CHOOSER);
+        if (currentGameData.isLoggedIn()) {
+            TicTacToeNavigator.navigateTo(event,new FXMLOnlineHistoryController() ,TicTacToeNavigator.HISTORY);
+        }
     }
 
     @FXML

@@ -39,6 +39,7 @@ public class FXMLBoardOfflineMultiPLayerController extends FXMLBoardController  
 
     }
 
+
     @Override
     void handleGameState(GameState gameState) {
         super.handleGameState(gameState);
