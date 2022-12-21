@@ -5,9 +5,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1600.0" style="-fx-background-color: black;" styleClass="WelcomePagePaneclass" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xo.modes.FXMLModesController">
    <children>
-      <Button layoutX="186.0" layoutY="422.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#singlePlayerButtonClicked" prefHeight="51.0" prefWidth="283.0" styleClass="specialButtons" text="VS Computer" />
-      <Button layoutX="186.0" layoutY="583.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onlineMultiPlayersButtonClicked" prefHeight="51.0" prefWidth="283.0" styleClass="specialButtons" text="Online PVP" />
-      <Button layoutX="186.0" layoutY="489.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#offineMultiPlayerButtonClicked" prefHeight="51.0" prefWidth="283.0" styleClass="specialButtons" text="Offlien PVP" />
+      <Button layoutX="200.0" layoutY="420.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#singlePlayerButtonClicked" prefHeight="50.0" prefWidth="300.0" styleClass="specialButtons" text="VS Computer" />
+      <Button layoutX="200.0" layoutY="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onlineMultiPlayersButtonClicked" prefHeight="50.0" prefWidth="300.0" styleClass="specialButtons" text="Online PVP" />
+      <Button layoutX="200.0" layoutY="490.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#offineMultiPlayerButtonClicked" prefHeight="50.0" prefWidth="300.0" styleClass="specialButtons" text="Offlien PVP" />
       <Button fx:id="logoutButton" layoutX="1400.0" layoutY="50.0" mnemonicParsing="false" onAction="#logoutButtonClicked" prefHeight="50.0" prefWidth="150.0" styleClass="specialButtons" text="Logout" visible="false" />
+      <Button fx:id="onineHistoryButton" layoutX="200.0" layoutY="750.0" mnemonicParsing="false" onAction="#onlineHistoryButtonClicked" prefHeight="50.0" prefWidth="300.0" styleClass="specialButtons" text="Online History" />
+      <Button fx:id="offlineHistoryButton" layoutX="200.0" layoutY="560.0" mnemonicParsing="false" onAction="#offlineHistoryButtonClicked" prefHeight="50.0" prefWidth="300.0" styleClass="specialButtons" text="Offline History" />
    </children>
 </AnchorPane>

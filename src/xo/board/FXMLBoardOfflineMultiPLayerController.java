@@ -30,10 +30,7 @@ import xo.utlis.CircularArray;
  */
 public class FXMLBoardOfflineMultiPLayerController extends FXMLBoardController {
 
-    private List<Play> plays = new ArrayList<>();
     private GameHandler gameHandler;
-    private CircularArray<String> players = new CircularArray(currentGameData.getPlayer1(), currentGameData.getPlayer2());
-
     public FXMLBoardOfflineMultiPLayerController(Stage stage) {
         super(stage);
         gameHandler = new GameHandler(this::handleGameState);
@@ -43,17 +40,8 @@ public class FXMLBoardOfflineMultiPLayerController extends FXMLBoardController {
     @Override
     void handleGameState(GameState gameState) {
         super.handleGameState(gameState);
-        insertGameToDatabase(gameState);
     }
 
-    private String getCurrentDate() {
-        LocalDate localDate = LocalDate.now();
-        return localDate.getYear()
-                + "-"
-                + localDate.getMonthValue()
-                + "-"
-                + localDate.getDayOfMonth();
-    }
 
     @Override
     protected void boardButtonExited(MouseEvent event) {
@@ -74,7 +62,6 @@ public class FXMLBoardOfflineMultiPLayerController extends FXMLBoardController {
         button.setDisable(true);
         applyStyleClass(button);
         nextTurn();
-        players.next();
         gameHandler.play(position, gameShapes.get());
     }
 
@@ -86,34 +73,6 @@ public class FXMLBoardOfflineMultiPLayerController extends FXMLBoardController {
     @Override
     protected void applyStyleClass(Button button) {
         button.getStyleClass().add(boardStyleClasses.get());
-    }
-
-    private void insertGameToDatabase(GameState gameState) {
-        try {
-            String wonPlayer = null;
-            if (gameState != GameState.ONGOING) {
-                switch (gameState) {
-                    case PLAYER_ONE_WON:
-                        wonPlayer = currentGameData.getPlayer1();
-                        break;
-                    case PLAYER_TWO_WON:
-                        wonPlayer = currentGameData.getPlayer2();
-                        break;
-                }
-            }
-            int id = DataAccessLayer.insertGame(new Game("",
-                    currentGameData.getPlayer1(),
-                    isRecording + "",
-                    currentGameData.getPlayer2(),
-                    getCurrentDate(),
-                    wonPlayer));
-
-            if (isRecording) {
-                DataAccessLayer.insertPlays(plays, id);
-            }
-        } catch (SQLException ex) {
-            //catche me
-        }
     }
 
 }

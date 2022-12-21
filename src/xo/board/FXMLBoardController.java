@@ -15,6 +15,13 @@ import javafx.stage.Stage;
 import data.CurrentGameData;
 import javafx.animation.FadeTransition;
 import data.GameShapes;
+import data.database.DataAccessLayer;
+import data.database.models.Game;
+import data.database.models.Play;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import xo.utlis.CircularArray;
 import java.util.Timer;
 import javafx.scene.image.ImageView;
@@ -70,7 +77,7 @@ public abstract class FXMLBoardController implements Initializable {
     protected ImageView recordingImageView;
     @FXML
     protected Button recordingButton;
-    
+
     protected Button[] boardButtons;
     protected boolean firstPlayerTurn;
     protected Timer mainTimer;
@@ -83,6 +90,8 @@ public abstract class FXMLBoardController implements Initializable {
     private FadeTransition recordingImageViewFadeAffect;
     protected CurrentGameData currentGameData;
     protected Stage stage;
+    protected List<Play> plays = new ArrayList<>();
+    protected CircularArray<String> players;
 
     public FXMLBoardController(final Stage stage) {
         this.boardButtons = null;
@@ -93,17 +102,20 @@ public abstract class FXMLBoardController implements Initializable {
     }
 
     void handleGameState(GameState gameState) {
+        String wonPlayer = null;
         switch (gameState) {
             case PLAYER_ONE_WON:
                 this.stopBoardActions();
                 this.showWinnerDialog(this.player1NameText.getText());
                 this.updatePlayerOneScore();
+                insertGameToDatabase(currentGameData.getPlayer1());
                 break;
 
             case PLAYER_TWO_WON:
                 this.stopBoardActions();
                 this.showWinnerDialog(this.player2NameText.getText());
                 this.updatePlayerTwoScore();
+                insertGameToDatabase(currentGameData.getPlayer2());
                 break;
 
             case DRAW:
@@ -111,8 +123,8 @@ public abstract class FXMLBoardController implements Initializable {
                 break;
 
             default:
-
         }
+
     }
 
     public void initialize(final URL url, final ResourceBundle rb) {
@@ -126,6 +138,7 @@ public abstract class FXMLBoardController implements Initializable {
         this.setupMainTimer();
         this.setupBoardStyleClasses();
         this.gameShapes = new CircularArray(this.currentGameData.getPlayer1Shape(), this.currentGameData.getPlayer2Shape());
+        players = new CircularArray(currentGameData.getPlayer1(), currentGameData.getPlayer2());
     }
 
     private void setupBoardStyleClasses() {
@@ -151,7 +164,9 @@ public abstract class FXMLBoardController implements Initializable {
     }
 
     @FXML
-    protected void boardButtonClicked(final ActionEvent event) {
+    protected void boardButtonClicked(ActionEvent event) {
+        plays.add(new Play((((Button) event.getSource()).getId().charAt(6) - '0')+"", players.get()));
+        players.next();
     }
 
     @FXML
@@ -247,4 +262,32 @@ public abstract class FXMLBoardController implements Initializable {
         this.currentGameData.setPlayer2CurrentScore(this.currentGameData.getPlayer2CurrentScore() + 1);
         this.currentPlayer2ScoreText.setText(this.currentGameData.getPlayer2CurrentScore() + "");
     }
+
+    protected void insertGameToDatabase(String wonPlayer) {
+        try {
+            int id = DataAccessLayer.insertGame(new Game("",
+                    currentGameData.getPlayer1(),
+                    isRecording + "",
+                    currentGameData.getPlayer2(),
+                    getCurrentDate(),
+                    wonPlayer));
+
+            if (isRecording) {
+                DataAccessLayer.insertPlays(plays, id);
+            }
+        } catch (SQLException ex) {
+            //catche me
+            ex.printStackTrace();
+        }
+    }
+
+    private String getCurrentDate() {
+        LocalDate localDate = LocalDate.now();
+        return localDate.getYear()
+                + "-"
+                + localDate.getMonthValue()
+                + "-"
+                + localDate.getDayOfMonth();
+    }
+
 }

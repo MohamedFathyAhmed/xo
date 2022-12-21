@@ -69,7 +69,7 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
         currentGameData.setPlayer1(currentGameData.getGameLevel().name());
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        TicTacToeNavigator.navigateTo(stage, new FXMLBoardOfflineMultiPLayerController(stage), TicTacToeNavigator.BOARD_PLAYER_VS_EASY_AI);
+        TicTacToeNavigator.navigateTo(stage, new FXMLBoardOfflineMultiPLayerController(stage), TicTacToeNavigator.BOARD_OFFLINE_MULTIPLAYERS);
 
     }
 

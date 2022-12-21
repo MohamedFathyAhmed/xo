@@ -5,6 +5,7 @@
  */
 package xo.board;
 
+import data.database.models.Play;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,13 +21,14 @@ import xo.board.game.GameState;
  */
 public class BoardSinglePlayerModeController extends FXMLBoardController {
 
-    private GameHandler gameHandler;
-    int locationPcPlay;
-GameState gameState ;
+    private final GameHandler gameHandler;
+    private int locationPcPlay;
+    private GameState gameState;
+
     public BoardSinglePlayerModeController(Stage stage) {
         super(stage);
-        gameHandler = new GameHandler((gameState)->{
-        this.gameState=gameState;
+        gameHandler = new GameHandler((gameState) -> {
+            this.gameState = gameState;
             handleGameState(gameState);
         });
 
@@ -55,18 +57,16 @@ GameState gameState ;
     }
 
     void getPlayFromPc() {
-if(gameState==GameState.ONGOING){
-        String BoardChar = gameHandler.getBoardAsString();
-        EasyAi pcAi = new EasyAi(BoardChar);
-        locationPcPlay = pcAi.res;
-        applyStyleClass(boardButtons[locationPcPlay]);
-        nextTurn();
-        gameHandler.play(locationPcPlay, gameShapes.get());
-        boardButtons[pcAi.res].setDisable(true);
-//        nextTurn();
-        System.out.println("locationPcPlay =======>" + locationPcPlay + "------>" + BoardChar);
-}   
-
+        if (gameState == GameState.ONGOING) {
+            String BoardChar = gameHandler.getBoardAsString();
+            EasyAi pcAi = new EasyAi(BoardChar);
+            locationPcPlay = pcAi.res;
+            plays.add(new Play(locationPcPlay+"", currentGameData.getPlayer2()));
+            applyStyleClass(boardButtons[locationPcPlay]);
+            nextTurn();
+            gameHandler.play(locationPcPlay, gameShapes.get());
+            boardButtons[pcAi.res].setDisable(true);
+        }
     }
 
     @Override

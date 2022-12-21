@@ -61,7 +61,7 @@ public class DataAccessLayer {
     }
 
     public static String[] getPlayers() throws SQLException {
-        return getNamesFromResultSet(connection.createStatement().executeQuery("SELECT * FROM PLAYER"));
+        return getNamesFromResultSet(connection.createStatement().executeQuery("SELECT * FROM PLAYER WHERE NAME !='EASY'"));
 
     }
 
@@ -77,7 +77,8 @@ public class DataAccessLayer {
     }
 
     private static int getGameHistoryCount() throws SQLException {
-        ResultSet gameCount = connection.createStatement().executeQuery("select count(*) count from GAME");
+        ResultSet gameCount = connection.createStatement().executeQuery("SELECT COUNT(*) FROM GAME");
+        gameCount.next();
         return gameCount.getInt(1);
 
     }
@@ -101,7 +102,7 @@ public class DataAccessLayer {
                 + "','"
                 + game.getWonPLayer()
                 + "','"
-                + game.getIsRecorded()
+                + game.getIsRecorded()+""
                 + "')");
 
         ResultSet idResultSet = connection.createStatement().executeQuery("SELECT ID FROM GAME ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
@@ -110,14 +111,14 @@ public class DataAccessLayer {
 
     }
 
-    public static Play[] getGamePlays(int gameId) throws SQLException {
+    public static  List<Play>  getGamePlays(int gameId) throws SQLException {
         return getPlaysFromResultSet(
                 connection.createStatement()
                         .executeQuery("SELECT * FROM PLAY"
-                                + " WHERE GAME_ID='" + gameId + "' ORDER BY ID"));
+                                + " WHERE GAME_ID=" + gameId + " ORDER BY ID"));
     }
 
-    private static Play[] getPlaysFromResultSet(ResultSet playsResultSet) throws SQLException {
+    private static  List<Play>  getPlaysFromResultSet(ResultSet playsResultSet) throws SQLException {
         List<Play> plays = new ArrayList<>();
 
         while (playsResultSet.next()) {
@@ -125,7 +126,7 @@ public class DataAccessLayer {
                     playsResultSet.getInt("POSITION") + "",
                     playsResultSet.getString("PLAYER")));
         }
-        return (Play[]) plays.toArray();
+        return plays;
     }
 
     public static void insertPlays(List<Play> plays, int gameId) throws SQLException {

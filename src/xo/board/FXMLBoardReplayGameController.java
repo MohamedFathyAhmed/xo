@@ -10,13 +10,16 @@ import data.database.DataAccessLayer;
 import data.database.models.Play;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import xo.board.game.GameHandler;
+import xo.utlis.CircularArray;
 
 /**
  *
@@ -25,7 +28,8 @@ import xo.board.game.GameHandler;
 public class FXMLBoardReplayGameController extends FXMLBoardController {
 
     private final GameHandler gameHandler;
-    private final Play[] plays;
+    private final List<Play> plays;
+    private final CircularArray<GameShapes> gameShapes = new CircularArray<>(GameShapes.X, GameShapes.O);
 
     public FXMLBoardReplayGameController(Stage stage, int gameId) throws SQLException {
         super(stage);
@@ -35,6 +39,8 @@ public class FXMLBoardReplayGameController extends FXMLBoardController {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        super.initialize(url, rb);
+        boardGridPane.setDisable(true);
         play();
     }
 
@@ -50,33 +56,27 @@ public class FXMLBoardReplayGameController extends FXMLBoardController {
 
     @Override
     protected void applyStyleClass(Button button) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        button.getStyleClass().add(boardStyleClasses.get());
     }
 
     private void play() {
-        GameShapes shape = GameShapes.O;
-        boardGridPane.setDisable(true);
-        for (Play play : plays) {
-            if (shape == GameShapes.X) {
-                shape = GameShapes.O;
-            } else {
-                shape = GameShapes.X;
-            }
-            GameShapes shape1 = shape;
-            new Thread(() -> {
-                try {
+        new Thread(() -> {
+            for (Play play : plays) {
+                Platform.runLater(() -> {
                     int position = Integer.parseInt(play.getPosition());
                     applyStyleClass(boardButtons[position]);
-                    gameHandler.play(position, shape1);
+                    gameHandler.play(position, gameShapes.get());
+                    gameShapes.next();
                     nextTurn();
+                });
+                try {
                     Thread.sleep(1500L);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(FXMLBoardReplayGameController.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-            }).start();
-        }
-
+            }
+        }).start();
     }
 
 }

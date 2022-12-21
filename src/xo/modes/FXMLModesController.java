@@ -38,7 +38,7 @@ import xo.utlis.TicTacToeNavigator;
 public class FXMLModesController implements Initializable {
 
     @FXML
-    Button logoutButton;
+    Button logoutButton, offlineHistoryButton, onlineHistoryButton;
 
     private final CurrentGameData currentGameData;
     private final RequestHandler requestHandler;
@@ -84,6 +84,21 @@ public class FXMLModesController implements Initializable {
         TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.TWO_PLAYER_NAME_CHOOSER);
     }
 
+    @FXML
+    private void offlineHistoryButtonClicked(ActionEvent event) throws IOException {
+        TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.HISTORY);    
+    }
+    
+
+    
+    @FXML
+    private void onlineHistoryButtonClicked(ActionEvent event) throws IOException {
+        currentGameData.setGameMode(GameMode.MULTIPLAYER);
+        TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.TWO_PLAYER_NAME_CHOOSER);
+    }
+
+    
+    
     @FXML
     private void onlineMultiPlayersButtonClicked(ActionEvent event) throws IOException {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

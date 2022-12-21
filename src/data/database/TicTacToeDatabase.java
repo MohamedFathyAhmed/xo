@@ -14,7 +14,7 @@ public class TicTacToeDatabase {
             + " PLAYER_1 VARCHAR(50) not null, "
             + " PLAYER_2 VARCHAR(50) not null, "
             + " DATE DATE not null, "
-            + " WON_PLAYER VARCHAR(50), "
+            + " WON_PLAYER VARCHAR(50) not null, "
             + " RECORDED BOOLEAN NOT NULL,"
             + " FOREIGN KEY (PLAYER_1) REFERENCES PLAYER(NAME), "
             + " FOREIGN KEY (PLAYER_2) REFERENCES PLAYER(NAME), "
@@ -77,12 +77,13 @@ public class TicTacToeDatabase {
             return;
         }
 //        try {
-            connection.createStatement().execute(playerTable);
-            connection.createStatement().execute(gameTable);
-            connection.createStatement().execute(shapeTable);
-            connection.createStatement().execute(playTable);
-            connection.createStatement().execute(gameShapeTable);
-            connection.createStatement().execute(pausedGamesTable);
+        connection.createStatement().execute(playerTable);
+        connection.createStatement().execute(gameTable);
+        connection.createStatement().execute(shapeTable);
+        connection.createStatement().execute(playTable);
+        connection.createStatement().execute(gameShapeTable);
+        connection.createStatement().execute(pausedGamesTable);
+        connection.createStatement().execute("INSERT INTO PLAYER (NAME) VALUES ('EASY')");
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }

@@ -39,7 +39,7 @@ public class FXMLHistoryController implements Initializable {
     @FXML
     private AnchorPane historyTable;
     @FXML
-    private TableColumn<Game, Integer> gameNumberCulme;////shoud y type in game class
+    private TableColumn<Game, String> gameNumberCulme;////shoud y type in game class
     @FXML
     private TableColumn<Game, String> playerOneNameColumn;
     @FXML
@@ -60,7 +60,7 @@ public class FXMLHistoryController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        gameNumberCulme.setCellValueFactory(new PropertyValueFactory<Game, String>("id"));
         playerOneNameColumn.setCellValueFactory(new PropertyValueFactory<Game, String>("player1"));
         playerTwoNameColumn.setCellValueFactory(new PropertyValueFactory<Game, String>("player2"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<Game, Date>("date"));
@@ -71,16 +71,15 @@ public class FXMLHistoryController implements Initializable {
 
         historyTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                viewRecordButton.setVisible(true);
+                viewRecordButton.setVisible(newSelection.getIsRecorded());
             }
         });
 
     }
 
     @FXML
-    private void backButtonClicked(ActionEvent event) {
-
-        //viewRecordButton.setVisible(true);
+    private void backButtonClicked(ActionEvent event) throws IOException {
+        TicTacToeNavigator.previous(event);
     }
 
     private void displayGameHistory() throws SQLException {

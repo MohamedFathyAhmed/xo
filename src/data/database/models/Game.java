@@ -59,8 +59,8 @@ public class Game {
         player2Shape = "O";
     }
 
-    public String getIsRecorded() {
-        return isRecorded;
+    public boolean getIsRecorded() {
+        return Boolean.valueOf(isRecorded);
     }
     
     public String getPlayer1Shape() {
