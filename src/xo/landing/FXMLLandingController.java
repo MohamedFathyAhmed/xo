@@ -5,17 +5,10 @@
  */
 package xo.landing;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
-import xo.modes.FXMLModesController;
-import xo.utlis.TicTacToeExecutorService;
 import xo.utlis.TicTacToeNavigator;
 
 /**
@@ -35,9 +28,9 @@ public class FXMLLandingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         new Thread(() -> {
             try {
-                Thread.sleep(2000L);
+                Thread.sleep(1000L);
             } catch (InterruptedException ex) {
-                //catch me
+                ex.printStackTrace();
             }
             TicTacToeNavigator.navigateLaterTo(stage, TicTacToeNavigator.MODES);
         }).start();

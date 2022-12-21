@@ -11,12 +11,11 @@ import xo.online.handlers.responses.Response;
  *
  * @author Marina
  */
-public class OnlinePlayersResponse extends Response {
+public class OnlinePlayersResponse implements Response {
 
     private final String[] players;
 
-    public OnlinePlayersResponse(String[] players, String isSuccess, String message) {
-        super(isSuccess, message);
+    public OnlinePlayersResponse(String[] players) {
         this.players = players;
     }
 

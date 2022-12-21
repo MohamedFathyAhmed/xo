@@ -15,6 +15,7 @@ public class TicTacToeDatabase {
             + " PLAYER_2 VARCHAR(50) not null, "
             + " DATE DATE not null, "
             + " WON_PLAYER VARCHAR(50), "
+            + " RECORDED BOOLEAN NOT NULL,"
             + " FOREIGN KEY (PLAYER_1) REFERENCES PLAYER(NAME), "
             + " FOREIGN KEY (PLAYER_2) REFERENCES PLAYER(NAME), "
             + " FOREIGN KEY (WON_PLAYER) REFERENCES PLAYER(NAME)"
@@ -72,18 +73,20 @@ public class TicTacToeDatabase {
         connection = DriverManager.getConnection("jdbc:derby:tic_tac_toe;create=true");
 
 //        setIsDatabaseCreated(false);
-        if (getIsDatabaseCreated()) {
-            return;
+//        if (getIsDatabaseCreated()) {
+//            return;
+//        }
+        try {
+            connection.createStatement().execute(playerTable);
+            connection.createStatement().execute(gameTable);
+            connection.createStatement().execute(shapeTable);
+            connection.createStatement().execute(playTable);
+            connection.createStatement().execute(gameShapeTable);
+            connection.createStatement().execute(pausedGamesTable);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        connection.createStatement().execute(playerTable);
-        connection.createStatement().execute(gameTable);
-        connection.createStatement().execute(shapeTable);
-        connection.createStatement().execute(playTable);
-        connection.createStatement().execute(gameShapeTable);
-        connection.createStatement().execute(pausedGamesTable);
-
-        setIsDatabaseCreated(true);
+//        setIsDatabaseCreated(true);
     }
 
     public static TicTacToeDatabase getInstance() throws SQLException {

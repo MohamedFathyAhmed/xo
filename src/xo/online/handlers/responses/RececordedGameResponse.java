@@ -13,12 +13,11 @@ import data.database.models.Play;
  * @author Marina
  */
 
-public class RececordedGameResponse extends Response {
+public class RececordedGameResponse implements Response {
 
     private final Play[] plays;
 
-    public RececordedGameResponse(Play[] plays, String isSuccess, String message) {
-        super(isSuccess, message);
+    public RececordedGameResponse(Play[] plays) {
         this.plays = plays;
     }
 }

@@ -15,22 +15,11 @@ public class Play {
 
     private final String position;
     private final String player;
-    private final String gameId;
-    private final String gameShape;
 
-    public Play(String position, String player, String gameId, String gameShape) {
+    public Play(String position, String player) {
         this.position = position;
         this.player = player;
-        this.gameId = gameId;
-        this.gameShape = gameShape;
-    }
 
-    public String getGameId() {
-        return gameId;
-    }
-
-    public String getGameShape() {
-        return gameShape;
     }
     
     public String getPosition() {

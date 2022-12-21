@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
  */
 public interface RequestType {
 
+
     public static final String MESSAGE_SPLITER = ";;";
     public static final String ARRAY_SPLITER = "~~";
     public static final String OBJECT_SPLITER = "~";

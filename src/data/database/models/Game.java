@@ -14,6 +14,7 @@ import java.util.Date;
 //true  message 
 public class Game {
 
+    private final String id;
     private final String player1;
     private final String player2;
     private final String date;
@@ -22,18 +23,35 @@ public class Game {
     private final String player2Shape;
 
     public Game(
+            String id,
             String player1,
             String player2,
             String date,
             String wonPLayer,
             String player1Shape,
             String player2Shape) {
+        this.id = id;
         this.player1 = player1;
         this.player2 = player2;
         this.date = date;
         this.wonPLayer = wonPLayer;
         this.player1Shape = player1Shape;
         this.player2Shape = player2Shape;
+    }
+
+    public Game(
+            String id,
+            String player1,
+            String player2,
+            String date,
+            String wonPLayer) {
+        this.id = id;
+        this.player1 = player1;
+        this.player2 = player2;
+        this.date = date;
+        this.wonPLayer = wonPLayer;
+        player1Shape = "X";
+        player2Shape = "O";
     }
 
     public String getPlayer1Shape() {
@@ -59,4 +77,10 @@ public class Game {
     public String getWonPLayer() {
         return wonPLayer;
     }
+
+    public int getId() {
+        return Integer.parseInt(id);
+    }
+    
+     
 }

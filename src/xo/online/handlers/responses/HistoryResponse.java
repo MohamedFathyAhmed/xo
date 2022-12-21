@@ -12,12 +12,11 @@ import data.database.models.Game;
  *
  * @author Marina
  */
-public class HistoryResponse extends Response {
+public class HistoryResponse implements Response {
 
     private final Game[] games;
 
-    public HistoryResponse(Game[] games, String isSuccess, String message) {
-        super(isSuccess, message);
+    public HistoryResponse(Game[] games) {
         this.games = games;
     }
 

@@ -6,8 +6,10 @@
 package xo.board;
 
 import data.GameShapes;
+import data.database.DataAccessLayer;
 import data.database.models.Play;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,9 +27,9 @@ public class FXMLBoardReplayGameController extends FXMLBoardController {
     private final GameHandler gameHandler;
     private final Play[] plays;
 
-    public FXMLBoardReplayGameController(Stage stage, Play[] plays) {
+    public FXMLBoardReplayGameController(Stage stage, int gameId) throws SQLException {
         super(stage);
-        this.plays = plays;
+        plays = DataAccessLayer.getGamePlays(gameId);
         gameHandler = new GameHandler(this::handleGameState);
     }
 
@@ -52,30 +54,29 @@ public class FXMLBoardReplayGameController extends FXMLBoardController {
     }
 
     private void play() {
-    
+        GameShapes shape = GameShapes.O;
         boardGridPane.setDisable(true);
         for (Play play : plays) {
-            
-            new Thread(()->{
+            if (shape == GameShapes.X) {
+                shape = GameShapes.O;
+            } else {
+                shape = GameShapes.X;
+            }
+            GameShapes shape1 = shape;
+            new Thread(() -> {
                 try {
-                    int position =Integer.parseInt(play.getPosition()) ;
+                    int position = Integer.parseInt(play.getPosition());
                     applyStyleClass(boardButtons[position]);
-                    gameHandler.play(position, GameShapes.valueOf(play.getGameShape()));
+                    gameHandler.play(position, shape1);
                     nextTurn();
                     Thread.sleep(1500L);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(FXMLBoardReplayGameController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-             
+
             }).start();
-            
-          
-             
-             
         }
-        
-      
-       
+
     }
 
 }

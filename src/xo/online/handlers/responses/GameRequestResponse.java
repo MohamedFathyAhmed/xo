@@ -11,11 +11,10 @@ import xo.online.handlers.responses.Response;
  *
  * @author mohamed
  */
-public class GameRequestResponse extends Response{
+public class GameRequestResponse implements Response{
     private final String sender;
 
-    public GameRequestResponse(String sender, String isSuccess, String message) {
-        super(isSuccess, message);
+    public GameRequestResponse(String sender) {
         this.sender = sender;
     }
 
@@ -25,3 +24,4 @@ public class GameRequestResponse extends Response{
     
     
 }
+

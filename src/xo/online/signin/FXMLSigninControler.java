@@ -6,15 +6,25 @@
 package xo.online.signin;
 
 import data.CurrentGameData;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import xo.online.handlers.ParamterizeRequest;
+import xo.online.handlers.RequestHandler;
+import xo.online.handlers.responses.Response;
+import xo.utlis.TicTacToeNavigator;
+import xo.online.handlers.RequestType;
+import xo.online.handlers.responses.AuthResponse;
 
 /**
  * FXML Controller class
@@ -25,11 +35,11 @@ public class FXMLSigninControler implements Initializable {
 
     @FXML
     private ImageView levelsImagetwo;
-    
+
     @FXML
-    private TextField userNameTextField;
+    private TextField usernameTextField;
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordPasswordField;
     @FXML
     private Label userNameLabel;
     @FXML
@@ -42,9 +52,21 @@ public class FXMLSigninControler implements Initializable {
     private Button signupButton;
     @FXML
     private Button backButton;
-    
-    CurrentGameData currentGameData;
-    
+
+    private CurrentGameData currentGameData;
+    private RequestHandler requestHandler;
+
+    private Stage stage;
+
+    public FXMLSigninControler() {
+        currentGameData = CurrentGameData.getInstance();
+        requestHandler = RequestHandler.getInstance((Response response) -> {
+            if (((AuthResponse) response).getIsSuccess()) {
+                currentGameData.setOnlineName(usernameTextField.getText());
+                TicTacToeNavigator.navigateLaterTo(stage, TicTacToeNavigator.ONLINE_PLAYERS);
+            }
+        });
+    }
 
     /**
      * Initializes the controller class.
@@ -52,20 +74,35 @@ public class FXMLSigninControler implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-     @FXML
+    }
+
+    @FXML
     private void loginButtonClicked(ActionEvent event) {
-       // currentGameData.setPlayer1(userNameTextField.getText());//Marina
-       
+        if (stage == null) {
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        }
+        try {
+            requestHandler.create(RequestType.SIGNIN,
+                    new ParamterizeRequest(
+                            passwordPasswordField.getText(),
+                            usernameTextField.getText()));
+        } catch (IOException ex) {
+            //catch me
+            ex.printStackTrace();
+        }
     }
-     @FXML
+
+    @FXML
     private void signupButtonClicked(ActionEvent event) {
-
+        try {
+            TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.SIGNUP);
+        } catch (IOException ex) {
+            //catch me
+        }
     }
-    
-      @FXML
-    private void backButtonClicked(ActionEvent event) {
 
+    @FXML
+    private void backButtonClicked(ActionEvent event) throws IOException {
+        TicTacToeNavigator.previous(event);
     }
-    
 }

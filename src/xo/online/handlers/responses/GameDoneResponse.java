@@ -11,11 +11,10 @@ import xo.board.game.GameState;
  *
  * @author mohamed
  */
-public class GameDoneResponse extends Response{
+public class GameDoneResponse implements Response{
     private final String gameState;
 
-    public GameDoneResponse(String gameState, String isSuccess, String message) {
-        super(isSuccess, message);
+    public GameDoneResponse(String gameState) {
         this.gameState = gameState;
     }
 

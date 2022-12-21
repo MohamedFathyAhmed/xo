@@ -21,6 +21,8 @@ public class CurrentGameData {
     private final String X_BOARD_HOVER_STYLE_CSS = "empty_x_board-btn";
     private final String O_BOARD_HOVER_STYLE_CSS = "empty_o_board-btn";
     private String winerPlayer; //marina
+    private boolean isLoggedIn = false;
+    private String onlineName;
 
     private GameShapes player1Shape;
     private GameShapes player2Shape;
@@ -56,6 +58,14 @@ public class CurrentGameData {
         return instance;
     }
 
+    public boolean isLoggedIn() {
+        return onlineName != null;
+    }
+
+    public void setIsLoggedIn(boolean isLoggedIn) {
+        this.isLoggedIn = isLoggedIn;
+    }
+
     public String getPlayer1() {
         return player1;
     }
@@ -88,30 +98,34 @@ public class CurrentGameData {
         this.player2Shape = player2Shape;
     }
 
-    public String getPLayer1BoardStyleCss(){
-        if(player1Shape==GameShapes.X)
+    public String getPLayer1BoardStyleCss() {
+        if (player1Shape == GameShapes.X) {
             return X_BOARD_STYLE_CSS;
+        }
         return O_BOARD_STYLE_CSS;
     }
-    
-    public String getPLayer2BoardStyleCss(){
-        if(player2Shape==GameShapes.X)
+
+    public String getPLayer2BoardStyleCss() {
+        if (player2Shape == GameShapes.X) {
             return X_BOARD_STYLE_CSS;
+        }
         return O_BOARD_STYLE_CSS;
     }
-    
-    public String getPlayer1BoardHoverStyleCss(){
-        if(player1Shape==GameShapes.X)
+
+    public String getPlayer1BoardHoverStyleCss() {
+        if (player1Shape == GameShapes.X) {
             return X_BOARD_HOVER_STYLE_CSS;
+        }
         return O_BOARD_HOVER_STYLE_CSS;
     }
-    
-    public String getPlayer2BoardHoverStyleCss(){
-        if(player2Shape==GameShapes.X)
+
+    public String getPlayer2BoardHoverStyleCss() {
+        if (player2Shape == GameShapes.X) {
             return X_BOARD_HOVER_STYLE_CSS;
+        }
         return O_BOARD_HOVER_STYLE_CSS;
     }
-    
+
     public int getPlayer1OverAllScore() {
         return player1OverAllScore;
     }
@@ -166,6 +180,14 @@ public class CurrentGameData {
 
     public void setWinerPlayer(String winerPlayer) { //Marina
         this.winerPlayer = winerPlayer;
+    }
+
+    public String getOnlineName() {
+        return onlineName;
+    }
+
+    public void setOnlineName(String onlineName) {
+        this.onlineName = onlineName;
     }
 
 }

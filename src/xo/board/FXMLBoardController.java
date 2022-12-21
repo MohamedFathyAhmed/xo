@@ -1,250 +1,223 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package xo.board;
 
-import data.CurrentGameData;
+import java.util.TimerTask;
+import javafx.scene.Node;
+import javafx.util.Duration;
+import xo.utlis.TicTacToeNavigator;
+import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
 import data.GameLevel;
 import data.GameMode;
-import data.GameShapes;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import javafx.util.Duration;
+import java.net.URL;
 import xo.board.game.GameState;
-import xo.board.game.GameHandler;
+import javafx.stage.Stage;
+import data.CurrentGameData;
+import javafx.animation.FadeTransition;
+import data.GameShapes;
 import xo.utlis.CircularArray;
+import java.util.Timer;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
+import javafx.scene.control.Button;
+import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
+import javafx.fxml.Initializable;
 
-/**
- *
- * @author mohamed
- */
 public abstract class FXMLBoardController implements Initializable {
 
     @FXML
     GridPane boardGridPane;
-
     @FXML
-    protected Button button0, button1, button2, button3, button4, button5, button6, button7, button8;
-
+    protected Button button0;
     @FXML
-    protected Text mainTimerText,
-            currentScorePlayer1, currentScorePlayer2, oldScorePlayer1, oldScorePlayer2, player1NameText, player2NameText;//Marina
+    protected Button button1;
     @FXML
-    protected ImageView oLightOfImageView, xLightOfImageView, xLightOnImageView, oLightOnImageView;
-
+    protected Button button2;
+    @FXML
+    protected Button button3;
+    @FXML
+    protected Button button4;
+    @FXML
+    protected Button button5;
+    @FXML
+    protected Button button6;
+    @FXML
+    protected Button button7;
+    @FXML
+    protected Button button8;
+    @FXML
+    protected Text mainTimerText;
+    @FXML
+    protected Text player1NameText;
+    @FXML
+    protected Text player2NameText;
+    @FXML
+    protected ImageView oLightOfImageView;
+    @FXML
+    protected ImageView xLightOfImageView;
+    @FXML
+    protected ImageView xLightOnImageView;
+    @FXML
+    protected ImageView oLightOnImageView;
     @FXML
     protected Text recordingText;
-
+    @FXML
+    protected Text currentPlayer1ScoreText;
+    @FXML
+    protected Text currentPlayer2ScoreText;
     @FXML
     protected ImageView recordingImageView;
-
     @FXML
     protected Button recordingButton;
-
-    //
-    protected Button[] boardButtons = null;
-
-    protected boolean firstPlayerTurn = true;
-
-    //timer
+    protected Button[] boardButtons;
+    protected boolean firstPlayerTurn;
     protected Timer mainTimer;
     protected int timer;
-
     protected CircularArray<String> boardHoverStyleClasses;
     protected CircularArray<String> boardStyleClasses;
     protected CircularArray<GameShapes> gameShapes;
-
-    //recording
     private boolean isRecording;
     private FadeTransition recordingTextFadeAffect;
     private FadeTransition recordingImageViewFadeAffect;
-
-    protected CurrentGameData currentGameData; //Marina
-
+    protected CurrentGameData currentGameData;
     protected Stage stage;
 
-    public FXMLBoardController(Stage stage) {
-        stage.setOnCloseRequest((windowEvent) -> mainTimer.cancel());
-        mainTimer = new Timer();
+    public FXMLBoardController(final Stage stage) {
+        this.boardButtons = null;
+        this.firstPlayerTurn = true;
+        stage.setOnCloseRequest(windowEvent -> this.mainTimer.cancel());
+        this.mainTimer = new Timer();
         this.stage = stage;
     }
 
     void handleGameState(GameState gameState) {
         switch (gameState) {
             case PLAYER_ONE_WON:
-                //update won player #marina
-                stopBoardActions();
-                showWinnerDialog(player1NameText.getText());
+                this.stopBoardActions();
+                this.showWinnerDialog(this.player1NameText.getText());
+                this.updatePlayerOneScore();
                 break;
 
             case PLAYER_TWO_WON:
-                //update won player #marina
-                stopBoardActions();
-                showWinnerDialog(player1NameText.getText());
+                this.stopBoardActions();
+                this.showWinnerDialog(this.player2NameText.getText());
+                this.updatePlayerTwoScore();
                 break;
 
             case DRAW:
-                //update game state #marina
-
-                stopBoardActions();
+                this.stopBoardActions();
                 break;
+
             default:
-                return;
+
         }
-        //show video #huda
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        //Marina Reciving  && Passing data
-        currentGameData = CurrentGameData.getInstance();
-        //Passing data
-        currentGameData.setGameMode(GameMode.SINGLE);
-        currentGameData.setGameLevel(GameLevel.EASY);
-
-        player1NameText.setText(currentGameData.getPlayer1());
-        player2NameText.setText(currentGameData.getPlayer2());
-
-        oldScorePlayer1.setTranslateX(currentGameData.getPlayer1OverAllScore());
-        oldScorePlayer2.setTranslateX(currentGameData.getPlayer1OverAllScore());
-
-        currentScorePlayer1.setTranslateX(currentGameData.getPlayer1CurrentScore());
-        currentScorePlayer2.setTranslateX(currentGameData.getPlayer2CurrentScore());
-
-        boardButtons = new Button[]{button0, button1, button2, button3, button4, button5, button6, button7, button8};
-
-        setupRecordingTextFadeAffect();
-        setupRecordingImageViewFadeAffect();
-        setupMainTimer();
-        setupBoardStyleClasses();
-        gameShapes = new CircularArray<>(currentGameData.getPlayer1Shape(), currentGameData.getPlayer2Shape());
-
+    public void initialize(final URL url, final ResourceBundle rb) {
+        (this.currentGameData = CurrentGameData.getInstance()).setGameMode(GameMode.SINGLE);
+        this.currentGameData.setGameLevel(GameLevel.EASY);
+        this.player1NameText.setText(this.currentGameData.getPlayer1());
+        this.player2NameText.setText(this.currentGameData.getPlayer2());
+        this.boardButtons = new Button[]{this.button0, this.button1, this.button2, this.button3, this.button4, this.button5, this.button6, this.button7, this.button8};
+        this.setupRecordingTextFadeAffect();
+        this.setupRecordingImageViewFadeAffect();
+        this.setupMainTimer();
+        this.setupBoardStyleClasses();
+        this.gameShapes = new CircularArray(this.currentGameData.getPlayer1Shape(), this.currentGameData.getPlayer2Shape());
     }
 
     private void setupBoardStyleClasses() {
-        boardStyleClasses = new CircularArray<>(currentGameData.getPLayer1BoardStyleCss(), currentGameData.getPLayer2BoardStyleCss());
-        boardHoverStyleClasses = new CircularArray<>(currentGameData.getPlayer1BoardHoverStyleCss(), currentGameData.getPlayer2BoardHoverStyleCss());
+        this.boardStyleClasses = new CircularArray(this.currentGameData.getPLayer1BoardStyleCss(), this.currentGameData.getPLayer2BoardStyleCss());
+        this.boardHoverStyleClasses = new CircularArray(this.currentGameData.getPlayer1BoardHoverStyleCss(), this.currentGameData.getPlayer2BoardHoverStyleCss());
     }
 
     @FXML
-    protected void recordButtonClicked(ActionEvent event) {
-        isRecording = !isRecording;
-        Button button = (Button) event.getSource();
-        toggleRecordingVisibility();
-        toggleRecordingFadeAffect();
-
-        if (isRecording) {
+    protected void recordButtonClicked(final ActionEvent event) {
+        this.isRecording = !this.isRecording;
+        final Button button = (Button) event.getSource();
+        this.toggleRecordingVisibility();
+        this.toggleRecordingFadeAffect();
+        if (this.isRecording) {
             button.setText("Cancel");
         } else {
             button.setText("Record");
         }
-
     }
 
     @FXML
-    protected void exitButtonClicked(MouseEvent event) {
-        //show alret
-        //exit
+    protected void exitButtonClicked(final MouseEvent event) {
     }
 
     @FXML
-    protected void boardButtonClicked(ActionEvent event) {
-        //timer
+    protected void boardButtonClicked(final ActionEvent event) {
     }
 
     @FXML
-    protected abstract void boardButtonEntered(MouseEvent event);
+    protected abstract void boardButtonEntered(final MouseEvent p0);
 
     @FXML
-    protected abstract void boardButtonExited(MouseEvent event);
+    protected abstract void boardButtonExited(final MouseEvent p0);
 
-    protected abstract void applyStyleClass(Button button);
+    protected abstract void applyStyleClass(final Button p0);
 
     @FXML
     protected void leaveButtonClicked(ActionEvent event) {
-
-        //timer
-        mainTimer.cancel();
+        TicTacToeNavigator.previousLater(event);
+        this.mainTimer.cancel();
     }
 
-    protected void disableBoardButtons(boolean disabled) {
-        for (Button button : boardButtons) {
+    protected void disableBoardButtons(final boolean disabled) {
+        for (final Button button : this.boardButtons) {
             button.setDisable(disabled);
         }
     }
 
     private void setupRecordingTextFadeAffect() {
-        recordingTextFadeAffect = new FadeTransition(Duration.millis(3000), recordingText);
-
-        recordingTextFadeAffect.setFromValue(0.0);
-        recordingTextFadeAffect.setToValue(1.0);
-
-        recordingTextFadeAffect.setOnFinished((e) -> {
-            double temp = recordingTextFadeAffect.getToValue();
-            recordingTextFadeAffect.setToValue(recordingTextFadeAffect.getFromValue());
-            recordingTextFadeAffect.setFromValue(temp);
-            recordingTextFadeAffect.play();
+        (this.recordingTextFadeAffect = new FadeTransition(Duration.millis(3000.0), (Node) this.recordingText)).setFromValue(0.0);
+        this.recordingTextFadeAffect.setToValue(1.0);
+        this.recordingTextFadeAffect.setOnFinished(e -> {
+            final double temp = this.recordingTextFadeAffect.getToValue();
+            this.recordingTextFadeAffect.setToValue(this.recordingTextFadeAffect.getFromValue());
+            this.recordingTextFadeAffect.setFromValue(temp);
+            this.recordingTextFadeAffect.play();
         });
     }
 
     private void setupRecordingImageViewFadeAffect() {
-        recordingImageViewFadeAffect = new FadeTransition(Duration.millis(3000), recordingImageView);
-
-        recordingImageViewFadeAffect.setFromValue(0.0);
-        recordingImageViewFadeAffect.setToValue(1.0);
-
-        recordingImageViewFadeAffect.setOnFinished((event) -> {
-            double temp = recordingImageViewFadeAffect.getToValue();
-            recordingImageViewFadeAffect.setToValue(recordingImageViewFadeAffect.getFromValue());
-            recordingImageViewFadeAffect.setFromValue(temp);
-            recordingImageViewFadeAffect.play();
+        (this.recordingImageViewFadeAffect = new FadeTransition(Duration.millis(3000.0), (Node) this.recordingImageView)).setFromValue(0.0);
+        this.recordingImageViewFadeAffect.setToValue(1.0);
+        this.recordingImageViewFadeAffect.setOnFinished(event -> {
+            final double temp = this.recordingImageViewFadeAffect.getToValue();
+            this.recordingImageViewFadeAffect.setToValue(this.recordingImageViewFadeAffect.getFromValue());
+            this.recordingImageViewFadeAffect.setFromValue(temp);
+            this.recordingImageViewFadeAffect.play();
         });
     }
 
-    private void toggleRecordingVisibility() {
-        recordingText.setVisible(isRecording);
-        recordingImageView.setVisible(isRecording);
+    protected void toggleRecordingVisibility() {
+        this.recordingText.setVisible(this.isRecording);
+        this.recordingImageView.setVisible(this.isRecording);
     }
 
     private void toggleRecordingFadeAffect() {
-        if (isRecording) {
-            recordingImageViewFadeAffect.play();
-            recordingTextFadeAffect.play();
+        if (this.isRecording) {
+            this.recordingImageViewFadeAffect.play();
+            this.recordingTextFadeAffect.play();
         } else {
-            recordingImageViewFadeAffect.stop();
-            recordingTextFadeAffect.stop();
+            this.recordingImageViewFadeAffect.stop();
+            this.recordingTextFadeAffect.stop();
         }
     }
 
     protected void nextTurn() {
-        boardHoverStyleClasses.next();
-        boardStyleClasses.next();
-        gameShapes.next();
+        this.boardHoverStyleClasses.next();
+        this.boardStyleClasses.next();
+        this.gameShapes.next();
     }
 
     private void setupMainTimer() {
-        mainTimer.schedule(new TimerTask() {
+        this.mainTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 timer++;
@@ -254,24 +227,23 @@ public abstract class FXMLBoardController implements Initializable {
     }
 
     private void stopBoardActions() {
-        disableBoardButtons(true);
-        mainTimer.cancel();
-        recordingButton.setDisable(true);
-        recordingTextFadeAffect.stop();
-        recordingImageViewFadeAffect.stop();
+        this.disableBoardButtons(true);
+        this.mainTimer.cancel();
+        this.recordingButton.setDisable(true);
+        this.recordingTextFadeAffect.stop();
+        this.recordingImageViewFadeAffect.stop();
     }
 
-    private void showWinnerDialog(String text) {
-        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource("media/FXMLMedia.fxml"));
-        Dialog<ButtonType> dialog = new Dialog<>();
-        try {
-            dialog.setDialogPane(loader.load());
-            dialog.showAndWait();
-            System.out.println("help");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
+    private void showWinnerDialog(final String text) {
     }
 
+    private void updatePlayerOneScore() {
+        this.currentGameData.setPlayer1CurrentScore(this.currentGameData.getPlayer1CurrentScore() + 1);
+        this.currentPlayer1ScoreText.setText(this.currentGameData.getPlayer1CurrentScore() + "");
+    }
+
+    private void updatePlayerTwoScore() {
+        this.currentGameData.setPlayer2CurrentScore(this.currentGameData.getPlayer2CurrentScore() + 1);
+        this.currentPlayer2ScoreText.setText(this.currentGameData.getPlayer2CurrentScore() + "");
+    }
 }

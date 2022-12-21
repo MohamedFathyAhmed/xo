@@ -5,25 +5,10 @@
  */
 package xo.online.handlers.responses;
 
-import xo.online.handlers.responses.Response;
-import data.database.models.Game;
-
 /**
  *
- * @author Marina
+ * @author mohamed
  */
-
-public class RececordedGameListResponse extends Response {
-
-    private final Game[] games;
-
-    public RececordedGameListResponse(Game[] games, String isSuccess, String message) {
-        super(isSuccess, message);
-        this.games = games;
-    }
-
-    public Game[] getGames() {
-        return games;
-    }
+public class RececordedGameListResponse {
     
 }

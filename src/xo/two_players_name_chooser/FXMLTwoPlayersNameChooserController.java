@@ -18,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import xo.board.BoardSinglePlayerModeController;
 import xo.board.FXMLBoardOfflineMultiPLayerController;
 import xo.utlis.TicTacToeNavigator;
 

@@ -5,10 +5,11 @@
  */
 package xo;
 
+import data.database.DataAccessLayer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import xo.landing.FXMLLandingController;
-import xo.utlis.TicTacToeExecutorService;
+import xo.online.handlers.RequestHandler;
 import xo.utlis.TicTacToeNavigator;
 
 /**
@@ -17,12 +18,18 @@ import xo.utlis.TicTacToeNavigator;
  */
 public class Xo extends Application {
 
+    private RequestHandler requestHandler;
+
     @Override
     public void start(Stage stage) throws Exception {
+        requestHandler = RequestHandler.getInstance((String message) -> {
+//            if (!requestHandler.isConnected()) {
+            TicTacToeNavigator.navigateLaterTo(stage, TicTacToeNavigator.MODES);
+            //show error
+//            }
+        });
         stage.setResizable(false);
-   //     TicTacToeNavigator.navigateTo(stage, new FXMLLandingController(stage), TicTacToeNavigator.SING_IN);
-        TicTacToeNavigator.navigateTo(stage,TicTacToeNavigator.SING_IN);
-    
+        TicTacToeNavigator.navigateTo(stage, new FXMLLandingController(stage), TicTacToeNavigator.LANDING);
     }
 
     /**
@@ -34,9 +41,9 @@ public class Xo extends Application {
 
     @Override
     public void stop() throws Exception {
-        TicTacToeExecutorService.getInstance().stop();
+        requestHandler.disconnect();
+        DataAccessLayer.disconnect();
         super.stop();
     }
-    
 
 }

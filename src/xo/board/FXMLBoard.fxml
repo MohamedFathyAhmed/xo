@@ -110,29 +110,29 @@
             </Button>
          </children>
       </GridPane>
-      <ImageView fx:id="oLightOfImageView" fitHeight="100.0" fitWidth="100.0" layoutX="293.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="125.0">
+      <ImageView fx:id="player1OImageView" fitHeight="100.0" fitWidth="100.0" layoutX="293.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="125.0">
          <image>
             <Image url="@../../images/o_hover.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="283.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="225.0" fx:id="xLightOnImageView">
+      <ImageView fx:id="player1XImageView" fitHeight="100.0" fitWidth="100.0" layoutX="283.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="225.0">
          <image>
             <Image url="@../../images/x.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1410.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.rightAnchor="125.0" fx:id="xLightOfImageView">
+      <ImageView fx:id="player2XImageView" fitHeight="100.0" fitWidth="100.0" layoutX="1410.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.rightAnchor="125.0">
          <image>
             <Image url="@../../images/x_hover.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="oLightOnImageView" fitHeight="100.0" fitWidth="100.0" layoutX="1310.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.rightAnchor="225.0">
+      <ImageView fx:id="player2OImageView" fitHeight="100.0" fitWidth="100.0" layoutX="1310.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.rightAnchor="225.0">
          <image>
             <Image url="@../../images/o.png" />
          </image>
       </ImageView>
       <BorderPane layoutX="1250.0" layoutY="232.0" prefHeight="300.0" prefWidth="200.0" AnchorPane.leftAnchor="1180.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="250.0">
          <center>
-            <Text fx:id="player2NameText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="player_2" BorderPane.alignment="CENTER">
+            <Text fx:id="player2NameText" fill="#48d5d5" strokeType="OUTSIDE" strokeWidth="0.0" text="player_2" BorderPane.alignment="CENTER">
                <font>
                   <Font size="50.0" />
                </font>
@@ -141,7 +141,7 @@
       </BorderPane>
       <BorderPane layoutX="142.0" layoutY="240.0" prefHeight="300.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="1180.0" AnchorPane.topAnchor="250.0">
          <center>
-            <Text fx:id="player1NameText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="player_1" BorderPane.alignment="CENTER">
+            <Text fx:id="player1NameText" fill="#ff766d" strokeType="OUTSIDE" strokeWidth="0.0" text="player_1" BorderPane.alignment="CENTER">
                <font>
                   <Font size="50.0" />
                </font>
@@ -150,21 +150,21 @@
       </BorderPane>
       <BorderPane layoutX="88.0" layoutY="726.0" prefHeight="196.0" prefWidth="345.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="1180.0" AnchorPane.topAnchor="750.0">
          <left>
-            <Text fx:id="oldScorePlayer1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+            <Text fx:id="oldScorePlayer1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" BorderPane.alignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
          </left>
          <top>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" BorderPane.alignment="CENTER">
+            <Text fx:id="player1ScoreText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" BorderPane.alignment="CENTER">
                <font>
                   <Font size="40.0" />
                </font>
             </Text>
          </top>
          <right>
-            <Text fx:id="currentScorePlayer1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+            <Text fx:id="currentPlayer1ScoreText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
                <font>
                   <Font size="30.0" />
                </font>
@@ -173,21 +173,21 @@
       </BorderPane>
       <BorderPane layoutX="1192.0" layoutY="770.0" prefHeight="196.0" prefWidth="345.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="1180.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="750.0">
          <right>
-            <Text fx:id="oldScorePlayer2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+            <Text fx:id="oldScorePlayer2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" BorderPane.alignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
          </right>
          <top>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" BorderPane.alignment="CENTER">
+            <Text fx:id="player2ScoreText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" BorderPane.alignment="CENTER">
                <font>
                   <Font size="40.0" />
                </font>
             </Text>
          </top>
          <left>
-            <Text fx:id="currentScorePlayer2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+            <Text fx:id="currentPlayer2ScoreText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0" BorderPane.alignment="CENTER">
                <font>
                   <Font size="30.0" />
                </font>

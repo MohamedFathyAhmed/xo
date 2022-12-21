@@ -9,22 +9,6 @@ package xo.online.handlers.responses;
  *
  * @author Marina
  */
-public class Response {
-
-    private final String isSuccess;
-    private final String message;
-
-    public Response(String isSuccess, String message) {
-        this.isSuccess = isSuccess;
-        this.message = message;
-    }
-
-    public boolean isSuccess() {
-        return isSuccess.equals("true");
-    }
-
-    public String getMessage() {
-        return message;
-    }
+public interface Response {
 
 }

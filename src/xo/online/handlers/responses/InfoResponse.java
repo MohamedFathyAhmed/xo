@@ -11,10 +11,16 @@ import xo.online.handlers.responses.Response;
  *
  * @author mohamed
  */
-public class InfoResponse extends Response{
-    
-    public InfoResponse(String isSuccess, String message) {
-        super(isSuccess, message);
+public class InfoResponse implements Response{
+
+    private final String isSuccess ;
+
+    public InfoResponse(String isSuccess) {
+        this.isSuccess = isSuccess;
     }
-    
+
+    public boolean getIsSuccess() {
+        return Boolean.valueOf(isSuccess);
+    }    
+
 }

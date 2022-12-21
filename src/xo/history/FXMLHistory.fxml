@@ -17,6 +17,6 @@
         </columns>
       </TableView>
       <Button fx:id="backButton" layoutX="47.0" layoutY="862.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Back" />
-      <Button fx:id="viewRecordButton" layoutX="1380.0" layoutY="36.0" mnemonicParsing="false" onAction="#viewButtonClicked" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="View" />
+      <Button fx:id="viewRecordButton" layoutX="1380.0" layoutY="36.0" mnemonicParsing="false" onAction="#viewButtonClicked" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="View" visible="false" />
    </children>
 </AnchorPane>

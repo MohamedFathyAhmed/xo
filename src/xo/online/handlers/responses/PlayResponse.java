@@ -11,13 +11,17 @@ import data.CurrentGameData;
  *
  * @author mohamed
  */
-public class PlayResponse extends Response {
+public class PlayResponse implements Response {
+   private final String position;
+    private final String isMyTurn;
 
-    private final String position;
-
-    public PlayResponse(String isMyTurn, String position, String message) {
-        super(isMyTurn, message);
+    public PlayResponse(String position, String isMyTurn) {
         this.position = position;
+        this.isMyTurn = isMyTurn;
+    }
+
+    public boolean isMyTurn() {
+        return Boolean.valueOf(isMyTurn);
     }
 
     public int getPosition() {

@@ -51,6 +51,7 @@ public class RequestHandler implements Runnable {
         instance.errorMessageSender = errorMessageSender;
         return instance;
     }
+
     public static RequestHandler getInstance(
             Consumer<Response> responseReceiver,
             int port,
@@ -83,7 +84,7 @@ public class RequestHandler implements Runnable {
         if (instance == null) {
             instance = new RequestHandler();
         }
-        instance.responseReceiver=null;
+        instance.responseReceiver = null;
         instance.responseReceiver = responseReceiver;
         return instance;
     }
@@ -118,6 +119,10 @@ public class RequestHandler implements Runnable {
         request(requestCreator.create(type, request));
     }
 
+    public void create(String type) throws IOException {
+        request(requestCreator.create(type));
+    }
+
     private void request(String request) throws IOException {
         printWriter.println(request);
     }
@@ -141,6 +146,18 @@ public class RequestHandler implements Runnable {
         }
     }
 
+    public void connect(int port, String ipAddress) throws IOException {
+        if (!isRunning) {
+            instance.port = port;
+            instance.ipAddress = ipAddress;
+            socket = new Socket(ipAddress, port);
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
+            isRunning = true;
+            new Thread(this).start();
+        }
+    }
+
     public boolean isConnected() {
         return isRunning;
     }
@@ -149,7 +166,7 @@ public class RequestHandler implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                Response response =responseHandler.handle(bufferedReader.readLine());
+                Response response = responseHandler.handle(bufferedReader.readLine());
                 responseReceiver.accept(response);
             } catch (IOException ex) {
                 errorMessageSender.accept(ex.getMessage());
@@ -179,6 +196,11 @@ public class RequestHandler implements Runnable {
             return type
                     + RequestType.MESSAGE_SPLITER
                     + request.getName();
+        }
+
+        String create(String type) {
+            return type;
+
         }
 
     }

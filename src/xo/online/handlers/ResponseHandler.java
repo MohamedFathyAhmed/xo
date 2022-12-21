@@ -8,14 +8,18 @@ package xo.online.handlers;
 import xo.online.handlers.responses.InfoResponse;
 import xo.online.handlers.responses.OnlinePlayersResponse;
 import xo.online.handlers.responses.HistoryResponse;
-import xo.online.handlers.responses.RececordedGameListResponse;
 import xo.online.handlers.responses.GameRequestResponse;
 import xo.online.handlers.responses.RececordedGameResponse;
 import xo.online.handlers.responses.Response;
 import data.database.models.Game;
 import data.database.models.Play;
+import xo.online.handlers.responses.AuthResponse;
 import xo.online.handlers.responses.GameDoneResponse;
+import xo.online.handlers.responses.LeaveResponse;
 import xo.online.handlers.responses.PlayResponse;
+import xo.online.handlers.responses.RecordResponse;
+import xo.online.handlers.responses.RequestGameAnswerResponse;
+
 
 /**
  *
@@ -29,68 +33,53 @@ public class ResponseHandler {
         switch (splitedResponse[0]) {
             case RequestType.SIGNIN:
             case RequestType.SIGNUP:
+                return new AuthResponse(splitedResponse[1], splitedResponse[2]);
+
             case RequestType.LOGOUT:
             case RequestType.PLAYAGAIN:
-            case RequestType.LEAVE:
             case RequestType.SHAPE:
-            case RequestType.RECORD:
             case RequestType.CONNECTED:
-            case RequestType.REQUEST_GAME_ANSWER:
-                return new Response(splitedResponse[1], splitedResponse[2]);
+                
+                
+            case RequestType.LEAVE:
+                return new LeaveResponse();
+            case RequestType.RECORD:
+                    return new RecordResponse(splitedResponse[1]);
 
             case RequestType.RECEIVER_REQUEST_GAME_ANSWER:
             case RequestType.SENDER_REQUEST_GAME_ANSWER:
-                return new InfoResponse(splitedResponse[1], splitedResponse[2]);
+                return new InfoResponse(splitedResponse[1]);
+
+            case RequestType.REQUEST_GAME_ANSWER:
+                return new RequestGameAnswerResponse(splitedResponse[1]);
 
             case RequestType.REQUEST_GAME:
-                return new GameRequestResponse(splitedResponse[3], splitedResponse[1], splitedResponse[2]);
+                return new GameRequestResponse(splitedResponse[1]);
 
             case RequestType.GAME_DONE:
-                return new GameDoneResponse(splitedResponse[2], splitedResponse[1], splitedResponse[3]);
+                return new GameDoneResponse(splitedResponse[1]);
 
             case RequestType.RECORDED_GAMES_LIST:
-                return new RececordedGameListResponse(
-                        gamesSpliter(splitedResponse[3]),
-                        splitedResponse[1],
-                        splitedResponse[2]
-                );
+                return new HistoryResponse(gamesSpliter(splitedResponse[3]));
 
             case RequestType.PLAY:
-                return new PlayResponse(splitedResponse[1],
-                        splitedResponse[2],
-                        splitedResponse[3]);
-
-            case RequestType.REDIRECT_PLAY:
-                return new PlayResponse(splitedResponse[1],
-                        splitedResponse[2],
-                        splitedResponse[3]);
+                return new PlayResponse(splitedResponse[1], splitedResponse[2]);
 
             case RequestType.RECORDED_GAME:
                 return new RececordedGameResponse(
-                        playSpliter(splitedResponse[3]),
-                        splitedResponse[1],
-                        splitedResponse[2]);
+                        playSpliter(splitedResponse[1]));
 
             case RequestType.HISTORY:
-                return new HistoryResponse(
-                        gamesSpliter(splitedResponse[3]),
-                        splitedResponse[1],
-                        splitedResponse[2]);
+                return new HistoryResponse(gamesSpliter(splitedResponse[1]));
 
             case RequestType.ONLINE_PLAYERS:
-                if (splitedResponse.length == 4) {
-                    return new OnlinePlayersResponse(playersSpliter(splitedResponse[3]),
-                            splitedResponse[1],
-                            splitedResponse[2]
-                    );
+                if (splitedResponse.length != 1) {
+                    return new OnlinePlayersResponse(playersSpliter(splitedResponse[1]));
                 } else {
-                    return new OnlinePlayersResponse(new String[]{},
-                            splitedResponse[1],
-                            splitedResponse[2]
-                    );
+                    return new OnlinePlayersResponse(new String[]{});
                 }
         }
-        return new Response("false", "not response");
+        return new InfoResponse("false");
     }
 
     private Game[] gamesSpliter(String gameString) {
@@ -104,8 +93,7 @@ public class ResponseHandler {
                     gameAttributes[1],
                     gameAttributes[2],
                     gameAttributes[3],
-                    gameAttributes[4],
-                    gameAttributes[5]);
+                    gameAttributes[4]);
         }
         return games;
     }
@@ -118,9 +106,7 @@ public class ResponseHandler {
             playAttributes = playsArrayString[playIndex].split(RequestType.OBJECT_SPLITER);
             plays[playIndex] = new Play(
                     playAttributes[0],
-                    playAttributes[1],
-                    playAttributes[2],
-                    playAttributes[3]);
+                    playAttributes[1]);
         }
         return plays;
     }

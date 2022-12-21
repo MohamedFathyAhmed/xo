@@ -29,6 +29,7 @@ public class TicTacToeNavigator {
 
     public static final NavigationDestination LANDING = new NavigationDestination("landing/FXMLLanding.fxml", "LANDING");
     public static final NavigationDestination BOARD_OFFLINE_MULTIPLAYERS = new NavigationDestination("board/FXMLBoard.fxml", "PVP");
+    public static final NavigationDestination BOARD_REPLAY_GAME = new NavigationDestination("board/FXMLBoard.fxml", "REPLAY");
     public static final NavigationDestination BOARD_PLAYER_VS_EASY_AI = new NavigationDestination("board/FXMLBoard.fxml", "COMPUTER EASY");
     public static final NavigationDestination HISTORY = new NavigationDestination("history/FXMLHistory.fxml", "HISTORY");
     public static final NavigationDestination LEVELS = new NavigationDestination("levels/FXMLLevels.fxml", "LEVELS");
@@ -90,7 +91,6 @@ public class TicTacToeNavigator {
     }
 
     public static void navigateLaterTo(Stage stage, NavigationDestination navigationDestination) {
-        FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource(navigationDestination.getDestination()));
         Platform.runLater(() -> {
             try {
                 navigateTo(stage, FXMLLoader.load(xo.Xo.class.getResource(navigationDestination.getDestination())), navigationDestination.getTitle());
@@ -121,6 +121,10 @@ public class TicTacToeNavigator {
     public static void previousLater(Stage stage) {
         destinations.pop();
         navigateLaterTo(stage, destinations.pop());
+    }
+    public static void previousLater(Event event) {
+        destinations.pop();
+        navigateLaterTo((Node) event.getSource(), destinations.pop());
     }
 
     public static void previous(Event event) throws IOException {
