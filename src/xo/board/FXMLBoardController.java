@@ -103,22 +103,30 @@ public abstract class FXMLBoardController implements Initializable {
 
     void handleGameState(GameState gameState) {
         String wonPlayer = null;
+        currentGameData.setWinerPlayer(players.get());
         switch (gameState) {
+            
+             
             case PLAYER_ONE_WON:
                 this.stopBoardActions();
-                this.showWinnerDialog(this.player1NameText.getText());
+               // currentGameData.setWinerPlayer(currentGameData.getPlayer1());
+                this.showWinnerDialog();
                 this.updatePlayerOneScore();
-                insertGameToDatabase(currentGameData.getPlayer1());
+                //insertGameToDatabase(currentGameData.getPlayer1());
                 break;
 
             case PLAYER_TWO_WON:
                 this.stopBoardActions();
-                this.showWinnerDialog(this.player2NameText.getText());
+                //currentGameData.setWinerPlayer(currentGameData.getPlayer2());
+                this.showWinnerDialog();
                 this.updatePlayerTwoScore();
-                insertGameToDatabase(currentGameData.getPlayer2());
+                //insertGameToDatabase(currentGameData.getPlayer2());
                 break;
 
             case DRAW:
+                 currentGameData.setWinerPlayer("null");
+                //insertGameToDatabase(currentGameData.getPlayer2());
+                
                 this.stopBoardActions();
                 break;
 
@@ -250,7 +258,8 @@ public abstract class FXMLBoardController implements Initializable {
         this.recordingImageViewFadeAffect.stop();
     }
 
-    private void showWinnerDialog(final String text) {
+    private void showWinnerDialog() {
+        TicTacToeNavigator.navigateLaterTo(stage,TicTacToeNavigator.MEDIA);
     }
 
     private void updatePlayerOneScore() {
@@ -263,14 +272,14 @@ public abstract class FXMLBoardController implements Initializable {
         this.currentPlayer2ScoreText.setText(this.currentGameData.getPlayer2CurrentScore() + "");
     }
 
-    protected void insertGameToDatabase(String wonPlayer) {
+    protected void insertGameToDatabase() {
         try {
             int id = DataAccessLayer.insertGame(new Game("",
                     currentGameData.getPlayer1(),
                     isRecording + "",
                     currentGameData.getPlayer2(),
                     getCurrentDate(),
-                    wonPlayer));
+                    currentGameData.getWinerPlayer()));
 
             if (isRecording) {
                 DataAccessLayer.insertPlays(plays, id);
