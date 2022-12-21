@@ -7,19 +7,27 @@ package xo.two_players_name_chooser;
 
 import data.CurrentGameData;
 import data.GameShapes;
+import data.database.DataAccessLayer;
 import data.database.models.Player;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import xo.board.FXMLBoardOfflineMultiPLayerController;
+import xo.online.online_players.OnlinePlayer;
+import xo.utlis.CircularArray;
 import xo.utlis.TicTacToeNavigator;
 
 /**
@@ -28,13 +36,9 @@ import xo.utlis.TicTacToeNavigator;
  * @author mohamed
  */
 public class FXMLTwoPlayersNameChooserController implements Initializable {
-
+ private CircularArray<String> newButtonNames = new CircularArray<>("New Name", "Save");
     @FXML
     private AnchorPane root;
-    @FXML
-    private TableView<Player> playerOneTableView;
-    @FXML
-    private TableView<Player> playerTwoTableView;
     @FXML
     private Button playerTwoOButton;
     @FXML
@@ -44,7 +48,21 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
     @FXML
     private Button playerOneOButton;
 
+   
+    @FXML
+    private TextField usernameTextField;
+    @FXML
+    private Label usernameErrorLabel;
+       @FXML
+    private TableColumn<OnlinePlayer, String> namesTableColumn;
+    @FXML
+    private TableView<OnlinePlayer> namesTableView;
+
     private final CurrentGameData currentGameData;
+    @FXML
+    private TableView<OnlinePlayer> namesTableViewTwo;
+    @FXML
+    private TableColumn<OnlinePlayer, String> namesTableColumnTwo;
 
     public FXMLTwoPlayersNameChooserController() {
         currentGameData = CurrentGameData.getInstance();
@@ -55,9 +73,27 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        namesTableColumnTwo.setCellValueFactory(new PropertyValueFactory<OnlinePlayer, String>("username"));
+        namesTableViewTwo.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                currentGameData.setPlayer2(newSelection.getUsername());
+                System.out.println(newSelection.getUsername());  
+            }
+         });
+
         
-    }
+        namesTableColumn.setCellValueFactory(new PropertyValueFactory<OnlinePlayer, String>("username"));
+        namesTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                currentGameData.setPlayer1(newSelection.getUsername());
+                System.out.println(newSelection.getUsername());  
+            }
+        });
+
+        fetchPlayersFromDatabase();
+
+                }
+                
 
     @FXML
     private void backButtonClicked(ActionEvent event) throws IOException {
@@ -66,17 +102,12 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
 
     @FXML
     private void startButtonClicked(ActionEvent event) throws IOException {
-        currentGameData.setPlayer1(currentGameData.getGameLevel().name());
-
+      
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         TicTacToeNavigator.navigateTo(stage, new FXMLBoardOfflineMultiPLayerController(stage), TicTacToeNavigator.BOARD_OFFLINE_MULTIPLAYERS);
 
     }
 
-    @FXML
-    private void newPlayerOneNameButtonClicked(ActionEvent event) {
-
-    }
 
     @FXML
     private void playerTwoOButtonClicked(ActionEvent event) {
@@ -125,8 +156,37 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
     }
 
     @FXML
-    private void newPlayerTwoNameButtonClicked(ActionEvent event) {
+    private void newPlayerNameButtonClicked(ActionEvent event) {
+      usernameTextField.setVisible(!usernameTextField.visibleProperty().get());
+        newButtonNames.next();
+        ((Button) event.getSource()).setText(newButtonNames.get());
+        if (!usernameTextField.visibleProperty().get()) {
+            insertUserToDatabase();
+        }
+    }
+  private void insertUserToDatabase() {
+        try {
+            DataAccessLayer.insertPlayer(usernameTextField.getText());
+            usernameErrorLabel.setVisible(false);
+            fetchPlayersFromDatabase();
 
+        } catch (SQLException ex) {
+            usernameErrorLabel.setVisible(true);
+        }
     }
 
+    private void fetchPlayersFromDatabase() {
+              namesTableViewTwo.getItems().clear();
+
+        namesTableView.getItems().clear();
+        try {
+            // TODO
+            for (String player : DataAccessLayer.getPlayers()) {
+                namesTableView.getItems().add(new OnlinePlayer(player));
+                namesTableViewTwo.getItems().add(new OnlinePlayer(player));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

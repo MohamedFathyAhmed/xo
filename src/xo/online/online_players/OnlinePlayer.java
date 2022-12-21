@@ -13,9 +13,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class OnlinePlayer {
 
-//    public OnlinePlayer() {
-//        this("");
-//    }
+
 
     private SimpleStringProperty username;
 
@@ -34,18 +32,6 @@ public class OnlinePlayer {
     public void setUsername(String username) {
         this.username.set(username);
     }
-//    private String name;
-//
-//    public OnlinePlayer(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+
 
 }

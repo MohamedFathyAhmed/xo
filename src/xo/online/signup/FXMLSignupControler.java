@@ -9,6 +9,7 @@ import data.CurrentGameData;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,7 +32,7 @@ import xo.online.handlers.responses.AuthResponse;
  * @author Marina
  */
 public class FXMLSignupControler implements Initializable {
-
+ private final RequestHandler requestHandler;
     @FXML
     private ImageView levelsImagetwo;
     @FXML
@@ -66,9 +67,11 @@ public class FXMLSignupControler implements Initializable {
      * Initializes the controller class.
      */
     private Stage stage;
-    private final RequestHandler requestHandler;
+   
 
     public FXMLSignupControler() {
+     
+        
         currentGameData = CurrentGameData.getInstance();
         requestHandler = RequestHandler.getInstance((Response response) -> {
             if (((AuthResponse) response).getIsSuccess()) {
@@ -77,6 +80,7 @@ public class FXMLSignupControler implements Initializable {
             }
         });
     }
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -85,6 +89,47 @@ public class FXMLSignupControler implements Initializable {
 
     @FXML
     private void signupButtonClicked(ActionEvent event) {
+            boolean checkValidName;
+        boolean checkValidPassword;
+        boolean checkValidConfirmPassword;
+
+        String userNameTxt = userNameTextField.getText();
+        String passwordTxt = passwordTextField.getText();
+        String confirmPasswordTxt = confirmPassword.getText();
+
+
+        if (userNameTxt.isEmpty()) {
+            checkValidName = false;
+           Platform.runLater(() -> nameErrorLabel.setText("Username is required"));
+        } else {
+            checkValidName = true;
+            nameErrorLabel.setText("");
+        }
+
+     
+        if (passwordTxt.isEmpty()) {
+            checkValidPassword = false;
+            Platform.runLater(() -> passwordErrorLabel.setText("Password is required"));
+        } else {
+            checkValidPassword = true;
+            passwordErrorLabel.setText("");
+        }
+
+        if (confirmPasswordTxt.isEmpty()) {
+            checkValidConfirmPassword = false;
+           Platform.runLater(() -> confirmPasswordErrorLabel.setText("Confirm Password is required"));
+        } else if (!confirmPasswordTxt.equals(passwordTxt)) {
+            checkValidConfirmPassword = false;
+          Platform.runLater(() -> confirmPasswordErrorLabel.setText("Please check your password"));
+        } else {
+            checkValidConfirmPassword = true;
+            confirmPasswordErrorLabel.setText("");
+        }
+
+        boolean vaild = checkValidConfirmPassword  && checkValidName && checkValidPassword;
+
+        if (vaild) {
+        
         if (stage == null) {
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         }
@@ -92,7 +137,7 @@ public class FXMLSignupControler implements Initializable {
             try {
                 requestHandler.create(RequestType.SIGNUP,
                         new ParamterizeRequest(passwordTextField.getText(), userNameTextField.getText()));
-                // currentGameData.setPlayer1(userNameTextField.getText());//Marina
+                
             } catch (IOException ex) {
                 //catch me
                 ex.printStackTrace();
@@ -100,13 +145,11 @@ public class FXMLSignupControler implements Initializable {
         }
 
     }
-
+    }
     @FXML
-    private void backButtonClicked(ActionEvent event) {
-        try {
+    private void backButtonClicked(ActionEvent event) throws IOException {
+      
             TicTacToeNavigator.previous(event);
-        } catch (IOException ex) {
-            //catch me
-        }
+      
     }
 }

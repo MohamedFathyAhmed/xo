@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -26,6 +27,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import user_alerts.AlertButtonResult;
+import static user_alerts.Alerts.displayAlert;
 import xo.online.handlers.RequestHandler;
 import xo.online.handlers.responses.Response;
 import xo.online.signin.FXMLSigninControler;
@@ -121,8 +124,19 @@ public class FXMLModesController implements Initializable {
             try {
                 requestHandler.connect(port, ipAddress);
             } catch (IOException ex) {
-                //catch me
-                //server is down
+                
+                        
+                          displayAlert("server is down", Alert.AlertType.WARNING, new AlertButtonResult() {
+            @Override
+            public void IfOk() {
+            
+           }
+
+            @Override
+            public void IfCancel() {
+            }
+        }
+                );
             }
         }
     }
@@ -155,7 +169,7 @@ public class FXMLModesController implements Initializable {
         grid.add(portNumber, 1, 1);
 
         Node connectButton = dialog.getDialogPane().lookupButton(connectButtonType);
-        connectButton.setDisable(true);
+  
 
         ipAddressTextField.textProperty().addListener((observable, oldValue, newValue)
                 -> {

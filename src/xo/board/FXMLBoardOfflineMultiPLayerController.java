@@ -17,9 +17,12 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import user_alerts.AlertButtonResult;
+import static user_alerts.Alerts.displayAlert;
 import xo.board.game.GameHandler;
 import xo.board.game.GameState;
 import xo.utlis.CircularArray;
@@ -28,7 +31,7 @@ import xo.utlis.CircularArray;
  *
  * @author mohamed
  */
-public class FXMLBoardOfflineMultiPLayerController extends FXMLBoardController {
+public class FXMLBoardOfflineMultiPLayerController extends FXMLBoardController  {
 
     private GameHandler gameHandler;
     public FXMLBoardOfflineMultiPLayerController(Stage stage) {
@@ -68,6 +71,7 @@ public class FXMLBoardOfflineMultiPLayerController extends FXMLBoardController {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
+       players = new  CircularArray(currentGameData.getPlayer2(), currentGameData.getPlayer1());
     }
 
     @Override

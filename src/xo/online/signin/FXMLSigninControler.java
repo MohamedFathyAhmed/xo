@@ -9,6 +9,7 @@ import data.CurrentGameData;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,6 +58,10 @@ public class FXMLSigninControler implements Initializable {
     private RequestHandler requestHandler;
 
     private Stage stage;
+    @FXML
+    private Label nameErrorLabel;
+    @FXML
+    private Label passwordErrorLabel;
 
     public FXMLSigninControler() {
         currentGameData = CurrentGameData.getInstance();
@@ -78,6 +83,30 @@ public class FXMLSigninControler implements Initializable {
 
     @FXML
     private void loginButtonClicked(ActionEvent event) {
+              boolean checkValidName;
+        boolean checkValidPassword;
+
+        String userTxt = usernameTextField.getText();
+        String pasTxt = passwordPasswordField.getText();
+         if (userTxt.isEmpty()) {
+            checkValidName = false;
+            Platform.runLater(() -> nameErrorLabel.setText("Username is required"));
+        } else {
+            checkValidName = true;
+            nameErrorLabel.setText("");
+        }
+
+        if (pasTxt.isEmpty()) {
+            checkValidPassword = false;
+            Platform.runLater(() -> passwordErrorLabel.setText("Password is required"));
+        } else {
+            checkValidPassword = true;
+            passwordErrorLabel.setText("");
+        }
+        boolean checkValid = checkValidName && checkValidPassword;
+
+        if (checkValid) {
+        
         if (stage == null) {
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         }
@@ -90,6 +119,7 @@ public class FXMLSigninControler implements Initializable {
             //catch me
             ex.printStackTrace();
         }
+    }
     }
 
     @FXML
