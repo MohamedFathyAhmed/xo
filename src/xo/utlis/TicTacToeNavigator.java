@@ -132,9 +132,10 @@ public class TicTacToeNavigator {
         navigateTo(event, destinations.pop());
     }
 
-    private static void pop() {
-        destinations.pop();
+    public static NavigationDestination pop() {
+        return destinations.pop();
     }
+
 
     public static void navigateTo(Stage stage, NavigationDestination navigationDestination) throws IOException {
         FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource(navigationDestination.getDestination()));

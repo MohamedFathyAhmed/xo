@@ -8,10 +8,17 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< HEAD
     <jar href="lib/derby.jar" size="3104883" download="eager" />
     <jar href="lib/derbyclient.jar" size="585704" download="eager" />
     <jar href="lib/derbynet.jar" size="266471" download="eager" />
     <jar href="xo.jar" size="13559975" download="eager" />
+=======
+    <jar href="lib\derby.jar" size="3104883" download="eager" />
+    <jar href="lib\derbyclient.jar" size="585704" download="eager" />
+    <jar href="lib\derbynet.jar" size="266471" download="eager" />
+    <jar href="xo.jar" size="13560735" download="eager" />
+>>>>>>> eb0325d47f82a1c9db2773f1deded6352fcf4714
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="xo" >
     <param name="requiredFXVersion" value="8.0+"/>
