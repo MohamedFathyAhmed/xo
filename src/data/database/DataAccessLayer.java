@@ -47,7 +47,8 @@ public class DataAccessLayer {
     }
 
     private static int getPlayersCount() throws SQLException {
-        ResultSet gameCount = connection.createStatement().executeQuery("SELECT (*) COUNT FROM PLAYER");
+        ResultSet gameCount = connection.createStatement().executeQuery("SELECT COUNT(*) FROM PLAYER");
+        gameCount.next();
         return gameCount.getInt(1);
 
     }

@@ -8,6 +8,8 @@ package xo.one_player_name_chooser;
 import data.CurrentGameData;
 import data.GameShapes;
 import data.database.DataAccessLayer;
+import data.database.models.Game;
+import data.database.models.Player;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -21,9 +23,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import xo.board.BoardSinglePlayerModeController;
+import xo.online.online_players.OnlinePlayer;
 import xo.utlis.CircularArray;
 import xo.utlis.TicTacToeNavigator;
 
@@ -35,9 +40,10 @@ import xo.utlis.TicTacToeNavigator;
 public class FXMLOnePlayerNameChooserController implements Initializable {
 
     @FXML
-    private TableColumn<?, ?> namesTableColumn;
+    private TableColumn<OnlinePlayer, String> namesTableColumn;
     @FXML
-    private TableColumn<?, ?> dateTableColumn;
+    private TableView<OnlinePlayer> namesTableView;
+
     @FXML
     private Button computerOButton;
     @FXML
@@ -71,7 +77,15 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        namesTableColumn.setCellValueFactory(new PropertyValueFactory<OnlinePlayer, String>("username"));
+        namesTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                currentGameData.setPlayer1(namesTableView.getSelectionModel().getSelectedItem().getUsername());
+            }
+        });
+
+        fetchPlayersFromDatabase();
+
     }
 
     @FXML
@@ -81,8 +95,7 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
 
     @FXML
     private void startButtonClicked(ActionEvent event) throws IOException {
-        currentGameData.setPlayer1(currentGameData.getGameLevel().name());
-        currentGameData.setPlayer1(playerLabel.getText());
+        currentGameData.setPlayer2(currentGameData.getGameLevel().name());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         TicTacToeNavigator.navigateTo(stage, new BoardSinglePlayerModeController(stage), TicTacToeNavigator.BOARD_PLAYER_VS_EASY_AI);
     }
@@ -133,8 +146,22 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
         try {
             DataAccessLayer.insertPlayer(usernameTextField.getText());
             usernameErrorLabel.setVisible(false);
+            fetchPlayersFromDatabase();
+
         } catch (SQLException ex) {
             usernameErrorLabel.setVisible(true);
+        }
+    }
+
+    private void fetchPlayersFromDatabase() {
+        namesTableView.getItems().clear();
+        try {
+            // TODO
+            for (String player : DataAccessLayer.getPlayers()) {
+                namesTableView.getItems().add(new OnlinePlayer(player));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 
