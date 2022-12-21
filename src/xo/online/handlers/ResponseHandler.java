@@ -93,7 +93,8 @@ public class ResponseHandler {
                     gameAttributes[1],
                     gameAttributes[2],
                     gameAttributes[3],
-                    gameAttributes[4]);
+                    gameAttributes[4],
+                    gameAttributes[5]);
         }
         return games;
     }

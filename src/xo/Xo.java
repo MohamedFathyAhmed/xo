@@ -6,6 +6,11 @@
 package xo;
 
 import data.database.DataAccessLayer;
+import data.database.models.Game;
+import data.database.models.Play;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import xo.landing.FXMLLandingController;
@@ -22,14 +27,14 @@ public class Xo extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        DataAccessLayer.connect();
+
         requestHandler = RequestHandler.getInstance((String message) -> {
-//            if (!requestHandler.isConnected()) {
             TicTacToeNavigator.navigateLaterTo(stage, TicTacToeNavigator.MODES);
-            //show error
-//            }
         });
         stage.setResizable(false);
         TicTacToeNavigator.navigateTo(stage, new FXMLLandingController(stage), TicTacToeNavigator.LANDING);
+        DataAccessLayer.connect();
     }
 
     /**

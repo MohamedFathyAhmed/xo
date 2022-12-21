@@ -7,6 +7,7 @@ package xo.two_players_name_chooser;
 
 import data.CurrentGameData;
 import data.GameShapes;
+import data.database.models.Player;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,9 +32,9 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
     @FXML
     private AnchorPane root;
     @FXML
-    private TableView<?> playerOneTableView;
+    private TableView<Player> playerOneTableView;
     @FXML
-    private TableView<?> playerTwoTableView;
+    private TableView<Player> playerTwoTableView;
     @FXML
     private Button playerTwoOButton;
     @FXML
@@ -55,6 +56,7 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }
 
     @FXML
@@ -65,7 +67,7 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
     @FXML
     private void startButtonClicked(ActionEvent event) throws IOException {
         currentGameData.setPlayer1(currentGameData.getGameLevel().name());
-//        currentGameData.setPlayer1(playerLabel.getText());
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         TicTacToeNavigator.navigateTo(stage, new FXMLBoardOfflineMultiPLayerController(stage), TicTacToeNavigator.BOARD_PLAYER_VS_EASY_AI);
 

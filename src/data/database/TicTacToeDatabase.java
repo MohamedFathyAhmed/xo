@@ -10,7 +10,7 @@ import org.apache.derby.jdbc.EmbeddedDriver;
 public class TicTacToeDatabase {
 
     private final String gameTable = " create table GAME "
-            + " (ID INTEGER not null primary key, "
+            + " (ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
             + " PLAYER_1 VARCHAR(50) not null, "
             + " PLAYER_2 VARCHAR(50) not null, "
             + " DATE DATE not null, "
@@ -23,7 +23,7 @@ public class TicTacToeDatabase {
 
     private final String playTable = " create table PLAY"
             + " ( "
-            + " ID INTEGER not null primary key, "
+            + " ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
             + " POSITION SMALLINT not null, "
             + " PLAYER VARCHAR(50) not null, "
             + " GAME_ID INTEGER not null, "
@@ -38,7 +38,7 @@ public class TicTacToeDatabase {
 
     private final String gameShapeTable = " create table GAME_SHAPE"
             + " ( "
-            + "	ID INTEGER not null primary key, "
+            + "	ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
             + " GAME_ID INTEGER not null, "
             + " PLAYER VARCHAR(50) not null, "
             + " SHAPE_ID INTEGER not null, "
@@ -49,13 +49,13 @@ public class TicTacToeDatabase {
 
     private final String shapeTable = " create table SHAPE "
             + " ( "
-            + " ID INTEGER not null primary key, "
+            + " ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
             + " NAME VARCHAR(10) not null "
             + " ) ";
 
     private final String pausedGamesTable = " create table PAUSED_GAMES "
             + " ( "
-            + " ID INTEGER not null primary key, "
+            + " ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
             + " GAME_ID INTEGER not null,"
             + " NEXT_PLAYER VARCHAR(50) not null, "
             + " TIME INTEGER,"
@@ -73,20 +73,20 @@ public class TicTacToeDatabase {
         connection = DriverManager.getConnection("jdbc:derby:tic_tac_toe;create=true");
 
 //        setIsDatabaseCreated(false);
-//        if (getIsDatabaseCreated()) {
-//            return;
-//        }
-        try {
+        if (getIsDatabaseCreated()) {
+            return;
+        }
+//        try {
             connection.createStatement().execute(playerTable);
             connection.createStatement().execute(gameTable);
             connection.createStatement().execute(shapeTable);
             connection.createStatement().execute(playTable);
             connection.createStatement().execute(gameShapeTable);
             connection.createStatement().execute(pausedGamesTable);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        setIsDatabaseCreated(true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        setIsDatabaseCreated(true);
     }
 
     public static TicTacToeDatabase getInstance() throws SQLException {

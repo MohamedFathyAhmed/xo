@@ -43,8 +43,7 @@ public class FXMLMediaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
-        file = new File("src/video/cong.mp4");
-        media = new Media(file.toURI().toString());
+        media = new Media(xo.Xo.class.getResource("video/cong.mp4").toExternalForm());
         mediaPlayer= new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaPlayer.play();

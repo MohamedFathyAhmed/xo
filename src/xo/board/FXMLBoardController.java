@@ -70,6 +70,7 @@ public abstract class FXMLBoardController implements Initializable {
     protected ImageView recordingImageView;
     @FXML
     protected Button recordingButton;
+    
     protected Button[] boardButtons;
     protected boolean firstPlayerTurn;
     protected Timer mainTimer;
@@ -77,7 +78,7 @@ public abstract class FXMLBoardController implements Initializable {
     protected CircularArray<String> boardHoverStyleClasses;
     protected CircularArray<String> boardStyleClasses;
     protected CircularArray<GameShapes> gameShapes;
-    private boolean isRecording;
+    protected boolean isRecording;
     private FadeTransition recordingTextFadeAffect;
     private FadeTransition recordingImageViewFadeAffect;
     protected CurrentGameData currentGameData;

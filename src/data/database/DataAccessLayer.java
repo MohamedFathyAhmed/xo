@@ -43,7 +43,7 @@ public class DataAccessLayer {
     }
 
     public static boolean insertPlayer(String name) throws SQLException {
-        return connection.createStatement().execute("INSERT INTO PLAYER (name) VALUES ('" + name + "'");
+        return connection.createStatement().execute("INSERT INTO PLAYER (name) VALUES ('" + name + "')");
     }
 
     private static int getPlayersCount() throws SQLException {
@@ -66,8 +66,9 @@ public class DataAccessLayer {
 
     private static Game getGame(ResultSet gamesResultSet) throws SQLException {
         Game game = new Game(
-                gamesResultSet.getInt("id")+"",
+                gamesResultSet.getInt("id") + "",
                 gamesResultSet.getString("player_1"),
+                gamesResultSet.getBoolean("RECORDED") + "",
                 gamesResultSet.getString("player_2"),
                 gamesResultSet.getString("date"),
                 gamesResultSet.getString("won_player"));
@@ -89,8 +90,8 @@ public class DataAccessLayer {
         return gamesArray;
     }
 
-    private static int insertGame(Game game) throws SQLException {//id
-        connection.createStatement().execute("INSET INTO GAME (PLAYER_1,PLAYER_2,DATE,WON_PLAYER)VALUES('"
+    public static int insertGame(Game game) throws SQLException {//id
+        connection.createStatement().execute("INSERT INTO GAME (PLAYER_1 , PLAYER_2 , DATE , WON_PLAYER ,RECORDED)VALUES('"
                 + game.getPlayer1()
                 + "','"
                 + game.getPlayer2()
@@ -98,7 +99,9 @@ public class DataAccessLayer {
                 + game.getDate()
                 + "','"
                 + game.getWonPLayer()
-                + "');");
+                + "','"
+                + game.getIsRecorded()
+                + "')");
 
         ResultSet idResultSet = connection.createStatement().executeQuery("SELECT ID FROM GAME ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY");
         idResultSet.next();
@@ -109,8 +112,8 @@ public class DataAccessLayer {
     public static Play[] getGamePlays(int gameId) throws SQLException {
         return getPlaysFromResultSet(
                 connection.createStatement()
-                .executeQuery("SELECT * FROM PLAY"
-                        + " WHERE GAME_ID='" + gameId + "' ORDER BY ID"));
+                        .executeQuery("SELECT * FROM PLAY"
+                                + " WHERE GAME_ID='" + gameId + "' ORDER BY ID"));
     }
 
     private static Play[] getPlaysFromResultSet(ResultSet playsResultSet) throws SQLException {
@@ -124,6 +127,16 @@ public class DataAccessLayer {
         return (Play[]) plays.toArray();
     }
 
+    public static void insertPlays(List<Play> plays, int gameId) throws SQLException {
+        for (Play play : plays) {
+            connection.createStatement().execute("INSERT INTO PLAY (PLAYER , GAME_ID ,POSITION) "
+                    + "VALUES ('" + play.getPlayer() + "',"
+                    + gameId
+                    +","
+                    + play.getPosition()
+                    + ")");
+        }
 
+    }
 
 }
