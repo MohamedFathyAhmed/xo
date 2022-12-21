@@ -9,8 +9,9 @@ package xo.user_alrts;
  *
  * @author Marina
  */
+public interface AlertButtonResult {
 
-public  interface AlertButtonResult {
     public void IfOk();
+
     public void IfCancel();
-  }
+}

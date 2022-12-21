@@ -27,11 +27,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import user_alerts.AlertButtonResult;
-import static user_alerts.Alerts.displayAlert;
 import xo.online.handlers.RequestHandler;
 import xo.online.handlers.responses.Response;
 import xo.online.signin.FXMLSigninControler;
+import xo.user_alrts.AlertButtonResult;
+import xo.user_alrts.Alerts;
 import xo.utlis.TicTacToeNavigator;
 
 /**
@@ -89,19 +89,15 @@ public class FXMLModesController implements Initializable {
 
     @FXML
     private void offlineHistoryButtonClicked(ActionEvent event) throws IOException {
-        TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.HISTORY);    
+        TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.HISTORY);
     }
-    
 
-    
     @FXML
     private void onlineHistoryButtonClicked(ActionEvent event) throws IOException {
         currentGameData.setGameMode(GameMode.MULTIPLAYER);
         TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.TWO_PLAYER_NAME_CHOOSER);
     }
 
-    
-    
     @FXML
     private void onlineMultiPlayersButtonClicked(ActionEvent event) throws IOException {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -124,18 +120,17 @@ public class FXMLModesController implements Initializable {
             try {
                 requestHandler.connect(port, ipAddress);
             } catch (IOException ex) {
-                
-                        
-                          displayAlert("server is down", Alert.AlertType.WARNING, new AlertButtonResult() {
-            @Override
-            public void IfOk() {
-            
-           }
 
-            @Override
-            public void IfCancel() {
-            }
-        }
+                new Alerts().displayAlert("server is down", Alert.AlertType.WARNING, new AlertButtonResult() {
+                    @Override
+                    public void IfOk() {
+
+                    }
+
+                    @Override
+                    public void IfCancel() {
+                    }
+                }
                 );
             }
         }
@@ -169,7 +164,6 @@ public class FXMLModesController implements Initializable {
         grid.add(portNumber, 1, 1);
 
         Node connectButton = dialog.getDialogPane().lookupButton(connectButtonType);
-  
 
         ipAddressTextField.textProperty().addListener((observable, oldValue, newValue)
                 -> {
