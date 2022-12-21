@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xo.online.handlers;
+package xo.online.handlers.responses;
+
+import xo.online.handlers.responses.Response;
 
 /**
  *
@@ -17,5 +19,10 @@ public class OnlinePlayersResponse extends Response {
         super(isSuccess, message);
         this.players = players;
     }
+
+    public String[] getPlayers() {
+        return players;
+    }
+    
 
 }

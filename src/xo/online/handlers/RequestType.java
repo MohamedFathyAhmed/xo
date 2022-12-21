@@ -5,16 +5,19 @@
  */
 package xo.online.handlers;
 
+import java.util.regex.Pattern;
+
 /**
  *
  * @author Marina
  */
-public class RequestTypeConstants {
+public interface RequestType {
 
     public static final String MESSAGE_SPLITER = ";;";
-    public static final String ARRAY_SPLITER = "||";
-    public static final String OBJECT_SPLITER = "|";
+    public static final String ARRAY_SPLITER = "~~";
+    public static final String OBJECT_SPLITER = "~";
     public static final String SIGNIN = "signin";
+    public static final String CONNECTED = "connected";
     public static final String SIGNUP = "signup";
     public static final String RECORD = "record";
     public static final String RECORDED_GAMES_LIST = "recorded_games_list";
@@ -25,5 +28,12 @@ public class RequestTypeConstants {
     public static final String LEAVE = "leave";
     public static final String ONLINE_PLAYERS = "online_players";
     public static final String SHAPE = "shape";
+    public static final String PLAY = "play";
     public static final String RECORDED_GAME = "recorded_game";
+    public static final String SENDER_REQUEST_GAME_ANSWER = "sender_request_game_answer";
+    public static final String RECEIVER_REQUEST_GAME_ANSWER = "receiver_request_game_answer";
+    public static final String REQUEST_GAME_ANSWER = "request_game_answer";
+    public static final String REDIRECT_PLAY = "redirect_play";
+    public static final String GAME_DONE = "game_done";
+
 }

@@ -5,11 +5,11 @@
  */
 package xo.online.handlers;
 
+import xo.online.handlers.responses.Response;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.function.Consumer;
 
@@ -19,17 +19,17 @@ import java.util.function.Consumer;
  */
 public class RequestHandler implements Runnable {
 
+    private String ipAddress;
+    private int port;
     private static RequestHandler instance;
     private final ResponseHandler responseHandler;
     private final RequestCreator requestCreator;
     private Socket socket;
-    private BufferedWriter bufferedWriter;
+    private PrintWriter printWriter;
     private BufferedReader bufferedReader;
     private boolean isRunning;
-    private int port;
-    private String ipAddress;
     private Consumer<Response> responseReceiver;
-    private Consumer<String> errorMessageSender;
+    private ErrorMessageSender errorMessageSender;
 
     private RequestHandler() {
         responseHandler = new ResponseHandler();
@@ -38,7 +38,7 @@ public class RequestHandler implements Runnable {
 
     public static RequestHandler getInstance(
             Consumer<Response> responseReceiver,
-            Consumer<String> errorMessageSender,
+            ErrorMessageSender errorMessageSender,
             int port,
             String ipAddress
     ) {
@@ -51,63 +51,134 @@ public class RequestHandler implements Runnable {
         instance.errorMessageSender = errorMessageSender;
         return instance;
     }
-
-    public RequestCreator getRequestCreator() {
-        return requestCreator;
+    public static RequestHandler getInstance(
+            Consumer<Response> responseReceiver,
+            int port,
+            String ipAddress
+    ) {
+        if (instance == null) {
+            instance = new RequestHandler();
+        }
+        instance.responseReceiver = responseReceiver;
+        instance.port = port;
+        instance.ipAddress = ipAddress;
+        return instance;
     }
 
-    public void request(String request) throws IOException {
-        bufferedWriter.write(request);
+    public static RequestHandler getInstance(
+            Consumer<Response> responseReceiver,
+            ErrorMessageSender errorMessageSender
+    ) {
+        if (instance == null) {
+            instance = new RequestHandler();
+        }
+        instance.responseReceiver = responseReceiver;
+        instance.errorMessageSender = errorMessageSender;
+        return instance;
+    }
+
+    public static RequestHandler getInstance(
+            Consumer<Response> responseReceiver
+    ) {
+        if (instance == null) {
+            instance = new RequestHandler();
+        }
+        instance.responseReceiver=null;
+        instance.responseReceiver = responseReceiver;
+        return instance;
+    }
+
+    public static RequestHandler getInstance(
+            ErrorMessageSender errorMessageSender
+    ) {
+        if (instance == null) {
+            instance = new RequestHandler();
+        }
+        instance.errorMessageSender = errorMessageSender;
+        return instance;
+    }
+
+    public static RequestHandler getInstance(int port,
+            String ipAddress,
+            ErrorMessageSender errorMessageSender) {
+        if (instance == null) {
+            instance = new RequestHandler();
+        }
+        instance.port = port;
+        instance.ipAddress = ipAddress;
+        instance.errorMessageSender = errorMessageSender;
+        return instance;
+    }
+
+    public void create(String type, ParamterizeRequest request) throws IOException {
+        request(requestCreator.create(type, request));
+    }
+
+    public void create(String type, Request request) throws IOException {
+        request(requestCreator.create(type, request));
+    }
+
+    private void request(String request) throws IOException {
+        printWriter.println(request);
     }
 
     public void disconnect() throws IOException {
-        isRunning = false;
-        bufferedReader.close();
-        bufferedWriter.close();
-        socket.close();
+        if (isRunning) {
+            isRunning = false;
+            printWriter.close();
+            bufferedReader.close();
+            socket.close();
+        }
     }
 
     public void connect() throws IOException {
-        isRunning = true;
-        socket = new Socket(ipAddress, port);
-        bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        new Thread(this).start();
+        if (!isRunning) {
+            socket = new Socket(ipAddress, port);
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
+            isRunning = true;
+            new Thread(this).start();
+        }
+    }
+
+    public boolean isConnected() {
+        return isRunning;
     }
 
     @Override
     public void run() {
         while (isRunning) {
             try {
-                responseReceiver.accept(responseHandler.handle(bufferedReader.readLine()));
+                Response response =responseHandler.handle(bufferedReader.readLine());
+                responseReceiver.accept(response);
             } catch (IOException ex) {
                 errorMessageSender.accept(ex.getMessage());
+            } catch (NullPointerException ex1) {
                 try {
                     disconnect();
-                } catch (IOException ex1) {
-                    errorMessageSender.accept(ex1.getMessage());
+                    socket = null;
+                } catch (IOException ex2) {
+                    errorMessageSender.accept(ex2.getMessage());
                 }
-                socket = null;
+                errorMessageSender.accept(ex1.getMessage());
             }
         }
     }
 
     class RequestCreator {
 
-        String create(RequestTypeConstants type, ParamterizeRequest request) {
+        String create(String type, ParamterizeRequest request) {
             return type
-                    + RequestTypeConstants.MESSAGE_SPLITER
+                    + RequestType.MESSAGE_SPLITER
                     + request.getName()
-                    + RequestTypeConstants.MESSAGE_SPLITER
-                    + request.getParamter()
-                    + RequestTypeConstants.MESSAGE_SPLITER;
+                    + RequestType.MESSAGE_SPLITER
+                    + request.getParamter();
         }
 
-        String create(RequestTypeConstants type, Request request) {
+        String create(String type, Request request) {
             return type
-                    + RequestTypeConstants.MESSAGE_SPLITER
-                    + request.getName()
-                    + RequestTypeConstants.MESSAGE_SPLITER;
+                    + RequestType.MESSAGE_SPLITER
+                    + request.getName();
         }
 
     }

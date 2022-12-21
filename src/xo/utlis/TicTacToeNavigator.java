@@ -19,9 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import xo.online.signin.FXMLSigninControler;
-//import xo.board.BoardMultiPlayerOflineModeController;
-//import xo.board.BoardMultiPlayerOnlineModeController;
-//import xo.board.BoardSinglePlayerModeController;
+
 
 /**
  *
@@ -141,3 +139,4 @@ public class TicTacToeNavigator {
     }
 
 }
+

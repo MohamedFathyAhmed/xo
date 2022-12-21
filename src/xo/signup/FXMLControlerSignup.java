@@ -56,6 +56,14 @@ public class FXMLSignupControler implements Initializable {
     @FXML
     private Button signupButton;
 
+    @FXML
+    private Label passwordErrorLabel;
+    @FXML
+    private Label confirmPasswordErrorLabel;
+    @FXML
+    private Label nameErrorLabel;
+    
+
     CurrentGameData currentGameData;//Marina
 
     /**

@@ -5,6 +5,8 @@
  */
 package data.database.models;
 
+import data.GameShapes;
+
 /**
  *
  * @author mohamed
@@ -13,26 +15,30 @@ public class Play {
 
     private final String position;
     private final String player;
-    private final String time;
     private final String gameId;
+    private final String gameShape;
 
-    public Play(String position, String player, String time, String gameId) {
+    public Play(String position, String player, String gameId, String gameShape) {
         this.position = position;
         this.player = player;
-        this.time = time;
         this.gameId = gameId;
+        this.gameShape = gameShape;
     }
 
+    public String getGameId() {
+        return gameId;
+    }
+
+    public String getGameShape() {
+        return gameShape;
+    }
+    
     public String getPosition() {
         return position;
     }
 
     public String getPlayer() {
         return player;
-    }
-
-    public String getTime() {
-        return time;
     }
 
 }

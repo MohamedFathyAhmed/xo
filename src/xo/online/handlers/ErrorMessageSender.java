@@ -5,14 +5,12 @@
  */
 package xo.online.handlers;
 
-import xo.online.handlers.responses.Response;
-
 /**
  *
- * @author Marina
+ * @author mohamed
  */
 @FunctionalInterface
-public interface ResponseReceiver {
+public interface ErrorMessageSender {
 
-    String sendData(Response request);
+    void accept(String message);
 }
