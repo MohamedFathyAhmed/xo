@@ -140,3 +140,7 @@
 {
     -fx-background-color: #242424;
 }
+
+TableView .table-column {
+  -fx-alignment: CENTER;
+}
