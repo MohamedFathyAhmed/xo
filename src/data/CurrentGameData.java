@@ -9,7 +9,6 @@ package data;
  *
  * @author mohamed
  */
-import data.GameMode;
 
 public class CurrentGameData {
 

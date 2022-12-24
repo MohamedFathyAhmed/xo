@@ -93,7 +93,7 @@ public abstract class FXMLBoardController implements Initializable {
                 recordingImageViewFadeAffect.stop();
                 recordingTextFadeAffect.stop();
                 mainTimer.cancel();
-
+                recordingButton.setDisable(true);
                 break;
 
             case PLAYER_TWO_WON:
@@ -105,15 +105,18 @@ public abstract class FXMLBoardController implements Initializable {
                 recordingImageViewFadeAffect.stop();
                 recordingTextFadeAffect.stop();
                 mainTimer.cancel();
+                recordingButton.setDisable(true);
+
                 break;
 
             case DRAW:
-                boardGridPane.setDisable(true);
                 currentGameData.setWinnerPlayer(null);
+                boardGridPane.setDisable(true);
                 insertGameToDatabase();
                 recordingImageViewFadeAffect.stop();
                 recordingTextFadeAffect.stop();
                 mainTimer.cancel();
+                recordingButton.setDisable(true);
                 break;
 
         }

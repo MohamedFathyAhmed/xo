@@ -94,30 +94,58 @@ public class DataAccessLayer {
     }
 
     public static int insertGame(Game game) throws SQLException {//id
-        connection.createStatement().execute("INSERT INTO GAME ("
-                + "PLAYER_1, "
-                + "PLAYER_2, "
-                + "PLAYER_1_SHAPE,"
-                + "PLAYER_2_SHAPE,"
-                + "DATE,"
-                + "WON_PLAYER,"
-                + "RECORDED"
-                + ")"
-                + " VALUES('"
-                + game.getPlayer1()
-                + "','"
-                + game.getPlayer2()
-                + "','"
-                + game.getPlayer1Shape()
-                + "','"
-                + game.getPlayer2Shape()
-                + "','"
-                + game.getDate()
-                + "','"
-                + game.getWonPLayer()
-                + "','"
-                + game.getIsRecorded() + ""
-                + "')");
+        if (game.getWonPLayer() != null) {
+            connection.createStatement().execute("INSERT INTO GAME ("
+                    + "PLAYER_1, "
+                    + "PLAYER_2, "
+                    + "PLAYER_1_SHAPE,"
+                    + "PLAYER_2_SHAPE,"
+                    + "DATE,"
+                    + "WON_PLAYER,"
+                    + "RECORDED"
+                    + ")"
+                    + " VALUES('"
+                    + game.getPlayer1()
+                    + "','"
+                    + game.getPlayer2()
+                    + "','"
+                    + game.getPlayer1Shape()
+                    + "','"
+                    + game.getPlayer2Shape()
+                    + "','"
+                    + game.getDate()
+                    + "','"
+                    + game.getWonPLayer()
+                    + "','"
+                    + game.getIsRecorded() + ""
+                    + "')");
+        }else{
+            
+            connection.createStatement().execute("INSERT INTO GAME ("
+                    + "PLAYER_1, "
+                    + "PLAYER_2, "
+                    + "PLAYER_1_SHAPE,"
+                    + "PLAYER_2_SHAPE,"
+                    + "DATE,"
+                    + "WON_PLAYER,"
+                    + "RECORDED"
+                    + ")"
+                    + " VALUES('"
+                    + game.getPlayer1()
+                    + "','"
+                    + game.getPlayer2()
+                    + "','"
+                    + game.getPlayer1Shape()
+                    + "','"
+                    + game.getPlayer2Shape()
+                    + "','"
+                    + game.getDate()
+                    + "',"
+                    + game.getWonPLayer()
+                    + ",'"
+                    + game.getIsRecorded() + ""
+                    + "')");
+        }
 
         ResultSet idResultSet = connection.createStatement().executeQuery("SELECT ID "
                 + "FROM GAME "
