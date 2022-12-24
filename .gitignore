@@ -25,5 +25,6 @@ hs_err_pid*
 replay_pid*
 nbproject/private/
 /tic_tac_toe
-/build/
-/dist/
+/build
+/dist
+/client_tic_tac_toe_db
