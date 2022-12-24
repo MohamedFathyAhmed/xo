@@ -94,20 +94,19 @@ public class FXMLModesController implements Initializable {
 
     @FXML
     private void offlineHistoryButtonClicked(ActionEvent event) throws IOException {
-        TicTacToeNavigator.navigateTo(event, new FXMLOfflineHistoryController(),TicTacToeNavigator.HISTORY);
+        TicTacToeNavigator.navigateTo(event, new FXMLOfflineHistoryController(),TicTacToeNavigator.OFFLINE_HISTORY);
     }
 
     @FXML
     private void onlineHistoryButtonClicked(ActionEvent event) throws IOException {
         if (currentGameData.isLoggedIn()) {
-            TicTacToeNavigator.navigateTo(event,new FXMLOnlineHistoryController() ,TicTacToeNavigator.HISTORY);
+            TicTacToeNavigator.navigateTo(event,new FXMLOnlineHistoryController() ,TicTacToeNavigator.ONLINE_HISTORY);
         }
     }
 
     @FXML
     private void onlineMultiPlayersButtonClicked(ActionEvent event) throws IOException {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        currentGameData.setGameMode(GameMode.ONLINE);
         if (currentGameData.isLoggedIn()) {
             TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.ONLINE_PLAYERS);
         } else {

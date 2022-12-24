@@ -6,54 +6,57 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1600.0" styleClass="root" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xo.one_player_name_chooser.FXMLOnePlayerNameChooserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1600.0" styleClass="root" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xo.one_player_name_chooser.FXMLOnePlayerNameChooserController">
    <children>
       <TableView fx:id="namesTableView" layoutX="100.0" layoutY="230.0" prefHeight="550.0" prefWidth="550.0">
         <columns>
-          <TableColumn fx:id="namesTableColumn" maxWidth="548.9999694824219" minWidth="275.0" prefWidth="548.9999694824219" resizable="false" text="Names" />
+          <TableColumn fx:id="namesTableColumn" maxWidth="550.0" minWidth="275.0" prefWidth="550.0" resizable="false" text="Names" />
         </columns>
       </TableView>
       <Button layoutX="100.0" layoutY="50.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="50.0" prefWidth="150.0" styleClass="specialButtons" text="Back" />
       <Button layoutX="900.0" layoutY="900.0" mnemonicParsing="false" onAction="#startButtonClicked" prefHeight="50.0" prefWidth="550.0" styleClass="specialButtons" text="Start" />
       <Button layoutX="150.0" layoutY="900.0" mnemonicParsing="false" onAction="#newNameButtonClicked" prefHeight="50.0" prefWidth="450.0" styleClass="specialButtons" text="New Name" />
-      <Button fx:id="computerOButton" disable="true" layoutX="1250.0" layoutY="600.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="250.0">
+      <Button fx:id="computerOButton" disable="true" layoutX="1250.0" layoutY="530.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="250.0">
          <styleClass>
             <String fx:value="o_selected_board-btn" />
             <String fx:value="board-btn" />
          </styleClass>
       </Button>
-      <Button fx:id="playerXButton" layoutX="800.0" layoutY="300.0" mnemonicParsing="false" onAction="#playerXButtonClicked" prefHeight="250.0" prefWidth="250.0">
+      <Button fx:id="playerXButton" layoutX="800.0" layoutY="230.0" mnemonicParsing="false" onAction="#playerXButtonClicked" prefHeight="250.0" prefWidth="250.0">
          <styleClass>
             <String fx:value="board-btn" />
             <String fx:value="x_selected_board-btn" />
          </styleClass>
       </Button>
-      <Button fx:id="computerXButton" disable="true" layoutX="1250.0" layoutY="300.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="250.0">
+      <Button fx:id="computerXButton" disable="true" layoutX="1250.0" layoutY="230.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="250.0">
          <styleClass>
             <String fx:value="board-btn" />
             <String fx:value="x_unselected_board-btn" />
          </styleClass>
       </Button>
-      <Button fx:id="playerOButton" layoutX="800.0" layoutY="600.0" mnemonicParsing="false" onAction="#playerOButtonClicked" prefHeight="250.0" prefWidth="250.0">
+      <Button fx:id="playerOButton" layoutX="800.0" layoutY="530.0" mnemonicParsing="false" onAction="#playerOButtonClicked" prefHeight="250.0" prefWidth="250.0">
          <styleClass>
             <String fx:value="board-btn" />
             <String fx:value="o_unselected_board-btn" />
          </styleClass>
       </Button>
-      <Label fx:id="playerLabel" alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="2.0" layoutX="800.0" layoutY="100.0" prefWidth="250.0" text="Player" textAlignment="CENTER" textFill="#f5f3f3" wrapText="true">
+      <Label fx:id="playerLabel" alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="2.0" layoutX="800.0" layoutY="100.0" prefWidth="250.0" textAlignment="CENTER" textFill="#f5f3f3" wrapText="true">
          <font>
-            <Font size="50.0" />
+            <Font size="36.0" />
          </font>
       </Label>
-      <Label fx:id="modeLabel" alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="2.0" layoutX="1250.0" layoutY="100.0" prefWidth="250.0" text="Computer" textAlignment="CENTER" textFill="#f5f3f3" wrapText="true">
+      <Label fx:id="modeLabel" alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="2.0" layoutX="1250.0" layoutY="100.0" prefWidth="250.0" text="EASY" textAlignment="CENTER" textFill="#f5f3f3" wrapText="true">
          <font>
-            <Font size="50.0" />
+            <Font size="36.0" />
          </font>
       </Label>
       <TextField fx:id="usernameTextField" layoutX="150.0" layoutY="800.0" prefHeight="50.0" prefWidth="450.0" promptText="username" styleClass="inputfields" visible="false" />
       <Label fx:id="usernameErrorLabel" layoutX="294.0" layoutY="859.0" text="username exit in database" textFill="#dd0606" visible="false" />
+      <ToggleButton fx:id="playerPlayFirstToggleButton" layoutX="800.0" layoutY="810.0" mnemonicParsing="false" onAction="#playFirstToggleButtonClicked" prefHeight="50.0" prefWidth="250.0" selected="true" styleClass="toggle_button" text="Play First" />
+      <ToggleButton fx:id="modePlayFirstToggleButton" layoutX="1250.0" layoutY="810.0" mnemonicParsing="false" onAction="#playFirstToggleButtonClicked" prefHeight="50.0" prefWidth="250.0" styleClass="toggle_button" text="Play First" />
    </children>
 </AnchorPane>

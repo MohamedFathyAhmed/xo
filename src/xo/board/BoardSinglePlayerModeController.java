@@ -23,14 +23,16 @@ public class BoardSinglePlayerModeController extends FXMLBoardController {
 
     private final GameHandler gameHandler;
     private int locationPcPlay;
-    private GameState gameState;
+    private GameState gameState = GameState.ONGOING;
 
     public BoardSinglePlayerModeController(Stage stage) {
         super(stage);
         gameHandler = new GameHandler((gameState) -> {
             this.gameState = gameState;
             handleGameState(gameState);
-        });
+        },
+                currentGameData.getPlayer1Shape(),
+                currentGameData.getPlayer2Shape());
 
     }
 
@@ -50,28 +52,35 @@ public class BoardSinglePlayerModeController extends FXMLBoardController {
         Button button = (Button) event.getSource();
         button.setDisable(true);
         applyStyleClass(button);
-        nextTurn();
         gameHandler.play(((Button) event.getSource()).getId().charAt(6) - '0', gameShapes.get());
+        nextTurn();
         getPlayFromPc();
-
     }
 
     void getPlayFromPc() {
+        disableBoard(true);
         if (gameState == GameState.ONGOING) {
             String BoardChar = gameHandler.getBoardAsString();
             EasyAi pcAi = new EasyAi(BoardChar);
             locationPcPlay = pcAi.res;
-            plays.add(new Play(locationPcPlay+"", currentGameData.getPlayer2()));
+            plays.add(new Play(locationPcPlay + "", currentGameData.getPlayer2()));
             applyStyleClass(boardButtons[locationPcPlay]);
-            nextTurn();
             gameHandler.play(locationPcPlay, gameShapes.get());
+            nextTurn();
             boardButtons[pcAi.res].setDisable(true);
+            disableBoard(false);
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
+        if (!currentGameData.isIsPlayerTurnFirst()) {
+            boardGridPane.setDisable(true);
+            nextTurn();
+            getPlayFromPc();
+            boardGridPane.setDisable(false);
+        }
     }
 
     @Override

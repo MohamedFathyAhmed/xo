@@ -6,9 +6,8 @@
 package xo.two_players_name_chooser;
 
 import data.CurrentGameData;
-import data.GameShapes;
+import data.GameShape;
 import data.database.DataAccessLayer;
-import data.database.models.Player;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -17,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -36,7 +36,8 @@ import xo.utlis.TicTacToeNavigator;
  * @author mohamed
  */
 public class FXMLTwoPlayersNameChooserController implements Initializable {
- private CircularArray<String> newButtonNames = new CircularArray<>("New Name", "Save");
+
+    private final CircularArray<String> newButtonTextValue = new CircularArray<>("New Name", "Save");
     @FXML
     private AnchorPane root;
     @FXML
@@ -48,12 +49,11 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
     @FXML
     private Button playerOneOButton;
 
-   
     @FXML
     private TextField usernameTextField;
     @FXML
     private Label usernameErrorLabel;
-       @FXML
+    @FXML
     private TableColumn<OnlinePlayer, String> namesTableColumn;
     @FXML
     private TableView<OnlinePlayer> namesTableView;
@@ -66,34 +66,34 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
 
     public FXMLTwoPlayersNameChooserController() {
         currentGameData = CurrentGameData.getInstance();
+        currentGameData.reset();
     }
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        namesTableColumnTwo.setCellValueFactory(new PropertyValueFactory<OnlinePlayer, String>("username"));
+        namesTableColumnTwo.setCellValueFactory(new PropertyValueFactory("username"));
         namesTableViewTwo.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 currentGameData.setPlayer2(newSelection.getUsername());
-                System.out.println(newSelection.getUsername());  
             }
-         });
+        });
 
-        
-        namesTableColumn.setCellValueFactory(new PropertyValueFactory<OnlinePlayer, String>("username"));
+        namesTableColumn.setCellValueFactory(new PropertyValueFactory("username"));
         namesTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 currentGameData.setPlayer1(newSelection.getUsername());
-                System.out.println(newSelection.getUsername());  
             }
         });
 
         fetchPlayersFromDatabase();
 
-                }
-                
+    }
 
     @FXML
     private void backButtonClicked(ActionEvent event) throws IOException {
@@ -102,12 +102,16 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
 
     @FXML
     private void startButtonClicked(ActionEvent event) throws IOException {
-      
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        TicTacToeNavigator.navigateTo(stage, new FXMLBoardOfflineMultiPLayerController(stage), TicTacToeNavigator.BOARD_OFFLINE_MULTIPLAYERS);
-
+        if (currentGameData.getPlayer1() != null
+                && currentGameData.getPlayer2() != null
+                && !currentGameData.getPlayer1().equals(currentGameData.getPlayer2())) {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            TicTacToeNavigator.navigateTo(stage, new FXMLBoardOfflineMultiPLayerController(stage), TicTacToeNavigator.BOARD_OFFLINE_MULTIPLAYERS);
+        } else {
+            //show error 
+            //cant set player 1 and player 2 with same name
+        }
     }
-
 
     @FXML
     private void playerTwoOButtonClicked(ActionEvent event) {
@@ -128,8 +132,8 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
         playerOneOButton.setDisable(false);
         playerTwoXButton.setDisable(false);
         playerTwoOButton.setDisable(true);
-        currentGameData.setPlayer1Shape(GameShapes.X);
-        currentGameData.setPlayer2Shape(GameShapes.O);
+        currentGameData.setPlayer1Shape(GameShape.X);
+        currentGameData.setPlayer2Shape(GameShape.O);
     }
 
     @FXML
@@ -151,20 +155,21 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
         playerOneXButton.setDisable(false);
         playerTwoXButton.setDisable(true);
         playerTwoOButton.setDisable(false);
-        currentGameData.setPlayer1Shape(GameShapes.O);
-        currentGameData.setPlayer2Shape(GameShapes.X);
+        currentGameData.setPlayer1Shape(GameShape.O);
+        currentGameData.setPlayer2Shape(GameShape.X);
     }
 
     @FXML
     private void newPlayerNameButtonClicked(ActionEvent event) {
-      usernameTextField.setVisible(!usernameTextField.visibleProperty().get());
-        newButtonNames.next();
-        ((Button) event.getSource()).setText(newButtonNames.get());
+        usernameTextField.setVisible(!usernameTextField.visibleProperty().get());
+        newButtonTextValue.next();
+        ((Button) event.getSource()).setText(newButtonTextValue.get());
         if (!usernameTextField.visibleProperty().get()) {
             insertUserToDatabase();
         }
     }
-  private void insertUserToDatabase() {
+
+    private void insertUserToDatabase() {
         try {
             DataAccessLayer.insertPlayer(usernameTextField.getText());
             usernameErrorLabel.setVisible(false);
@@ -176,8 +181,7 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
     }
 
     private void fetchPlayersFromDatabase() {
-              namesTableViewTwo.getItems().clear();
-
+        namesTableViewTwo.getItems().clear();
         namesTableView.getItems().clear();
         try {
             // TODO

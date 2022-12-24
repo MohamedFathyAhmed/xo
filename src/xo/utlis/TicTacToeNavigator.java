@@ -20,7 +20,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import xo.online.signin.FXMLSigninControler;
 
-
 /**
  *
  * @author mo_fathy
@@ -31,7 +30,8 @@ public class TicTacToeNavigator {
     public static final NavigationDestination BOARD_OFFLINE_MULTIPLAYERS = new NavigationDestination("board/FXMLBoard.fxml", "PVP");
     public static final NavigationDestination BOARD_REPLAY_GAME = new NavigationDestination("board/FXMLBoard.fxml", "REPLAY");
     public static final NavigationDestination BOARD_PLAYER_VS_EASY_AI = new NavigationDestination("board/FXMLBoard.fxml", "COMPUTER EASY");
-    public static final NavigationDestination HISTORY = new NavigationDestination("history/FXMLHistory.fxml", "HISTORY");
+    public static final NavigationDestination OFFLINE_HISTORY = new NavigationDestination("history/FXMLHistory.fxml", "OFFLINE HISTORY");
+    public static final NavigationDestination ONLINE_HISTORY = new NavigationDestination("history/FXMLHistory.fxml", "ONLINE HISTORY");
     public static final NavigationDestination LEVELS = new NavigationDestination("levels/FXMLLevels.fxml", "LEVELS");
     public static final NavigationDestination MEDIA = new NavigationDestination("media/FXMLMedia.fxml", "MEDIA");
     public static final NavigationDestination MODES = new NavigationDestination("modes/FXMLModes.fxml", "MODES");
@@ -122,6 +122,7 @@ public class TicTacToeNavigator {
         destinations.pop();
         navigateLaterTo(stage, destinations.pop());
     }
+
     public static void previousLater(Event event) {
         destinations.pop();
         navigateLaterTo((Node) event.getSource(), destinations.pop());
@@ -133,9 +134,9 @@ public class TicTacToeNavigator {
     }
 
     public static NavigationDestination pop() {
+        destinations.pop();
         return destinations.pop();
     }
-
 
     public static void navigateTo(Stage stage, NavigationDestination navigationDestination) throws IOException {
         FXMLLoader loader = new FXMLLoader(xo.Xo.class.getResource(navigationDestination.getDestination()));
@@ -144,4 +145,3 @@ public class TicTacToeNavigator {
     }
 
 }
-

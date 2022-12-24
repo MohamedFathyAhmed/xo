@@ -6,16 +6,16 @@
 package xo.one_player_name_chooser;
 
 import data.CurrentGameData;
-import data.GameShapes;
+import data.GameShape;
 import data.database.DataAccessLayer;
-import data.database.models.Game;
-import data.database.models.Player;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import xo.board.BoardSinglePlayerModeController;
@@ -43,49 +44,40 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
     private TableColumn<OnlinePlayer, String> namesTableColumn;
     @FXML
     private TableView<OnlinePlayer> namesTableView;
-
     @FXML
-    private Button computerOButton;
+    private Button computerOButton, playerXButton, computerXButton, playerOButton;
     @FXML
-    private Button playerXButton;
+    private ToggleButton playerPlayFirstToggleButton, modePlayFirstToggleButton;
     @FXML
-    private Button computerXButton;
-    @FXML
-    private Button playerOButton;
-    @FXML
-    private Label playerLabel;
-    @FXML
-    private Label modeLabel;
-
-    @FXML
-    private Label usernameErrorLabel;
-
+    private Label usernameErrorLabel, playerLabel;
     @FXML
     private TextField usernameTextField;
 
-    private CircularArray<String> newButtonNames = new CircularArray<>("New Name", "Save");
-
+    private final CircularArray<String> newButtonNames = new CircularArray<>("New Name", "Save");
     private final CurrentGameData currentGameData;
 
     public FXMLOnePlayerNameChooserController() {
-        super();
         this.currentGameData = CurrentGameData.getInstance();
+        currentGameData.reset();
+
     }
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        namesTableColumn.setCellValueFactory(new PropertyValueFactory<OnlinePlayer, String>("username"));
-        namesTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                currentGameData.setPlayer1(namesTableView.getSelectionModel().getSelectedItem().getUsername());
-            }
-        });
-
+        setupNamesTableView();
         fetchPlayersFromDatabase();
-
+        namesTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            playerLabel.setText(newValue.getUsername());
+            currentGameData.setPlayer1(newValue.getUsername());
+        });
+        currentGameData.setPlayer1Shape(GameShape.X);
+        currentGameData.setPlayer2Shape(GameShape.O);
     }
 
     @FXML
@@ -95,9 +87,17 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
 
     @FXML
     private void startButtonClicked(ActionEvent event) throws IOException {
-        currentGameData.setPlayer2(currentGameData.getGameLevel().name());
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        TicTacToeNavigator.navigateTo(stage, new BoardSinglePlayerModeController(stage), TicTacToeNavigator.BOARD_PLAYER_VS_EASY_AI);
+        if (currentGameData.getPlayer1() != null) {
+            currentGameData.setPlayer2(currentGameData.getGameLevel().name());
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            TicTacToeNavigator.navigateTo(
+                    stage,
+                    new BoardSinglePlayerModeController(stage),
+                    TicTacToeNavigator.BOARD_PLAYER_VS_EASY_AI);
+        } else {
+            //please select name
+        }
+
     }
 
     @FXML
@@ -111,35 +111,26 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
     }
 
     @FXML
+    private void playFirstToggleButtonClicked(ActionEvent event) {
+        currentGameData.setIsPlayerTurnFirst(!currentGameData.isIsPlayerTurnFirst());
+        playerPlayFirstToggleButton.setSelected(currentGameData.isIsPlayerTurnFirst());
+        modePlayFirstToggleButton.setSelected(!currentGameData.isIsPlayerTurnFirst());
+    }
+
+    @FXML
     private void playerXButtonClicked(ActionEvent event) {
-        playerXButton.getStyleClass().add("x_selected_board-btn");
-        playerXButton.getStyleClass().remove("x_unselected_board-btn");
-        computerXButton.getStyleClass().add("x_unselected_board-btn");
-        computerXButton.getStyleClass().remove("x_selected_board-btn");
-        playerOButton.getStyleClass().add("o_unselected_board-btn");
-        playerOButton.getStyleClass().remove("o_selected_board-btn");
-        computerOButton.getStyleClass().add("o_selected_board-btn");
-        computerOButton.getStyleClass().remove("o_unselected_board-btn");
-        playerXButton.setDisable(true);
-        playerOButton.setDisable(false);
-        currentGameData.setPlayer1Shape(GameShapes.X);
-        currentGameData.setPlayer2Shape(GameShapes.O);
+        playerXButtonSelected(true);
+        computerXButtonSelected(false);
+        currentGameData.setPlayer1Shape(GameShape.X);
+        currentGameData.setPlayer2Shape(GameShape.O);
     }
 
     @FXML
     private void playerOButtonClicked(ActionEvent event) {
-        playerXButton.getStyleClass().add("x_unselected_board-btn");
-        playerXButton.getStyleClass().remove("x_selected_board-btn");
-        computerXButton.getStyleClass().add("x_selected_board-btn");
-        computerXButton.getStyleClass().remove("x_unselected_board-btn");
-        playerOButton.getStyleClass().add("o_selected_board-btn");
-        playerOButton.getStyleClass().remove("o_unselected_board-btn");
-        computerOButton.getStyleClass().add("o_unselected_board-btn");
-        computerOButton.getStyleClass().remove("o_selected_board-btn");
-        playerOButton.setDisable(true);
-        playerXButton.setDisable(false);
-        currentGameData.setPlayer1Shape(GameShapes.O);
-        currentGameData.setPlayer2Shape(GameShapes.X);
+        playerXButtonSelected(false);
+        computerXButtonSelected(true);
+        currentGameData.setPlayer1Shape(GameShape.O);
+        currentGameData.setPlayer2Shape(GameShape.X);
     }
 
     private void insertUserToDatabase() {
@@ -156,7 +147,6 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
     private void fetchPlayersFromDatabase() {
         namesTableView.getItems().clear();
         try {
-            // TODO
             for (String player : DataAccessLayer.getPlayers()) {
                 namesTableView.getItems().add(new OnlinePlayer(player));
             }
@@ -165,4 +155,42 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
         }
     }
 
+    private void setupNamesTableView() {
+        namesTableColumn.setCellValueFactory(new PropertyValueFactory("username"));
+        namesTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                currentGameData.setPlayer1(namesTableView.getSelectionModel().getSelectedItem().getUsername());
+            }
+        });
+    }
+
+    private void playerXButtonSelected(boolean selected) {
+        if (selected) {
+            playerXButton.getStyleClass().add("x_selected_board-btn");
+            playerXButton.getStyleClass().remove("x_unselected_board-btn");
+            playerOButton.getStyleClass().add("o_unselected_board-btn");
+            playerOButton.getStyleClass().remove("o_selected_board-btn");
+        } else {
+            playerOButton.getStyleClass().add("o_selected_board-btn");
+            playerOButton.getStyleClass().remove("o_unselected_board-btn");
+            playerXButton.getStyleClass().add("x_unselected_board-btn");
+            playerXButton.getStyleClass().remove("x_selected_board-btn");
+        }
+        playerOButton.setDisable(!selected);
+        playerXButton.setDisable(selected);
+    }
+
+    private void computerXButtonSelected(boolean selected) {
+        if (selected) {
+            computerXButton.getStyleClass().add("x_selected_board-btn");
+            computerXButton.getStyleClass().remove("x_unselected_board-btn");
+            computerOButton.getStyleClass().add("o_unselected_board-btn");
+            computerOButton.getStyleClass().remove("o_selected_board-btn");
+        } else {
+            computerXButton.getStyleClass().add("x_unselected_board-btn");
+            computerXButton.getStyleClass().remove("x_selected_board-btn");
+            computerOButton.getStyleClass().add("o_selected_board-btn");
+            computerOButton.getStyleClass().remove("o_unselected_board-btn");
+        }
+    }
 }

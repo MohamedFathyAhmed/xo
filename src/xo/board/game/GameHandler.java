@@ -4,7 +4,7 @@
  */
 package xo.board.game;
 
-import data.GameShapes;
+import data.GameShape;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
@@ -15,17 +15,25 @@ import java.util.function.Consumer;
  */
 public class GameHandler {
 
-    private final String xPattern = "(^(X..X..X..)|(.X..X..X.)|(..X..X..X)|(XXX......)|(...XXX...)|(......XXX)|(..X.X.X..)|(X...X...X)$)";
-    private final String oPattern;
-    protected final char[] boardChars = {'-', '-', '-', '-', '-', '-', '-', '-', '-'};
+    private final String WON_PATTERN = "(^(@..@..@..)|(.@..@..@.)|(..@..@..@)|(@@@......)|(...@@@...)|(......@@@)|(..@.@.@..)|(@...@...@)$)";
+    private final String player1WinPattern;
+    private final String player2WinPattern;
     private final Consumer<GameState> gameStateUpdater;
+    protected final char[] boardChars = {'-', '-', '-', '-', '-', '-', '-', '-', '-'};
 
-    public GameHandler(Consumer<GameState> gameStateUpdater) {
-        oPattern = xPattern.replaceAll("X", "O");
+    public GameHandler(Consumer<GameState> gameStateUpdater, GameShape player1Shape, GameShape player2Shape) {
         this.gameStateUpdater = gameStateUpdater;
+        player1WinPattern = WON_PATTERN.replace("@", player1Shape.name());
+        player2WinPattern = WON_PATTERN.replace("@", player2Shape.name());
     }
 
-    public void play(int position, GameShapes shape) {
+    public GameHandler(Consumer<GameState> gameStateUpdater, String player1Shape, String player2Shape) {
+        this.gameStateUpdater = gameStateUpdater;
+        player1WinPattern = WON_PATTERN.replace("@", player1Shape);
+        player2WinPattern = WON_PATTERN.replace("@", player2Shape);
+    }
+
+    public void play(int position, GameShape shape) {
         updateBoard(position, shape.name());
         updateGameState(new String(boardChars));
     }
@@ -35,9 +43,9 @@ public class GameHandler {
     }
 
     private void updateGameState(String board) {
-        if (board.matches(xPattern)) {
+        if (board.matches(player1WinPattern)) {
             gameStateUpdater.accept(GameState.PLAYER_ONE_WON);
-        } else if (board.matches(oPattern)) {
+        } else if (board.matches(player2WinPattern)) {
             gameStateUpdater.accept(GameState.PLAYER_TWO_WON);
         } else if (board.contains("-")) {
             gameStateUpdater.accept(GameState.ONGOING);

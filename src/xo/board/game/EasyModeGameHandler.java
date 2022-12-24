@@ -5,7 +5,7 @@
  */
 package xo.board.game;
 
-import data.GameShapes;
+import data.GameShape;
 import java.util.Random;
 import java.util.function.Consumer;
 
@@ -16,19 +16,19 @@ import java.util.function.Consumer;
 public final class EasyModeGameHandler extends GameHandler {
 
     private int playsCount;
-    private boolean isPcTurnFirst;
     private int modeNextPlayPosition;
-    private GameShapes modeShape;
+    private boolean isPcTurnFirst;
+    private GameShape modeShape;
 
-    public EasyModeGameHandler(boolean isPcTurnFirst, GameShapes modeShape, Consumer<GameState> gameStateUpdater) {
-        super(gameStateUpdater);
+    public EasyModeGameHandler(boolean isPcTurnFirst, GameShape modeShape, GameShape playerShape, Consumer<GameState> gameStateUpdater) {
+        super(gameStateUpdater, playerShape, modeShape);
         this.modeShape = modeShape;
         this.isPcTurnFirst = isPcTurnFirst;
         resetPlaysCount();
     }
 
     @Override
-    public void play(int position, GameShapes shape) {
+    public void play(int position, GameShape shape) {
         super.play(position, shape);
         updateModeNextPlayPosition();
         updateBoard(modeNextPlayPosition, modeShape.name());

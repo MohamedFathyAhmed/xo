@@ -5,7 +5,7 @@
  */
 package data.database.models;
 
-import data.GameShapes;
+import data.GameShape;
 
 /**
  *

@@ -5,9 +5,10 @@
  */
 package xo.board;
 
-import data.GameShapes;
+import data.GameShape;
 import data.database.DataAccessLayer;
 import data.database.models.Play;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,11 +16,15 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import xo.board.game.GameHandler;
+import xo.history.FXMLOfflineHistoryController;
+import xo.history.FXMLOnlineHistoryController;
 import xo.utlis.CircularArray;
+import xo.utlis.TicTacToeNavigator;
 
 /**
  *
@@ -27,31 +32,42 @@ import xo.utlis.CircularArray;
  */
 public class FXMLBoardReplayGameController extends FXMLBoardController {
 
-    private final GameHandler gameHandler;
-    private final List<Play> plays;
-    private final CircularArray<GameShapes> gameShapes = new CircularArray<>(GameShapes.X, GameShapes.O);
-
     public FXMLBoardReplayGameController(Stage stage, int gameId) throws SQLException {
         super(stage);
         plays = DataAccessLayer.getGamePlays(gameId);
-        gameHandler = new GameHandler(this::handleGameState);
+    }
+
+    public FXMLBoardReplayGameController(Stage stage) {
+        super(stage);
+        mainTimer.cancel();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
+        playerOneScoreBorderPane.setVisible(false);
+        playerTwoScoreBorderPane.setVisible(false);
+        mainTimerText.setVisible(false);
+        recordingButton.setVisible(false);
         boardGridPane.setDisable(true);
         play();
     }
 
     @Override
     protected void boardButtonEntered(MouseEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     protected void boardButtonExited(MouseEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void leaveButtonClicked(ActionEvent event) throws IOException {
+        if (TicTacToeNavigator.pop() == TicTacToeNavigator.ONLINE_HISTORY) {
+            TicTacToeNavigator.navigateTo(event, new FXMLOnlineHistoryController(), TicTacToeNavigator.ONLINE_HISTORY);
+        } else {
+            TicTacToeNavigator.navigateTo(event, new FXMLOfflineHistoryController(), TicTacToeNavigator.OFFLINE_HISTORY);
+        }
     }
 
     @Override
@@ -65,7 +81,6 @@ public class FXMLBoardReplayGameController extends FXMLBoardController {
                 Platform.runLater(() -> {
                     int position = Integer.parseInt(play.getPosition());
                     applyStyleClass(boardButtons[position]);
-                    gameHandler.play(position, gameShapes.get());
                     gameShapes.next();
                     nextTurn();
                 });

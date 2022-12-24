@@ -9,6 +9,6 @@ package data;
  *
  * @author mohamed
  */
-public enum GameShapes {
+public enum GameShape {
     X,O
 }

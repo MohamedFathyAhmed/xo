@@ -4,63 +4,37 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.prefs.Preferences;
 import org.apache.derby.jdbc.EmbeddedDriver;
 
 public class TicTacToeDatabase {
 
-    private final String gameTable = " create table GAME "
-            + " (ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-            + " PLAYER_1 VARCHAR(50) not null, "
-            + " PLAYER_2 VARCHAR(50) not null, "
-            + " DATE DATE not null, "
-            + " WON_PLAYER VARCHAR(50) not null, "
+    private final String gameTable = " CREATE TABLE GAME "
+            + " (ID INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+            + " PLAYER_1 VARCHAR(50) NOT NULL, "
+            + " PLAYER_2 VARCHAR(50) NOT NULL, "
+            + " PLAYER_1_SHAPE VARCHAR(1) NOT NULL, "
+            + " PLAYER_2_SHAPE VARCHAR(1) NOT NULL, "
+            + " DATE DATE NOT NULL, "
+            + " WON_PLAYER VARCHAR(50) NOT NULL, "
             + " RECORDED BOOLEAN NOT NULL,"
             + " FOREIGN KEY (PLAYER_1) REFERENCES PLAYER(NAME), "
             + " FOREIGN KEY (PLAYER_2) REFERENCES PLAYER(NAME), "
             + " FOREIGN KEY (WON_PLAYER) REFERENCES PLAYER(NAME)"
             + " ) ";
 
-    private final String playTable = " create table PLAY"
+    private final String playTable = " CREATE TABLE PLAY"
             + " ( "
-            + " ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-            + " POSITION SMALLINT not null, "
-            + " PLAYER VARCHAR(50) not null, "
-            + " GAME_ID INTEGER not null, "
+            + " ID INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+            + " POSITION SMALLINT NOT NULL, "
+            + " PLAYER VARCHAR(50) NOT NULL, "
+            + " GAME_ID INTEGER NOT NULL, "
             + " FOREIGN KEY (PLAYER) REFERENCES PLAYER(NAME),"
             + " FOREIGN KEY (GAME_ID) REFERENCES GAME(ID) "
             + " ) ";
 
-    private final String playerTable = " create table PLAYER"
+    private final String playerTable = " CREATE TABLE PLAYER"
             + " ( "
-            + " NAME VARCHAR(50) not null primary key "
-            + " ) ";
-
-    private final String gameShapeTable = " create table GAME_SHAPE"
-            + " ( "
-            + "	ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-            + " GAME_ID INTEGER not null, "
-            + " PLAYER VARCHAR(50) not null, "
-            + " SHAPE_ID INTEGER not null, "
-            + " FOREIGN KEY (PLAYER) REFERENCES PLAYER(NAME), "
-            + " FOREIGN KEY (GAME_ID) REFERENCES GAME(ID), "
-            + " FOREIGN KEY (SHAPE_ID) REFERENCES SHAPE(ID) "
-            + " ) ";
-
-    private final String shapeTable = " create table SHAPE "
-            + " ( "
-            + " ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-            + " NAME VARCHAR(10) not null "
-            + " ) ";
-
-    private final String pausedGamesTable = " create table PAUSED_GAMES "
-            + " ( "
-            + " ID INTEGER not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-            + " GAME_ID INTEGER not null,"
-            + " NEXT_PLAYER VARCHAR(50) not null, "
-            + " TIME INTEGER,"
-            + " FOREIGN KEY (NEXT_PLAYER) REFERENCES PLAYER(NAME), "
-            + " FOREIGN KEY (GAME_ID) REFERENCES GAME(ID) "
+            + " NAME VARCHAR(50) NOT NULL PRIMARY KEY "
             + " ) ";
 
     private Connection connection = null;
@@ -70,22 +44,13 @@ public class TicTacToeDatabase {
     private TicTacToeDatabase() throws SQLException {
         Driver derbyDatabase = new EmbeddedDriver();
         DriverManager.registerDriver(derbyDatabase);
-        connection = DriverManager.getConnection("jdbc:derby:tic_tac_toe;create=true");
-
-        setIsDatabaseCreated(true);
-        if (getIsDatabaseCreated()) {
-            return;
+        try {
+            connection = DriverManager.getConnection("jdbc:derby:client_tic_tac_toe_db;ifexists=true", "root", "root");
+        } catch (SQLException e) {
+            connection = DriverManager.getConnection("jdbc:derby:client_tic_tac_toe_db;create=true", "root", "root");
+            initDababase();
         }
-        
-        connection.createStatement().execute(playerTable);
-        connection.createStatement().execute(gameTable);
-        connection.createStatement().execute(shapeTable);
-        connection.createStatement().execute(playTable);
-        connection.createStatement().execute(gameShapeTable);
-        connection.createStatement().execute(pausedGamesTable);
-        connection.createStatement().execute("INSERT INTO PLAYER (NAME) VALUES ('EASY')");
 
-        setIsDatabaseCreated(true);
     }
 
     public static TicTacToeDatabase getInstance() throws SQLException {
@@ -95,16 +60,6 @@ public class TicTacToeDatabase {
         return instance;
     }
 
-    private boolean getIsDatabaseCreated() {
-        Preferences prefs = Preferences.userNodeForPackage(TicTacToeDatabase.class);
-        return prefs.getBoolean("isDatabaseCreated", false);
-    }
-
-    private void setIsDatabaseCreated(boolean isDatabaseCreated) {
-        Preferences prefs = Preferences.userNodeForPackage(TicTacToeDatabase.class);
-        prefs.putBoolean("isDatabaseCreated", isDatabaseCreated);
-    }
-
     public Connection getConnection() {
         return connection;
     }
@@ -112,6 +67,15 @@ public class TicTacToeDatabase {
     public void disconnect() throws SQLException {
         connection.close();
 
+    }
+
+    private void initDababase() throws SQLException {
+        connection.createStatement().execute(playerTable);
+        connection.createStatement().execute(gameTable);
+        connection.createStatement().execute(playTable);
+        connection.commit();
+        connection.createStatement().execute("INSERT INTO PLAYER (NAME) VALUES ('EASY')");
+        connection.commit();
     }
 
 }

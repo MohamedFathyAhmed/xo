@@ -57,7 +57,7 @@ public class FXMLMediaController implements Initializable {
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaPlayer.play();
-        congratulationPlayerText.setText("Congratulation " + CurrentGameData.getInstance().getWinerPlayer());
+        congratulationPlayerText.setText("Congratulation " + CurrentGameData.getInstance().getWinnerPlayer());
     }
 
     @FXML

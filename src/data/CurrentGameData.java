@@ -20,12 +20,13 @@ public class CurrentGameData {
     private final String O_BOARD_STYLE_CSS = "o_board-btn";
     private final String X_BOARD_HOVER_STYLE_CSS = "empty_x_board-btn";
     private final String O_BOARD_HOVER_STYLE_CSS = "empty_o_board-btn";
-    private String winerPlayer; //marina
+    private String winnerPlayer; //marina
     private boolean isLoggedIn = false;
+    private boolean isPlayerTurnFirst = true;
     private String onlineName;
 
-    private GameShapes player1Shape;
-    private GameShapes player2Shape;
+    private GameShape player1Shape;
+    private GameShape player2Shape;
 
     private int player1OverAllScore;
     private int player2OverAllScore;
@@ -38,17 +39,20 @@ public class CurrentGameData {
     private GameMode gameMode;
 
     private CurrentGameData() {
-        this.player1 = "";
-        this.player2 = "";
-        this.player1Shape = GameShapes.X;
-        this.player2Shape = GameShapes.O;
-        this.player1OverAllScore = 0;
-        this.player2OverAllScore = 0;
-        this.player1CurrentScore = 0;
-        this.player2CurrentScore = 0;
-        this.gameMode = GameMode.SINGLE;
-        this.gameLevel = GameLevel.EASY;//Marina 
-        this.winerPlayer = "";
+        gameLevel = GameLevel.EASY;
+        reset();
+    }
+
+    public void reset() {
+        player1 = null;
+        player2 = null;
+        isPlayerTurnFirst = true;
+        player1Shape = GameShape.X;
+        player2Shape = GameShape.O;
+        player1OverAllScore = 0;
+        player2OverAllScore = 0;
+        player1CurrentScore = 0;
+        player2CurrentScore = 0;
     }
 
     public static CurrentGameData getInstance() {
@@ -82,45 +86,45 @@ public class CurrentGameData {
         this.player2 = player2;
     }
 
-    public GameShapes getPlayer1Shape() {
+    public GameShape getPlayer1Shape() {
         return player1Shape;
     }
 
-    public void setPlayer1Shape(GameShapes player1Shape) {
+    public void setPlayer1Shape(GameShape player1Shape) {
         this.player1Shape = player1Shape;
     }
 
-    public GameShapes getPlayer2Shape() {
+    public GameShape getPlayer2Shape() {
         return player2Shape;
     }
 
-    public void setPlayer2Shape(GameShapes player2Shape) {
+    public void setPlayer2Shape(GameShape player2Shape) {
         this.player2Shape = player2Shape;
     }
 
     public String getPLayer1BoardStyleCss() {
-        if (player1Shape == GameShapes.X) {
+        if (player1Shape == GameShape.X) {
             return X_BOARD_STYLE_CSS;
         }
         return O_BOARD_STYLE_CSS;
     }
 
     public String getPLayer2BoardStyleCss() {
-        if (player2Shape == GameShapes.X) {
+        if (player2Shape == GameShape.X) {
             return X_BOARD_STYLE_CSS;
         }
         return O_BOARD_STYLE_CSS;
     }
 
     public String getPlayer1BoardHoverStyleCss() {
-        if (player1Shape == GameShapes.X) {
+        if (player1Shape == GameShape.X) {
             return X_BOARD_HOVER_STYLE_CSS;
         }
         return O_BOARD_HOVER_STYLE_CSS;
     }
 
     public String getPlayer2BoardHoverStyleCss() {
-        if (player2Shape == GameShapes.X) {
+        if (player2Shape == GameShape.X) {
             return X_BOARD_HOVER_STYLE_CSS;
         }
         return O_BOARD_HOVER_STYLE_CSS;
@@ -158,6 +162,14 @@ public class CurrentGameData {
         this.player2CurrentScore = player2CurrentScore;
     }
 
+    public boolean isIsPlayerTurnFirst() {
+        return isPlayerTurnFirst;
+    }
+
+    public void setIsPlayerTurnFirst(boolean isPlayerTurnFirst) {
+        this.isPlayerTurnFirst = isPlayerTurnFirst;
+    }
+
     public GameMode getGameMode() {
         return gameMode;
     }
@@ -174,12 +186,12 @@ public class CurrentGameData {
         this.gameLevel = gameLevel;
     }
 
-    public String getWinerPlayer() { //Marina
-        return winerPlayer;
+    public String getWinnerPlayer() { //Marina
+        return winnerPlayer;
     }
 
-    public void setWinerPlayer(String winerPlayer) { //Marina
-        this.winerPlayer = winerPlayer;
+    public void setWinnerPlayer(String winerPlayer) { //Marina
+        this.winnerPlayer = winerPlayer;
     }
 
     public String getOnlineName() {

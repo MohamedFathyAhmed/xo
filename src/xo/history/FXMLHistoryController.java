@@ -5,15 +5,14 @@
  */
 package xo.history;
 
-import data.database.DataAccessLayer;
+import data.CurrentGameData;
+import data.GameShape;
 import data.database.models.Game;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,17 +33,19 @@ import xo.utlis.TicTacToeNavigator;
 public class FXMLHistoryController implements Initializable {
 
     @FXML
-    protected AnchorPane historyTable;
+    protected TableColumn<Game, String> gameNumberTableColumn;////shoud y type in game class
     @FXML
-    protected TableColumn<Game, String> gameNumberCulme;////shoud y type in game class
+    protected TableColumn<Game, String> playerOneNameTableColumn;
     @FXML
-    protected TableColumn<Game, String> playerOneNameColumn;
+    protected TableColumn<Game, String> playerOneShapeTableColumn;
     @FXML
-    protected TableColumn<Game, String> playerTwoNameColumn;
+    protected TableColumn<Game, String> playerTwoShapeTableColumn;
     @FXML
-    protected TableColumn<Game, Date> dateColumn;
+    protected TableColumn<Game, String> playerTwoNameTableColumn;
     @FXML
-    protected TableColumn<Game, String> winerColumn;
+    protected TableColumn<Game, Date> dateTableColumn;
+    @FXML
+    protected TableColumn<Game, String> winnerPlayerTableColumn;
     @FXML
     protected Button backButton;
     @FXML
@@ -52,25 +53,27 @@ public class FXMLHistoryController implements Initializable {
     @FXML
     protected Button viewRecordButton;
 
+    protected CurrentGameData currentGameData;
+
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
+    public FXMLHistoryController() {
+        currentGameData = CurrentGameData.getInstance();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        gameNumberCulme.setCellValueFactory(new PropertyValueFactory<Game, String>("id"));
-        playerOneNameColumn.setCellValueFactory(new PropertyValueFactory<Game, String>("player1"));
-        playerTwoNameColumn.setCellValueFactory(new PropertyValueFactory<Game, String>("player2"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<Game, Date>("date"));
-        winerColumn.setCellValueFactory(new PropertyValueFactory<Game, String>("wonPLayer"));
-        viewRecordButton.setVisible(false);
-
+        setupTableColumns();
 
         historyTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 viewRecordButton.setVisible(newSelection.getIsRecorded());
             }
         });
-
     }
 
     @FXML
@@ -86,10 +89,12 @@ public class FXMLHistoryController implements Initializable {
 
     @FXML
     protected void viewButtonClicked(ActionEvent event) throws SQLException, IOException {
+        Game game = historyTableView.getSelectionModel().getSelectedItem();
+        updateCurrentGameData(game);
         TicTacToeNavigator.navigateTo(
                 event,
                 new FXMLBoardReplayGameController((Stage) ((Node) event.getSource()).getScene().getWindow(),
-                        historyTableView.getSelectionModel().getSelectedItem().getId()),
+                        game.getId()),
                 TicTacToeNavigator.BOARD_REPLAY_GAME
         );
     }
@@ -99,5 +104,22 @@ public class FXMLHistoryController implements Initializable {
         for (Game game : games) {
             historyTableView.getItems().add(game);
         }
+    }
+
+    private void setupTableColumns() {
+        gameNumberTableColumn.setCellValueFactory(new PropertyValueFactory("id"));
+        playerOneNameTableColumn.setCellValueFactory(new PropertyValueFactory("player1"));
+        playerTwoNameTableColumn.setCellValueFactory(new PropertyValueFactory("player2"));
+        playerOneShapeTableColumn.setCellValueFactory(new PropertyValueFactory("player1Shape"));
+        playerTwoShapeTableColumn.setCellValueFactory(new PropertyValueFactory("player2Shape"));
+        winnerPlayerTableColumn.setCellValueFactory(new PropertyValueFactory("wonPLayer"));
+        dateTableColumn.setCellValueFactory(new PropertyValueFactory("date"));
+    }
+
+    private void updateCurrentGameData(Game game) {
+        currentGameData.setPlayer1(game.getPlayer1());
+        currentGameData.setPlayer2(game.getPlayer2());
+        currentGameData.setPlayer1Shape(GameShape.valueOf(game.getPlayer1Shape()));
+        currentGameData.setPlayer2Shape(GameShape.valueOf(game.getPlayer2Shape()));
     }
 }

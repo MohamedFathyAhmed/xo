@@ -26,14 +26,7 @@ import xo.online.handlers.responses.RecordResponse;
 
 public class FXMLOnlineBoardContoller extends FXMLBoardController {
 
-    @FXML
-    private ImageView player1OImageView;
-    @FXML
-    private ImageView player1XImageView;
-    @FXML
-    private ImageView player2OImageView;
-    @FXML
-    private ImageView player2XImageView;
+
     private final RequestHandler requestHandler;
     private ArrayList<Button> freeToPlayBoardButtons;
 
@@ -42,7 +35,7 @@ public class FXMLOnlineBoardContoller extends FXMLBoardController {
         this.requestHandler = RequestHandler.getInstance((Response response) -> {
             if (response instanceof PlayResponse) {
                 this.performPlayOnBoard(((PlayResponse) response).getPosition());
-                this.disableBoardButtons(!((PlayResponse) response).isMyTurn());
+                this.disableBoard(!((PlayResponse) response).isMyTurn());
             } else if (response instanceof GameDoneResponse) {
                 Platform.runLater(() -> handleGameState(((GameDoneResponse) response).getGameState()));
             } else if (response instanceof LeaveResponse) {
@@ -56,10 +49,10 @@ public class FXMLOnlineBoardContoller extends FXMLBoardController {
     public void initialize(final URL url, final ResourceBundle rb) {
         super.initialize(url, rb);
         final boolean isMyTurnFirst = this.currentGameData.getOnlineName().equals(this.currentGameData.getPlayer1());
-        this.disableBoardButtons(!isMyTurnFirst);
+        this.disableBoard(!isMyTurnFirst);
         if (!isMyTurnFirst) {
             this.boardHoverStyleClasses.next();
-            this.updateLeftSidePlayer();
+            this.setupBoardUi();
         }
         this.freeToPlayBoardButtons = new ArrayList<Button>(Arrays.asList(this.boardButtons));
     }
@@ -94,18 +87,14 @@ public class FXMLOnlineBoardContoller extends FXMLBoardController {
 
     protected void nextTurn() {
         this.boardStyleClasses.next();
-        this.disableBoardButtons(true);
+        boardGridPane.setDisable(true);
     }
 
-    protected void disableBoardButtons(final boolean disabled) {
-        if (this.freeToPlayBoardButtons != null) {
-            this.freeToPlayBoardButtons.forEach(button -> button.setDisable(disabled));
-        } else {
-            super.disableBoardButtons(disabled);
-        }
+    protected void disableBoard(final boolean disabled) {
+            super.disableBoard(disabled);
     }
 
-    protected void leaveButtonClicked(final ActionEvent event) {
+    protected void leaveButtonClicked(final ActionEvent event) throws IOException {
         try {
             this.requestHandler.create("leave");
         } catch (IOException ex) {
@@ -120,17 +109,5 @@ public class FXMLOnlineBoardContoller extends FXMLBoardController {
         }
     }
 
-    private void updateLeftSidePlayer() {
-        this.player1NameText.setText(this.currentGameData.getPlayer2());
-        this.player2NameText.setText(this.currentGameData.getPlayer1());
-        final Paint tempPaint = this.player1NameText.getFill();
-        this.player1NameText.setFill(this.player2NameText.getFill());
-        this.player2NameText.setFill(tempPaint);
-        Image tempImage = this.player2OImageView.getImage();
-        this.player2OImageView.setImage(this.player1OImageView.getImage());
-        this.player1OImageView.setImage(tempImage);
-        tempImage = this.player2XImageView.getImage();
-        this.player2XImageView.setImage(this.player1XImageView.getImage());
-        this.player1XImageView.setImage(tempImage);
-    }
+  
 }

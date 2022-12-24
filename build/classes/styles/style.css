@@ -5,12 +5,12 @@
 
 .o_selected_board-btn{
     -fx-background-image: url("../images/o.png");
-        -fx-opacity: 1
+    -fx-opacity: 1
 
 }
 .x_selected_board-btn{
     -fx-background-image: url("../images/x.png");
-        -fx-opacity: 1
+    -fx-opacity: 1
 }
 
 .o_unselected_board-btn{
@@ -52,7 +52,7 @@
 {
     -fx-background-image:url("../images/ip.png");
     -fx-background-size: cover;
-     
+
 }
 
 
@@ -88,6 +88,12 @@
 {
     -fx-background-color: #242424;
 }
+
+.specialButtons:selected
+{
+    -fx-background-color: #242424;
+}
+
 .leaderBoard
 {
     -fx-background-color: #363350;
@@ -116,3 +122,21 @@
 
 }
 
+
+.toggle_button
+{
+    -fx-border-radius: 25px;
+    -fx-border-color: #21f9fb;
+    -fx-background-color: transparent;
+    -fx-border-width: 2px;
+    -fx-text-fill:#21f9fb;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20;
+}
+
+
+.toggle_button:selected
+{
+    -fx-background-color: #242424;
+}

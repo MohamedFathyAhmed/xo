@@ -148,7 +148,7 @@
             </Text>
          </center>
       </BorderPane>
-      <BorderPane layoutX="88.0" layoutY="726.0" prefHeight="196.0" prefWidth="345.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="1180.0" AnchorPane.topAnchor="750.0">
+      <BorderPane fx:id="playerOneScoreBorderPane" layoutX="88.0" layoutY="726.0" prefHeight="196.0" prefWidth="345.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="1180.0" AnchorPane.topAnchor="750.0">
          <left>
             <Text fx:id="oldScorePlayer1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" BorderPane.alignment="CENTER">
                <font>
@@ -171,7 +171,7 @@
             </Text>
          </right>
       </BorderPane>
-      <BorderPane layoutX="1192.0" layoutY="770.0" prefHeight="196.0" prefWidth="345.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="1180.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="750.0">
+      <BorderPane fx:id="playerTwoScoreBorderPane" layoutX="1192.0" layoutY="770.0" prefHeight="196.0" prefWidth="345.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="1180.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="750.0">
          <right>
             <Text fx:id="oldScorePlayer2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" BorderPane.alignment="CENTER">
                <font>
