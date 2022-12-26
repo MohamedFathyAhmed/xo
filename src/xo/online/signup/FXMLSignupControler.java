@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -25,6 +26,8 @@ import xo.online.handlers.responses.Response;
 import xo.utlis.TicTacToeNavigator;
 import xo.online.handlers.RequestType;
 import xo.online.handlers.responses.AuthResponse;
+import xo.user_alrts.AlertButtonResult;
+import xo.user_alrts.Alerts;
 
 /**
  * FXML Controller class
@@ -77,6 +80,23 @@ public class FXMLSignupControler implements Initializable {
             if (((AuthResponse) response).getIsSuccess()) {
                 currentGameData.setOnlineName(userNameTextField.getText());
                 TicTacToeNavigator.navigateLaterTo(stage, TicTacToeNavigator.ONLINE_PLAYERS);
+            }else{
+                Platform.runLater(()->{
+                
+                  new Alerts().displayAlert("user name exist", Alert.AlertType.WARNING, new AlertButtonResult() {
+                    @Override
+                    public void IfOk() {
+
+                    }
+
+                    @Override
+                    public void IfCancel() {
+                    }
+                }
+                );
+                
+                
+                });
             }
         });
     }
@@ -86,7 +106,7 @@ public class FXMLSignupControler implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
+private final String PATTERN =  "(^[^~|~~|;;]{1,50}$)";
     @FXML
     private void signupButtonClicked(ActionEvent event) {
             boolean checkValidName;
@@ -101,6 +121,9 @@ public class FXMLSignupControler implements Initializable {
         if (userNameTxt.isEmpty()) {
             checkValidName = false;
            Platform.runLater(() -> nameErrorLabel.setText("Username is required"));
+        } else if (!userNameTxt.matches(PATTERN)) {
+            checkValidName = false;
+          Platform.runLater(() -> nameErrorLabel.setText("Please use another  password"));
         } else {
             checkValidName = true;
             nameErrorLabel.setText("");
@@ -110,7 +133,10 @@ public class FXMLSignupControler implements Initializable {
         if (passwordTxt.isEmpty()) {
             checkValidPassword = false;
             Platform.runLater(() -> passwordErrorLabel.setText("Password is required"));
-        } else {
+        } else if (!passwordTxt.matches(PATTERN)) {
+            checkValidPassword = false;
+          Platform.runLater(() -> passwordErrorLabel.setText("Please use another  password"));
+        }else {
             checkValidPassword = true;
             passwordErrorLabel.setText("");
         }
@@ -121,6 +147,9 @@ public class FXMLSignupControler implements Initializable {
         } else if (!confirmPasswordTxt.equals(passwordTxt)) {
             checkValidConfirmPassword = false;
           Platform.runLater(() -> confirmPasswordErrorLabel.setText("Please check your password"));
+        } else if (!confirmPasswordTxt.matches(PATTERN)) {
+            checkValidConfirmPassword = false;
+          Platform.runLater(() -> confirmPasswordErrorLabel.setText("Please use another  password"));
         } else {
             checkValidConfirmPassword = true;
             confirmPasswordErrorLabel.setText("");

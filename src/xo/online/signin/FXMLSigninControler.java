@@ -80,7 +80,7 @@ public class FXMLSigninControler implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
+private final String PATTERN =  "(^[^~|~~|;;]{1,50}$)";
     @FXML
     private void loginButtonClicked(ActionEvent event) {
         boolean checkValidName;
@@ -91,7 +91,10 @@ public class FXMLSigninControler implements Initializable {
         if (userTxt.isEmpty()) {
             checkValidName = false;
             Platform.runLater(() -> nameErrorLabel.setText("Username is required"));
-        } else {
+        } else if (!userTxt.matches(PATTERN)) {
+            checkValidName = false;
+          Platform.runLater(() -> nameErrorLabel.setText("Please use another  user name"));
+        }else {
             checkValidName = true;
             nameErrorLabel.setText("");
         }
@@ -99,7 +102,10 @@ public class FXMLSigninControler implements Initializable {
         if (pasTxt.isEmpty()) {
             checkValidPassword = false;
             Platform.runLater(() -> passwordErrorLabel.setText("Password is required"));
-        } else {
+        }  else if (!pasTxt.matches(PATTERN)) {
+            checkValidPassword = false;
+          Platform.runLater(() -> passwordErrorLabel.setText("Please use another  password"));
+        }else {
             checkValidPassword = true;
             passwordErrorLabel.setText("");
         }

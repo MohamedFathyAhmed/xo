@@ -9,7 +9,6 @@
       <Button layoutX="200.0" layoutY="680.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onlineMultiPlayersButtonClicked" prefHeight="50.0" prefWidth="300.0" styleClass="specialButtons" text="Online PVP" />
       <Button layoutX="200.0" layoutY="490.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#offineMultiPlayerButtonClicked" prefHeight="50.0" prefWidth="300.0" styleClass="specialButtons" text="Offlien PVP" />
       <Button fx:id="logoutButton" layoutX="1400.0" layoutY="50.0" mnemonicParsing="false" onAction="#logoutButtonClicked" prefHeight="50.0" prefWidth="150.0" styleClass="specialButtons" text="Logout" visible="false" />
-      <Button fx:id="onineHistoryButton" layoutX="200.0" layoutY="750.0" mnemonicParsing="false" onAction="#onlineHistoryButtonClicked" prefHeight="50.0" prefWidth="300.0" styleClass="specialButtons" text="Online History" />
       <Button fx:id="offlineHistoryButton" layoutX="200.0" layoutY="560.0" mnemonicParsing="false" onAction="#offlineHistoryButtonClicked" prefHeight="50.0" prefWidth="300.0" styleClass="specialButtons" text="Offline History" />
    </children>
 </AnchorPane>

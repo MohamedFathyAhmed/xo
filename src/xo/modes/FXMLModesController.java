@@ -84,6 +84,8 @@ public class FXMLModesController implements Initializable {
     private void logoutButtonClicked(ActionEvent event) throws IOException {
         requestHandler.create(RequestType.LOGOUT);
         logoutButton.setVisible(false);
+        currentGameData.setOnlineName(null);
+        requestHandler.disconnect();
     }
 
     @FXML

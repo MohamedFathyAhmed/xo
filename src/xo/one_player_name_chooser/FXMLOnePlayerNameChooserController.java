@@ -81,13 +81,7 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
         currentGameData.setPlayer1Shape(GameShape.X);
         currentGameData.setPlayer2Shape(GameShape.O);
 
-        usernameTextField.setTextFormatter(new TextFormatter<String>((Change changed) -> {
-            String text = changed.getText();
-            if (text.matches("(^[^~~|~|;;]{1,50}$)")) {
-                return changed;
-            }
-            return null;
-        }));
+      
 
     }
 
