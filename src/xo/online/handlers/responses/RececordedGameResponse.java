@@ -5,8 +5,8 @@
  */
 package xo.online.handlers.responses;
 
-import xo.online.handlers.responses.Response;
 import data.database.models.Play;
+import java.util.List;
 
 /**
  *
@@ -15,9 +15,14 @@ import data.database.models.Play;
 
 public class RececordedGameResponse implements Response {
 
-    private final Play[] plays;
+    private final List<Play> plays;
 
-    public RececordedGameResponse(Play[] plays) {
+    public RececordedGameResponse(List<Play> plays) {
         this.plays = plays;
     }
+
+    public List<Play> getPlays() {
+        return plays;
+    }
+    
 }

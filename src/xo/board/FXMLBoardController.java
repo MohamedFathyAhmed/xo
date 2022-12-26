@@ -89,7 +89,7 @@ public abstract class FXMLBoardController implements Initializable {
                 boardGridPane.setDisable(true);
                 updatePlayerOneScore();
                 insertGameToDatabase();
-//                showWinnerDialog();
+                showWinnerDialog();
                 recordingImageViewFadeAffect.stop();
                 recordingTextFadeAffect.stop();
                 mainTimer.cancel();
@@ -101,7 +101,7 @@ public abstract class FXMLBoardController implements Initializable {
                 boardGridPane.setDisable(true);
                 updatePlayerTwoScore();
                 insertGameToDatabase();
-//                showWinnerDialog();
+                showWinnerDialog();
                 recordingImageViewFadeAffect.stop();
                 recordingTextFadeAffect.stop();
                 mainTimer.cancel();
@@ -283,6 +283,8 @@ public abstract class FXMLBoardController implements Initializable {
     protected void setupBoardUi() {
         player1NameText.setText(currentGameData.getPlayer1());
         player2NameText.setText(currentGameData.getPlayer2());
+        currentPlayer1ScoreText.setText(currentGameData.getPlayer1CurrentScore() + "");
+        currentPlayer2ScoreText.setText(currentGameData.getPlayer2CurrentScore() + "");
 
         if (currentGameData.getPlayer1Shape() == GameShape.O) {
             Paint tempPaint = player1NameText.getFill();

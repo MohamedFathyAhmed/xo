@@ -21,7 +21,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import xo.board.FXMLBoardReplayGameController;
 import xo.utlis.TicTacToeNavigator;
@@ -116,7 +115,7 @@ public class FXMLHistoryController implements Initializable {
         dateTableColumn.setCellValueFactory(new PropertyValueFactory("date"));
     }
 
-    private void updateCurrentGameData(Game game) {
+    protected void updateCurrentGameData(Game game) {
         currentGameData.setPlayer1(game.getPlayer1());
         currentGameData.setPlayer2(game.getPlayer2());
         currentGameData.setPlayer1Shape(GameShape.valueOf(game.getPlayer1Shape()));

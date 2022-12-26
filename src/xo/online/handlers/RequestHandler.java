@@ -180,6 +180,7 @@ public class RequestHandler implements Runnable {
                 errorMessageSender.accept(ex1.getMessage());
             }
         }
+        isRunning=false;
     }
 
     class RequestCreator {

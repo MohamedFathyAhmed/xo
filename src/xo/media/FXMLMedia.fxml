@@ -7,8 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #0e2a3a;" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xo.media.FXMLMediaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1600.0" style="-fx-background-color: #0e2a3a;" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xo.media.FXMLMediaController">
    <top>
       <Text fx:id="congratulationPlayerText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CONGRATULATION" BorderPane.alignment="CENTER">
          <font>
@@ -17,13 +16,13 @@
       </Text>
    </top>
    <center>
-      <MediaView fx:id="mediaView" fitHeight="400.0" fitWidth="900.0" BorderPane.alignment="CENTER" />
+      <MediaView fx:id="mediaView" fitHeight="800.0" fitWidth="1500.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="120.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="backButton" layoutX="82.0" layoutY="20.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="79.0" prefWidth="309.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Back" />
-            <Button fx:id="playAgainButton" layoutX="622.0" layoutY="19.0" mnemonicParsing="false" onAction="#playAgainButtonClicked" prefHeight="79.0" prefWidth="309.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Play Again" />
+            <Button fx:id="backButton" layoutX="100.0" layoutY="20.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="80.0" prefWidth="300.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Back" />
+            <Button fx:id="playAgainButton" layoutX="1200.0" layoutY="19.0" mnemonicParsing="false" onAction="#playAgainButtonClicked" prefHeight="80.0" prefWidth="300.0" style="-fx-font-size: 35; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 20;" styleClass="specialButtons" stylesheets="@../../styles/style.css" text="Play Again" />
          </children>
       </AnchorPane>
    </bottom>

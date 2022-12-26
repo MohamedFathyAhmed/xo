@@ -134,7 +134,6 @@ public class TicTacToeNavigator {
     }
 
     public static NavigationDestination pop() {
-        destinations.pop();
         return destinations.pop();
     }
 

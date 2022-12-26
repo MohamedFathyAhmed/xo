@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
@@ -25,10 +26,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import xo.board.BoardSinglePlayerModeController;
+import xo.board.FXMLBoardSinglePlayerModeController;
 import xo.online.online_players.OnlinePlayer;
 import xo.utlis.CircularArray;
 import xo.utlis.TicTacToeNavigator;
@@ -59,7 +62,6 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
     public FXMLOnePlayerNameChooserController() {
         this.currentGameData = CurrentGameData.getInstance();
         currentGameData.reset();
-
     }
 
     /**
@@ -78,6 +80,15 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
         });
         currentGameData.setPlayer1Shape(GameShape.X);
         currentGameData.setPlayer2Shape(GameShape.O);
+
+        usernameTextField.setTextFormatter(new TextFormatter<String>((Change changed) -> {
+            String text = changed.getText();
+            if (text.matches("(^[^~~|~|;;]{1,50}$)")) {
+                return changed;
+            }
+            return null;
+        }));
+
     }
 
     @FXML
@@ -90,9 +101,8 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
         if (currentGameData.getPlayer1() != null) {
             currentGameData.setPlayer2(currentGameData.getGameLevel().name());
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            TicTacToeNavigator.navigateTo(
-                    stage,
-                    new BoardSinglePlayerModeController(stage),
+            TicTacToeNavigator.navigateTo(stage,
+                    new FXMLBoardSinglePlayerModeController(stage),
                     TicTacToeNavigator.BOARD_PLAYER_VS_EASY_AI);
         } else {
             //please select name

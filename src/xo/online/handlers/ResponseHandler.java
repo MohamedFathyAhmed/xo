@@ -13,13 +13,14 @@ import xo.online.handlers.responses.RececordedGameResponse;
 import xo.online.handlers.responses.Response;
 import data.database.models.Game;
 import data.database.models.Play;
+import java.util.ArrayList;
+import java.util.List;
 import xo.online.handlers.responses.AuthResponse;
 import xo.online.handlers.responses.GameDoneResponse;
 import xo.online.handlers.responses.LeaveResponse;
 import xo.online.handlers.responses.PlayResponse;
 import xo.online.handlers.responses.RecordResponse;
 import xo.online.handlers.responses.RequestGameAnswerResponse;
-
 
 /**
  *
@@ -39,12 +40,11 @@ public class ResponseHandler {
             case RequestType.PLAYAGAIN:
             case RequestType.SHAPE:
             case RequestType.CONNECTED:
-                
-                
+
             case RequestType.LEAVE:
                 return new LeaveResponse();
             case RequestType.RECORD:
-                    return new RecordResponse(splitedResponse[1]);
+                return new RecordResponse(splitedResponse[1]);
 
             case RequestType.RECEIVER_REQUEST_GAME_ANSWER:
             case RequestType.SENDER_REQUEST_GAME_ANSWER:
@@ -94,20 +94,23 @@ public class ResponseHandler {
                     gameAttributes[2],
                     gameAttributes[3],
                     gameAttributes[4],
-                    gameAttributes[5]);
+                    gameAttributes[5],
+                    gameAttributes[6],
+                    gameAttributes[7]
+            );
         }
         return games;
     }
 
-    private Play[] playSpliter(String playsString) {
+    private List<Play> playSpliter(String playsString) {
         String[] playsArrayString = playsString.split(RequestType.ARRAY_SPLITER);
         String[] playAttributes;
-        Play[] plays = new Play[playsArrayString.length - 1];
-        for (int playIndex = 0; playIndex < plays.length; playIndex++) {
+        List<Play> plays = new ArrayList();
+        for (int playIndex = 0; playIndex < playsArrayString.length; playIndex++) {
             playAttributes = playsArrayString[playIndex].split(RequestType.OBJECT_SPLITER);
-            plays[playIndex] = new Play(
+            plays.add(new Play(
                     playAttributes[0],
-                    playAttributes[1]);
+                    playAttributes[1]));
         }
         return plays;
     }

@@ -19,13 +19,13 @@ import xo.board.game.GameState;
  *
  * @author Marina
  */
-public class BoardSinglePlayerModeController extends FXMLBoardController {
+public class FXMLBoardSinglePlayerModeController extends FXMLBoardController {
 
     private final GameHandler gameHandler;
     private int locationPcPlay;
     private GameState gameState = GameState.ONGOING;
 
-    public BoardSinglePlayerModeController(Stage stage) {
+    public FXMLBoardSinglePlayerModeController(Stage stage) {
         super(stage);
         gameHandler = new GameHandler((gameState) -> {
             this.gameState = gameState;
@@ -68,7 +68,9 @@ public class BoardSinglePlayerModeController extends FXMLBoardController {
             gameHandler.play(locationPcPlay, gameShapes.get());
             nextTurn();
             boardButtons[pcAi.res].setDisable(true);
-            disableBoard(false);
+            if (gameState == GameState.ONGOING) {
+                disableBoard(false);
+            }
         }
     }
 

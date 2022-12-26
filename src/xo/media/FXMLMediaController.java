@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import xo.board.FXMLBoardController;
 import xo.board.FXMLBoardOfflineMultiPLayerController;
+import xo.board.FXMLBoardSinglePlayerModeController;
 import xo.utlis.NavigationDestination;
 import xo.utlis.TicTacToeNavigator;
 import static xo.utlis.TicTacToeNavigator.BOARD_OFFLINE_MULTIPLAYERS;
@@ -35,15 +36,12 @@ public class FXMLMediaController implements Initializable {
 
     @FXML
     private Text congratulationPlayerText;
-    @FXML
-    private Button backButton;
-    @FXML
-    private Button playAgainButton;
+
     @FXML
     private MediaView mediaView;
 
     private MediaPlayer mediaPlayer;
-    private File file;
+
     private Media media;
     CurrentGameData currentGameData;
 
@@ -62,20 +60,21 @@ public class FXMLMediaController implements Initializable {
 
     @FXML
     private void backButtonClicked(ActionEvent event) throws IOException {
-        TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.MODES);
+       TicTacToeNavigator.pop();
+       TicTacToeNavigator.previous(event);
     }
 
     @FXML
     private void playAgainButtonClicked(ActionEvent event) throws IOException {
+        TicTacToeNavigator.pop();
         if (TicTacToeNavigator.pop() == TicTacToeNavigator.BOARD_OFFLINE_MULTIPLAYERS) {
             TicTacToeNavigator.navigateTo(event,
                     new FXMLBoardOfflineMultiPLayerController((Stage) ((Node) event.getSource()).getScene().getWindow()),
                     TicTacToeNavigator.BOARD_OFFLINE_MULTIPLAYERS);
-            
-            
+
         } else {
             TicTacToeNavigator.navigateTo(event,
-                    new FXMLBoardOfflineMultiPLayerController((Stage) ((Node) event.getSource()).getScene().getWindow()),
+                    new FXMLBoardSinglePlayerModeController((Stage) ((Node) event.getSource()).getScene().getWindow()),
                     TicTacToeNavigator.BOARD_PLAYER_VS_EASY_AI);
         }
     }

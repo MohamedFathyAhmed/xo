@@ -5,7 +5,6 @@
  */
 package xo.board;
 
-import data.GameShape;
 import data.database.DataAccessLayer;
 import data.database.models.Play;
 import java.io.IOException;
@@ -20,10 +19,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import xo.board.game.GameHandler;
 import xo.history.FXMLOfflineHistoryController;
 import xo.history.FXMLOnlineHistoryController;
-import xo.utlis.CircularArray;
 import xo.utlis.TicTacToeNavigator;
 
 /**
@@ -35,6 +32,11 @@ public class FXMLBoardReplayGameController extends FXMLBoardController {
     public FXMLBoardReplayGameController(Stage stage, int gameId) throws SQLException {
         super(stage);
         plays = DataAccessLayer.getGamePlays(gameId);
+    }
+
+    public FXMLBoardReplayGameController(Stage stage, List<Play> plays) {
+        super(stage);
+        this.plays = plays;
     }
 
     public FXMLBoardReplayGameController(Stage stage) {
@@ -63,6 +65,7 @@ public class FXMLBoardReplayGameController extends FXMLBoardController {
 
     @Override
     protected void leaveButtonClicked(ActionEvent event) throws IOException {
+        TicTacToeNavigator.pop();
         if (TicTacToeNavigator.pop() == TicTacToeNavigator.ONLINE_HISTORY) {
             TicTacToeNavigator.navigateTo(event, new FXMLOnlineHistoryController(), TicTacToeNavigator.ONLINE_HISTORY);
         } else {

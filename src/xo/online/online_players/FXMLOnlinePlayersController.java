@@ -6,12 +6,11 @@
 package xo.online.online_players;
 
 import data.CurrentGameData;
+import data.GameShape;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,8 +23,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.apache.derby.impl.drda.NaiveTrustManager;
 import xo.board.FXMLOnlineBoardContoller;
+import xo.history.FXMLOnlineHistoryController;
 import xo.online.handlers.responses.GameRequestResponse;
 import xo.online.handlers.responses.HistoryResponse;
 import xo.online.handlers.responses.InfoResponse;
@@ -102,7 +101,8 @@ public class FXMLOnlinePlayersController implements Initializable {
             TicTacToeNavigator.navigateTo(event, TicTacToeNavigator.MODES);
         } catch (IOException ex) {
 
-ex.printStackTrace();        }
+            ex.printStackTrace();
+        }
 
     }
 
@@ -120,7 +120,8 @@ ex.printStackTrace();        }
         if (stage == null) {
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         }
-        if (onlinePlayersTableView.getSelectionModel().getSelectedItem() != null) {
+        String player = onlinePlayersTableView.getSelectionModel().getSelectedItem().getUsername();
+        if (player != null && !player.isEmpty()) {
             try {
                 receiver = onlinePlayersTableView
                         .getSelectionModel()
@@ -167,6 +168,8 @@ ex.printStackTrace();        }
                 gameRequestAnswer = new ParamterizeRequest("true", sender);
                 currentGameData.setPlayer1(currentGameData.getOnlineName());
                 currentGameData.setPlayer2(sender);
+                currentGameData.setPlayer1Shape(GameShape.X);
+                currentGameData.setPlayer2Shape(GameShape.O);
             }
             try {
                 requestHandler.create(RequestType.REQUEST_GAME_ANSWER, gameRequestAnswer);
@@ -175,6 +178,11 @@ ex.printStackTrace();        }
                 ex.printStackTrace();
             }
         });
+    }
+
+    @FXML
+    private void onlineHistoryButtonClicked(ActionEvent event) throws IOException {
+        TicTacToeNavigator.navigateTo(event, new FXMLOnlineHistoryController(), TicTacToeNavigator.ONLINE_HISTORY);
     }
 
 }

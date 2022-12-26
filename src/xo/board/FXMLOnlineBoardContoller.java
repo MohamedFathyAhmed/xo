@@ -1,13 +1,11 @@
 package xo.board;
 
+import data.GameShape;
 import xo.online.handlers.responses.Response;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Paint;
 import java.io.IOException;
 import xo.online.handlers.Request;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
-import java.util.Collection;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.net.URL;
@@ -19,13 +17,10 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
 import xo.online.handlers.RequestHandler;
-import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
 import xo.online.handlers.responses.LeaveResponse;
 import xo.online.handlers.responses.RecordResponse;
 
 public class FXMLOnlineBoardContoller extends FXMLBoardController {
-
 
     private final RequestHandler requestHandler;
     private ArrayList<Button> freeToPlayBoardButtons;
@@ -41,19 +36,21 @@ public class FXMLOnlineBoardContoller extends FXMLBoardController {
             } else if (response instanceof LeaveResponse) {
                 TicTacToeNavigator.previousLater(stage);
             } else if (response instanceof RecordResponse) {
-                this.recordingButton.fire();
+                Platform.runLater(() -> super.recordButtonClicked(new ActionEvent()));
             }
         });
     }
 
     public void initialize(final URL url, final ResourceBundle rb) {
-        super.initialize(url, rb);
         final boolean isMyTurnFirst = this.currentGameData.getOnlineName().equals(this.currentGameData.getPlayer1());
         this.disableBoard(!isMyTurnFirst);
         if (!isMyTurnFirst) {
-            this.boardHoverStyleClasses.next();
-            this.setupBoardUi();
+            boardHoverStyleClasses.next();
+            currentGameData.setPlayer1Shape(GameShape.O);
+            currentGameData.setPlayer2(currentGameData.getPlayer1());
+            currentGameData.setPlayer1(currentGameData.getOnlineName());
         }
+        super.initialize(url, rb);
         this.freeToPlayBoardButtons = new ArrayList<Button>(Arrays.asList(this.boardButtons));
     }
 
@@ -91,7 +88,7 @@ public class FXMLOnlineBoardContoller extends FXMLBoardController {
     }
 
     protected void disableBoard(final boolean disabled) {
-            super.disableBoard(disabled);
+        super.disableBoard(disabled);
     }
 
     protected void leaveButtonClicked(final ActionEvent event) throws IOException {
@@ -109,5 +106,4 @@ public class FXMLOnlineBoardContoller extends FXMLBoardController {
         }
     }
 
-  
 }

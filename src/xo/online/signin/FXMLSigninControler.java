@@ -83,12 +83,12 @@ public class FXMLSigninControler implements Initializable {
 
     @FXML
     private void loginButtonClicked(ActionEvent event) {
-              boolean checkValidName;
+        boolean checkValidName;
         boolean checkValidPassword;
 
         String userTxt = usernameTextField.getText();
         String pasTxt = passwordPasswordField.getText();
-         if (userTxt.isEmpty()) {
+        if (userTxt.isEmpty()) {
             checkValidName = false;
             Platform.runLater(() -> nameErrorLabel.setText("Username is required"));
         } else {
@@ -106,20 +106,21 @@ public class FXMLSigninControler implements Initializable {
         boolean checkValid = checkValidName && checkValidPassword;
 
         if (checkValid) {
-        
-        if (stage == null) {
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            if (stage == null) {
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            }
+            try {
+                requestHandler.create(RequestType.SIGNIN,
+                        new ParamterizeRequest(
+                                usernameTextField.getText(),
+                                passwordPasswordField.getText()
+                        ));
+            } catch (IOException ex) {
+                //catch me
+                ex.printStackTrace();
+            }
         }
-        try {
-            requestHandler.create(RequestType.SIGNIN,
-                    new ParamterizeRequest(
-                            passwordPasswordField.getText(),
-                            usernameTextField.getText()));
-        } catch (IOException ex) {
-            //catch me
-            ex.printStackTrace();
-        }
-    }
     }
 
     @FXML
