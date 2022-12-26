@@ -16,6 +16,7 @@ import xo.online.handlers.responses.PlayResponse;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
+import xo.board.game.GameState;
 import xo.online.handlers.RequestHandler;
 import xo.online.handlers.responses.LeaveResponse;
 import xo.online.handlers.responses.RecordResponse;
@@ -41,6 +42,26 @@ public class FXMLOnlineBoardContoller extends FXMLBoardController {
         });
     }
 
+    @Override
+    void handleGameState(GameState gameState) {
+        switch (gameState) {
+            case PLAYER_ONE_WON:
+                currentGameData.setWinnerPlayer(currentGameData.getPlayer1());
+                 showWinnerDialog();
+                break;
+                 case PLAYER_TWO_WON:
+                    currentGameData.setWinnerPlayer(currentGameData.getPlayer2());
+                     showWinnerDialog();
+                break;
+                  case DRAW:
+                
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    
     public void initialize(final URL url, final ResourceBundle rb) {
         final boolean isMyTurnFirst = this.currentGameData.getOnlineName().equals(this.currentGameData.getPlayer1());
         this.disableBoard(!isMyTurnFirst);

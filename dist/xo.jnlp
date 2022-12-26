@@ -11,7 +11,7 @@
     <jar href="lib/derby.jar" size="2838580" download="eager" />
     <jar href="lib/derbyclient.jar" size="586237" download="eager" />
     <jar href="lib/derbynet.jar" size="252393" download="eager" />
-    <jar href="xo.jar" size="13567826" download="eager" />
+    <jar href="xo.jar" size="13569151" download="eager" />
   </resources>
   <jfx:javafx-desc  width="800" height="600" main-class="xo.Xo"  name="xo" />
   <update check="always"/>

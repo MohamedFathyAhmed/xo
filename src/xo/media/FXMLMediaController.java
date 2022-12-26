@@ -23,6 +23,9 @@ import javafx.stage.Stage;
 import xo.board.FXMLBoardController;
 import xo.board.FXMLBoardOfflineMultiPLayerController;
 import xo.board.FXMLBoardSinglePlayerModeController;
+import xo.online.handlers.RequestHandler;
+import xo.online.handlers.RequestType;
+import xo.online.handlers.responses.Response;
 import xo.utlis.NavigationDestination;
 import xo.utlis.TicTacToeNavigator;
 import static xo.utlis.TicTacToeNavigator.BOARD_OFFLINE_MULTIPLAYERS;
@@ -55,13 +58,18 @@ public class FXMLMediaController implements Initializable {
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaPlayer.play();
+        try{
         congratulationPlayerText.setText("Congratulation " + CurrentGameData.getInstance().getWinnerPlayer());
+                }catch(Exception e){
+                    
+                }
     }
 
     @FXML
     private void backButtonClicked(ActionEvent event) throws IOException {
        TicTacToeNavigator.pop();
        TicTacToeNavigator.previous(event);
+        RequestHandler.getInstance((Response r)->{}).create(RequestType.LEAVE);
     }
 
     @FXML

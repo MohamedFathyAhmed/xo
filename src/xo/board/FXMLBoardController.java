@@ -230,7 +230,7 @@ public abstract class FXMLBoardController implements Initializable {
         recordingImageViewFadeAffect.stop();
     }
 
-    private void showWinnerDialog() {
+    protected  void showWinnerDialog() {
         TicTacToeNavigator.navigateLaterTo(stage, TicTacToeNavigator.MEDIA);
     }
 
