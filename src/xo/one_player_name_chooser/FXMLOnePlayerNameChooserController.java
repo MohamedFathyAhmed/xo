@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -139,10 +140,14 @@ public class FXMLOnePlayerNameChooserController implements Initializable {
 
     private void insertUserToDatabase() {
         try {
+            if (usernameTextField.getText().isEmpty()) {
+            Platform.runLater(() -> usernameErrorLabel.setText("username is required"));
+            usernameErrorLabel.setVisible(true);
+        } else{
             DataAccessLayer.insertPlayer(usernameTextField.getText());
             usernameErrorLabel.setVisible(false);
             fetchPlayersFromDatabase();
-
+            }
         } catch (SQLException ex) {
             usernameErrorLabel.setVisible(true);
         }

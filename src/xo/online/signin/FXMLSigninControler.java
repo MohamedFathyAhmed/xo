@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -26,6 +27,8 @@ import xo.online.handlers.responses.Response;
 import xo.utlis.TicTacToeNavigator;
 import xo.online.handlers.RequestType;
 import xo.online.handlers.responses.AuthResponse;
+import xo.user_alrts.AlertButtonResult;
+import xo.user_alrts.Alerts;
 
 /**
  * FXML Controller class
@@ -69,6 +72,23 @@ public class FXMLSigninControler implements Initializable {
             if (((AuthResponse) response).getIsSuccess()) {
                 currentGameData.setOnlineName(usernameTextField.getText());
                 TicTacToeNavigator.navigateLaterTo(stage, TicTacToeNavigator.ONLINE_PLAYERS);
+            }else{
+                Platform.runLater(()->{
+                
+                  new Alerts().displayAlert("username or password incorect ", Alert.AlertType.WARNING, new AlertButtonResult() {
+                    @Override
+                    public void IfOk() {
+
+                    }
+
+                    @Override
+                    public void IfCancel() {
+                    }
+                }
+                );
+                
+                
+                });
             }
         });
     }

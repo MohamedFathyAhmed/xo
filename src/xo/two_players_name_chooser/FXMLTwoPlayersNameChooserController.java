@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -171,10 +172,14 @@ public class FXMLTwoPlayersNameChooserController implements Initializable {
 
     private void insertUserToDatabase() {
         try {
+             if (usernameTextField.getText().isEmpty()) {
+            Platform.runLater(() -> usernameErrorLabel.setText("username is required"));
+            usernameErrorLabel.setVisible(true);
+        } else{
             DataAccessLayer.insertPlayer(usernameTextField.getText());
             usernameErrorLabel.setVisible(false);
             fetchPlayersFromDatabase();
-
+             }
         } catch (SQLException ex) {
             usernameErrorLabel.setVisible(true);
         }
